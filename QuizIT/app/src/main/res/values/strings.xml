@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">QuizIT</string>
+
+    <string name="txtForgot">Esqueceu sua senha?</string>
+    <string name="txtCadastrar">Cadastrar</string>
+
+
 </resources>
