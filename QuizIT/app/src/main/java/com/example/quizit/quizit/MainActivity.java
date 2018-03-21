@@ -25,7 +25,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch (view.getId()){
 
             case R.id.txtCadastrar:
-                intentHome = new Intent(this, Home.class);
+                intentHome = new Intent(this, Act_Cadastro.class);
                 startActivity(intentHome);
                 break;
 

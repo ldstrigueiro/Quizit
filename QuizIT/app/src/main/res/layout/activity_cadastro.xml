@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.quizit.quizit.Act_Cadastro">
+
+    <EditText
+        android:id="@+id/edt_Nome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="92dp"
+        android:ems="10"
+        android:hint="@string/hint_Nome"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_Email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="@string/hint_Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/edt_Nome"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/edt_Nome"
+        app:layout_constraintTop_toBottomOf="@+id/edt_Nome" />
+
+    <EditText
+        android:id="@+id/edt_Semestre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/hint_Semestre"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/edt_Matricula"
+        app:layout_constraintTop_toBottomOf="@+id/edt_Matricula" />
+
+    <Spinner
+        android:id="@+id/spinner_Sexo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/edt_Matricula"
+        app:layout_constraintStart_toEndOf="@+id/edt_Semestre"
+        app:layout_constraintTop_toBottomOf="@+id/edt_Matricula" />
+
+    <EditText
+        android:id="@+id/edt_Matricula"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/hint_Matricula"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/editText13"
+        app:layout_constraintStart_toStartOf="@+id/editText13"
+        app:layout_constraintTop_toBottomOf="@+id/editText13" />
+
+    <Spinner
+        android:id="@+id/spinner_Curso"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_Sexo"
+        app:layout_constraintStart_toStartOf="@+id/edt_Semestre"
+        app:layout_constraintTop_toBottomOf="@+id/edt_Semestre" />
+
+    <EditText
+        android:id="@+id/editText13"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/hint_Senha"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/edt_Email"
+        app:layout_constraintStart_toStartOf="@+id/edt_Email"
+        app:layout_constraintTop_toBottomOf="@+id/edt_Email" />
+
+    <Button
+        android:id="@+id/btn_Cadastrar"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/btn_Cadastrar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_Curso" />
+
+</android.support.constraint.ConstraintLayout>
