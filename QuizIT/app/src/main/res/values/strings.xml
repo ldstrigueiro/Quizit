@@ -9,6 +9,7 @@
     <string name="hint_Email">Email</string>
     <string name="hint_Semestre">Semestre</string>
     <string name="btn_Cadastrar">Cadastrar</string>
+    <string name="btn_Logar">Logar</string>
 
 
 </resources>

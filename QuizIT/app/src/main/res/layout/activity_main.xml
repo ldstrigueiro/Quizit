@@ -7,11 +7,10 @@
     tools:context="com.example.quizit.quizit.MainActivity">
 
     <EditText
-        android:id="@+id/edt_Login"
+        android:id="@+id/edtLogin"
         android:layout_width="262dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="200dp"
         android:ems="10"
         android:hint="@string/hint_Matricula"
@@ -22,37 +21,48 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edt_senha"
-        android:layout_width="262dp"
+        android:id="@+id/edtSenha"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/hint_Senha"
         android:inputType="textPersonName"
         android:password="true"
-        app:layout_constraintEnd_toEndOf="@+id/edt_Login"
+        app:layout_constraintEnd_toEndOf="@+id/edtLogin"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edt_Login"
-        app:layout_constraintTop_toBottomOf="@+id/edt_Login" />
+        app:layout_constraintStart_toStartOf="@+id/edtLogin"
+        app:layout_constraintTop_toBottomOf="@+id/edtLogin" />
 
     <TextView
         android:id="@+id/txtForgot"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:text="@string/txtForgot"
-        app:layout_constraintEnd_toEndOf="@+id/edt_senha"
-        app:layout_constraintStart_toStartOf="@+id/edt_senha"
-        app:layout_constraintTop_toBottomOf="@+id/edt_senha" />
+        app:layout_constraintEnd_toEndOf="@+id/edtSenha"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/edtSenha"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogar" />
 
     <TextView
         android:id="@+id/txtCadastrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:text="@string/txtCadastrar"
         app:layout_constraintEnd_toEndOf="@+id/txtForgot"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="@+id/txtForgot"
         app:layout_constraintTop_toBottomOf="@+id/txtForgot" />
+
+    <Button
+        android:id="@+id/btnLogar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/btn_Logar"
+        app:layout_constraintEnd_toEndOf="@+id/edtSenha"
+        app:layout_constraintStart_toStartOf="@+id/edtSenha"
+        app:layout_constraintTop_toBottomOf="@+id/edtSenha" />
 </android.support.constraint.ConstraintLayout>

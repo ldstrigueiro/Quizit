@@ -63,11 +63,11 @@ public class Act_Cadastro extends Activity implements AdapterView.OnItemSelected
     public void onClick(View view) {
         edt_Nome = (EditText) findViewById(R.id.edt_Nome);
         edt_Email = (EditText) findViewById(R.id.edt_Email);
-        edt_Senha = (EditText) findViewById(R.id.edt_senha);
+        edt_Senha = (EditText) findViewById(R.id.edtSenha);
         edt_Matricula = (EditText) findViewById(R.id.edt_Matricula);
         edt_Semestre = (EditText) findViewById(R.id.edt_Semestre);
 
 
-        
+
     }
 }
