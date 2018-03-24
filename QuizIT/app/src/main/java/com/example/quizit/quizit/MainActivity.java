@@ -8,22 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+;
 
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends Activity{
 
+    private TextView txtForgot;
     private EditText edtMatricula;
     private EditText edtSenha;
     private TextView txtCadastrar;
@@ -38,18 +32,33 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         txtCadastrar = (TextView) findViewById(R.id.txtCadastrar);
         edtMatricula = (EditText) findViewById(R.id.edtLogin);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnLogar = (Button) findViewById(R.id.btnLogar);
 
-        endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString()+ "/"+edtSenha.getText().toString();
 
 
+        btnLogar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        txtCadastrar.setOnClickListener(this);
+                endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString()+ "/"+edtSenha.getText().toString();
+                jsonTask.execute(endereco);
+
+                //getAlunoJson(jsonTask.get());
+                txtForgot = (TextView) findViewById(R.id.txtForgot);
+                txtForgot.setText(aluno.getNome().toString());
+
+            }
+        });
+        txtCadastrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intentHome = new Intent(MainActivity.this, Act_Cadastro.class);
+                startActivity(intentHome);
+            }
+        });
 
 
 
@@ -61,7 +70,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         @Override
         protected String doInBackground(String... params) {
-            HttpURLConnection conn = null;
+
+            return Network.getEndereco(params[0]);
+            /*HttpURLConnection conn = null;
             BufferedReader reader = null;
             StringBuffer buffer = null;
 
@@ -98,12 +109,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     e.printStackTrace();
                 }
             }
-            return null;
+            return null;*/
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            getAlunoJson(s);
         }
     }
     //Sintese: Popula o aluno a partir do JSON
@@ -132,8 +144,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
 
-    @Override
-    public void onClick(View view) {
+    //@Override
+    /*public void onClick(View view) {
 
         switch (view.getId()){
 
@@ -142,9 +154,19 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 startActivity(intentHome);
                 break;
             case R.id.btnLogar:
+
                 jsonTask.execute(endereco);
-                //Toast.makeText(this, aluno2.getNome(), Toast.LENGTH_LONG).show();
+                try {
+                    getAlunoJson(jsonTask.get());
+                    txtForgot = (TextView) findViewById(R.id.txtForgot);
+                    txtForgot.setText(aluno.getNome().toString());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
                 break;
         }
-    }
+    }*/
 }
