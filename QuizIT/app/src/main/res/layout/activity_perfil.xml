@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.quizit.quizit.PerfilActivity">
+
+    <ImageView
+        android:id="@+id/imgPerfil"
+        android:layout_width="122dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="28dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtSemestrePerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Semestre"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imgPerfil"
+        app:layout_constraintStart_toStartOf="@+id/imgPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
+
+    <TextView
+        android:id="@+id/txtNomePerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Nome"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgPerfil"
+        app:layout_constraintTop_toTopOf="@+id/imgPerfil" />
+
+    <TextView
+        android:id="@+id/txtPontuacaoPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Pontos"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/txtNomePerfil"
+        app:layout_constraintStart_toStartOf="@+id/txtNomePerfil"
+        app:layout_constraintTop_toBottomOf="@+id/txtNomePerfil" />
+</android.support.constraint.ConstraintLayout>

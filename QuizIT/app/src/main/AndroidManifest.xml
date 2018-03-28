@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Act_Cadastro" />
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".PerfilActivity"></activity>
     </application>
 
 </manifest>

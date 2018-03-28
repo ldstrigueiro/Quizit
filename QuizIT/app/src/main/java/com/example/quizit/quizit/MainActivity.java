@@ -1,6 +1,8 @@
 package com.example.quizit.quizit;
 
 import android.app.Activity;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,6 +46,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     public class JSONTask extends AsyncTask<String, String, String>{
 
+        ProgressDialog progressDialog;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(MainActivity.this, "Aguarde", "Verificando Credenciais");
+        }
         @Override
         protected String doInBackground(String... params) {
 
@@ -57,6 +65,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             aluno = getAlunoJson(s);
             intent = new Intent(MainActivity.this, HomeActivity.class);
             intent.putExtra("ObjAluno", aluno);
+            progressDialog.dismiss();
             startActivity(intent);
         }
     }
@@ -94,6 +103,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         switch (view.getId()){
 
+            
             case R.id.txtCadastrar:
                 intent = new Intent(this, Act_Cadastro.class);
                 startActivity(intent);
@@ -101,7 +111,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.btnLogar:
                 edtMatricula = (EditText) findViewById(R.id.edtLogin);
                 edtSenha = (EditText) findViewById(R.id.edtSenha);
-                endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString()+"/"+edtSenha.getText().toString();
+                //endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString()+"/"+edtSenha.getText().toString();
+                endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC14100729/tchecao";
                 jsonTask = new JSONTask();
                 jsonTask.execute(endereco);
 

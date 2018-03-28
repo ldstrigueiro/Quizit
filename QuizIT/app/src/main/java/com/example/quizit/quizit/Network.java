@@ -14,7 +14,7 @@ import java.net.URL;
 public class Network {
     public static String getEndereco (String url){
         InputStream inputStream;
-        String resultado = "askdma";
+        String resultado = "nada";
 
         try {
             HttpURLConnection conn;
