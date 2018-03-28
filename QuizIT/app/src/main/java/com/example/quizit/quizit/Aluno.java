@@ -1,10 +1,13 @@
 package com.example.quizit.quizit;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Lucas Dilan on 23/03/2018.
  */
 
-public class Aluno {
+public class Aluno implements Parcelable {
 
     private String nome;
     private String matricula;
@@ -32,6 +35,34 @@ public class Aluno {
     public Aluno (){
 
     }
+
+    protected Aluno(Parcel in) {
+        nome = in.readString();
+        matricula = in.readString();
+        email = in.readString();
+        idAluno = in.readInt();
+        semestre = in.readInt();
+        sexo = in.readString();
+        if (in.readByte() == 0) {
+            pontuacao = null;
+        } else {
+            pontuacao = in.readDouble();
+        }
+        curso = in.readString();
+        senha = in.readString();
+    }
+
+    public static final Creator<Aluno> CREATOR = new Creator<Aluno>() {
+        @Override
+        public Aluno createFromParcel(Parcel in) {
+            return new Aluno(in);
+        }
+
+        @Override
+        public Aluno[] newArray(int size) {
+            return new Aluno[size];
+        }
+    };
 
     @Override
     public String toString() {
@@ -111,4 +142,26 @@ public class Aluno {
         this.senha = senha;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(nome);
+        parcel.writeString(matricula);
+        parcel.writeString(email);
+        parcel.writeInt(idAluno);
+        parcel.writeInt(semestre);
+        parcel.writeString(sexo);
+        if (pontuacao == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(pontuacao);
+        }
+        parcel.writeString(curso);
+        parcel.writeString(senha);
+    }
 }

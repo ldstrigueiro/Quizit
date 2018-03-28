@@ -12,23 +12,24 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-;
+;import java.util.concurrent.ExecutionException;
 
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private TextView txtForgot;
     private EditText edtMatricula;
     private EditText edtSenha;
     private TextView txtCadastrar;
-    private Intent intentHome;
+    private Intent intent;
     private Button btnLogar;
     private String endereco;
     JSONTask jsonTask;
-    Aluno aluno = new Aluno();
+    Aluno aluno = null;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -36,33 +37,10 @@ public class MainActivity extends Activity{
         edtMatricula = (EditText) findViewById(R.id.edtLogin);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnLogar = (Button) findViewById(R.id.btnLogar);
+        txtForgot = (TextView) findViewById(R.id.txtForgot);
 
-
-
-        btnLogar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString()+ "/"+edtSenha.getText().toString();
-                jsonTask.execute(endereco);
-
-                //getAlunoJson(jsonTask.get());
-                txtForgot = (TextView) findViewById(R.id.txtForgot);
-                txtForgot.setText(aluno.getNome().toString());
-
-            }
-        });
-        txtCadastrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intentHome = new Intent(MainActivity.this, Act_Cadastro.class);
-                startActivity(intentHome);
-            }
-        });
-
-
-
-
+        txtCadastrar.setOnClickListener(this);
+        btnLogar.setOnClickListener(this);
 
     }
 
@@ -72,50 +50,16 @@ public class MainActivity extends Activity{
         protected String doInBackground(String... params) {
 
             return Network.getEndereco(params[0]);
-            /*HttpURLConnection conn = null;
-            BufferedReader reader = null;
-            StringBuffer buffer = null;
 
-            try {
-
-                URL url = new URL (params[0]);
-                conn = (HttpURLConnection) url.openConnection();
-                conn.connect();
-
-
-                InputStream stream = conn.getInputStream();
-
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                buffer = new StringBuffer();
-
-                String linha = null;
-                while((linha = reader.readLine()) != null){
-                    buffer.append(linha);
-                }
-
-                return buffer.toString();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if(conn != null)
-                    conn.disconnect();
-                try {
-                    if(reader != null)
-                        reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;*/
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             getAlunoJson(s);
+            intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.putExtra("ObjAluno", aluno);
+            startActivity(intent);
         }
     }
     //Sintese: Popula o aluno a partir do JSON
@@ -138,35 +82,30 @@ public class MainActivity extends Activity{
             aluno.setCurso(jsonObj.getString("curso"));
 
 
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
     }
 
 
     //@Override
-    /*public void onClick(View view) {
+    public void onClick(View view) {
 
         switch (view.getId()){
 
             case R.id.txtCadastrar:
-                intentHome = new Intent(this, Act_Cadastro.class);
-                startActivity(intentHome);
+                intent = new Intent(this, Act_Cadastro.class);
+                startActivity(intent);
                 break;
             case R.id.btnLogar:
-
+                endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC1400729/tchecao";
+                jsonTask = new JSONTask();
                 jsonTask.execute(endereco);
-                try {
-                    getAlunoJson(jsonTask.get());
-                    txtForgot = (TextView) findViewById(R.id.txtForgot);
-                    txtForgot.setText(aluno.getNome().toString());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
 
                 break;
         }
-    }*/
+    }
 }
