@@ -25,7 +25,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnLogar;
     private String endereco;
     JSONTask jsonTask;
-    Aluno aluno = null;
+    Aluno aluno;
 
 
     @Override
@@ -34,8 +34,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         txtCadastrar = (TextView) findViewById(R.id.txtCadastrar);
-        edtMatricula = (EditText) findViewById(R.id.edtLogin);
-        edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnLogar = (Button) findViewById(R.id.btnLogar);
         txtForgot = (TextView) findViewById(R.id.txtForgot);
 
@@ -56,7 +54,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            getAlunoJson(s);
+            aluno = getAlunoJson(s);
             intent = new Intent(MainActivity.this, HomeActivity.class);
             intent.putExtra("ObjAluno", aluno);
             startActivity(intent);
@@ -65,9 +63,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //Sintese: Popula o aluno a partir do JSON
     //Entrada:  Json
     //Saída: Aluno populado
-    public void getAlunoJson (String json){
+    public Aluno getAlunoJson (String json){
 
-
+        Aluno aluno = new Aluno();
         try {
             JSONObject jsonObj = new JSONObject(json);
 
@@ -81,12 +79,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
             aluno.setSenha(jsonObj.getString("senha"));
             aluno.setCurso(jsonObj.getString("curso"));
 
-
+            return aluno;
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+        return null;
 
     }
 
@@ -101,7 +99,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.btnLogar:
-                endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC1400729/tchecao";
+                edtMatricula = (EditText) findViewById(R.id.edtLogin);
+                edtSenha = (EditText) findViewById(R.id.edtSenha);
+                endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString()+"/"+edtSenha.getText().toString();
                 jsonTask = new JSONTask();
                 jsonTask.execute(endereco);
 
