@@ -13,7 +13,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Act_Cadastro extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class CadastroActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     private Button btn_Cadastrar;
 

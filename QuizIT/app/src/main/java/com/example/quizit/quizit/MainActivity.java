@@ -50,16 +50,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         switch (view.getId()){
             case R.id.txtCadastrar:
-                intent = new Intent(this, Act_Cadastro.class);
+                intent = new Intent(this, CadastroActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btnLogar:
                 edtMatricula = (EditText) findViewById(R.id.edtLogin);
                 edtSenha = (EditText) findViewById(R.id.edtSenha);
 
+                //Transoforma o UC da matricula pra maiusculo
+
+
                 //se os campos não estiveres vazios ele entra...
                 if(!validaCampos(edtMatricula.getText().toString(), edtSenha.getText().toString())){
-                    endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString()+"/"+edtSenha.getText().toString();
+                    endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
                     //endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC14100729/tchecao";
                     jsonTaskGet = new JSONTaskGet();
                     jsonTaskGet.execute(endereco);
