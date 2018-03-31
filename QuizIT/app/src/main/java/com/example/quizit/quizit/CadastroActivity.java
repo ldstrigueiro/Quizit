@@ -1,9 +1,11 @@
 package com.example.quizit.quizit;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +34,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class CadastroActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
+    //=============== Variáveis Globais =================
     private Button btn_Cadastrar;
 
     //Bloco dos campos de cadastro
@@ -47,9 +50,11 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
     private String[] sexo = {"M","F"};
 
     private String url = "http://apitccapp.azurewebsites.net/api/Aluno";
+    Validator validator = new Validator();
+    AlertDialog.Builder dlg;
 
 
-
+    //============ onCreate & onClick ===============
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +73,27 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
     }
 
     @Override
+    public void onClick(View view) {
+        edt_Nome = (EditText) findViewById(R.id.edt_Nome);
+        edt_Email = (EditText) findViewById(R.id.edt_Email);
+        edt_Senha = (EditText) findViewById(R.id.edt_Senha);
+        edt_Matricula = (EditText) findViewById(R.id.edt_Matricula);
+        edt_Semestre = (EditText) findViewById(R.id.edt_Semestre);
+
+        //Validar os campos aqui
+        if(!isCamposValidado(edt_Nome.getText().toString(), edt_Email.getText().toString(),
+                edt_Senha.getText().toString(), edt_Matricula.getText().toString().toUpperCase(),
+                edt_Semestre.getText().toString()) ) {
+            Toast.makeText(this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
+        }
+
+        //new JSONTaskPost().execute();
+
+
+
+    }
+
+    @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         switch (i){
             case 0:
@@ -80,32 +106,65 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+    public void onNothingSelected(AdapterView<?> adapterView) {  }
 
+    //=============== Métodos ================
+    //Objetivo: Validar campos de matricula e senha da página de login
+    private boolean isCamposValidado(String nome, String email, String senha, String matricula, String semestre){
+        boolean res;
+        dlg = new AlertDialog.Builder(this);
+        int semestreInt = strToInt(semestre, 0);
+
+
+        if(res = validator.isCampoVazio(nome)) {
+            edt_Nome.requestFocus();
+            validator.mensagemErroLogin("Nome inválido!",
+                    "O nome não pode ser vazio.",
+                    "Ok", dlg);
+        }else
+            if(res = !validator.isEmailValido(email)) {
+                edt_Email.requestFocus();
+                validator.mensagemErroLogin("Email inválido!",
+                        "Confira se o email inserido está correto.",
+                        "Ok", dlg);
+            }else
+                if(res = validator.isCampoVazio(senha)) {
+                    edt_Senha.requestFocus();
+                    validator.mensagemErroLogin("Senha inválida!",
+                            "A senha não pode ser vazia.",
+                            "Ok", dlg);
+                }else
+                    if(res = (validator.isCampoVazio(matricula) || !validator.isPadraoMatricula(matricula))){
+                        edt_Matricula.requestFocus();
+                        validator.mensagemErroLogin("Matrícula inválida!",
+                                "A matrícula está vazia ou não está no padrão correto. Ex: UC12345678",
+                                "Ok", dlg);
+                    }else
+                        if(res = (validator.isCampoVazio(semestre) || (semestreInt <= 0 || semestreInt > 8))) {
+                            edt_Semestre.requestFocus();
+                            validator.mensagemErroLogin("Semestre inválido!",
+                                    "O semestre tem que estár entre 1 e 8.",
+                                    "Ok", dlg);
+                        }
+        return res;
     }
 
-    @Override
-    public void onClick(View view) {
-        edt_Nome = (EditText) findViewById(R.id.edt_Nome);
-        edt_Email = (EditText) findViewById(R.id.edt_Email);
-        edt_Senha = (EditText) findViewById(R.id.edt_Senha);
-        edt_Matricula = (EditText) findViewById(R.id.edt_Matricula);
-        edt_Semestre = (EditText) findViewById(R.id.edt_Semestre);
-
-        new JSONTaskPost().execute();
-
-        Toast.makeText(this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
-
+    public int strToInt(String valor, int padrao)
+    {
+        try {
+            return Integer.valueOf(valor); // Para retornar um Integer, use Integer.parseInt
+        }
+        catch (NumberFormatException e) {  // Se houver erro na conversão, retorna o valor padrão
+            return padrao;
+        }
     }
 
+    //================== JSONTasks ===================
     public class JSONTaskPost extends AsyncTask<String, Void, String>{
-
 
         protected void onPreExecute(){
 
         }
-
-
 
         @Override
         protected String doInBackground(String... strings) {
