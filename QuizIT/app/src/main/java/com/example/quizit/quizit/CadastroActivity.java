@@ -13,7 +13,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Act_Cadastro extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class CadastroActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     private Button btn_Cadastrar;
 
@@ -80,17 +80,19 @@ public class Act_Cadastro extends Activity implements AdapterView.OnItemSelected
             jsonObject.put("email", edt_Email.getText().toString());
             jsonObject.put("senha", edt_Senha.getText().toString());
             jsonObject.put("matricula", edt_Matricula.getText().toString());
-            jsonObject.put("semestre", edt_Semestre.getText());
+            //jsonObject.put("semestre", edt_Semestre.getText());
             jsonObject.put("curso", "Ciência da Computação");
             //Verificar STRING do sexo
             jsonObject.put("sexo", spin_sexo.getSelectedItem().toString());
 
 
-            if(Network.sendPost(jsonObject, url)){
+            Toast.makeText(this, "Cadastro realizado", Toast.LENGTH_LONG).show();
+
+            /*if(Network.sendPost(jsonObject, url)){
                 Toast.makeText(this, "Cadastro realizado", Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(this, "ERRO NO JSON", Toast.LENGTH_LONG).show();
-            }
+            }*/
 
 
         } catch (JSONException e) {

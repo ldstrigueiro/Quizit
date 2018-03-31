@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         switch (view.getId()){
             case R.id.txtCadastrar:
-                intent = new Intent(this, Act_Cadastro.class);
+                intent = new Intent(this, CadastroActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btnLogar:
