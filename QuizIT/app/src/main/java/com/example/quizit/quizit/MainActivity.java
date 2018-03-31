@@ -2,6 +2,7 @@ package com.example.quizit.quizit;
 
 import android.app.Activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,15 +11,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
+    //=============== Variáveis Globais =================
     private TextView txtForgot;
     private EditText edtMatricula;
     private EditText edtSenha;
@@ -28,8 +27,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private String endereco;
     JSONTaskGet jsonTaskGet;
     Aluno aluno;
+    Validator validator = new Validator();
+    AlertDialog.Builder dlg;
 
 
+    //============ onCreate & onClick ===============
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -41,44 +43,33 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         txtCadastrar.setOnClickListener(this);
         btnLogar.setOnClickListener(this);
-
     }
 
-    public class JSONTaskPost extends AsyncTask<String, Void, Void>{
+    //@Override
+    public void onClick(View view) {
 
+        switch (view.getId()){
+            case R.id.txtCadastrar:
+                intent = new Intent(this, Act_Cadastro.class);
+                startActivity(intent);
+                break;
+            case R.id.btnLogar:
+                edtMatricula = (EditText) findViewById(R.id.edtLogin);
+                edtSenha = (EditText) findViewById(R.id.edtSenha);
 
-        @Override
-        protected Void doInBackground(String... strings) {
-
-            return null;
+                //se os campos não estiveres vazios ele entra...
+                if(!validaCampos(edtMatricula.getText().toString(), edtSenha.getText().toString())){
+                    endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString()+"/"+edtSenha.getText().toString();
+                    //endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC14100729/tchecao";
+                    jsonTaskGet = new JSONTaskGet();
+                    jsonTaskGet.execute(endereco);
+                }
+                   break;
         }
     }
 
-    public class JSONTaskGet extends AsyncTask<String, String, String>{
+    //================== MÉTODOS ==================
 
-        ProgressDialog progressDialog;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = ProgressDialog.show(MainActivity.this, "Aguarde", "Verificando Credenciais");
-        }
-        @Override
-        protected String doInBackground(String... params) {
-
-            return Network.getEndereco(params[0]);
-
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            aluno = getAlunoJson(s);
-            intent = new Intent(MainActivity.this, HomeActivity.class);
-            intent.putExtra("ObjAluno", aluno);
-            progressDialog.dismiss();
-            startActivity(intent);
-        }
-    }
     //Sintese: Popula o aluno a partir do JSON
     //Entrada:  Json
     //Saída: Aluno populado
@@ -104,29 +95,68 @@ public class MainActivity extends Activity implements View.OnClickListener {
             e.printStackTrace();
         }
         return null;
-
     }
 
 
-    //@Override
-    public void onClick(View view) {
-
-        switch (view.getId()){
 
 
-            case R.id.txtCadastrar:
-                intent = new Intent(this, Act_Cadastro.class);
+    //Objetivo: Validar campos de matricula e senha da página de login
+    private boolean validaCampos(String matricula, String senha){
+        boolean res = false;
+
+        if(res = validator.isCampoVazio(matricula))
+            edtMatricula.requestFocus();
+        else
+        if(res = validator.isCampoVazio(senha))
+            edtSenha.requestFocus();
+
+        if(res){
+            dlg = new AlertDialog.Builder(this);
+            validator.mensagemErroLogin("Opa!", "Matricula/Senha inválidos", "Ok", dlg);
+        }
+
+        return res;
+    }
+
+    //============= JSON TASKS ===============
+
+    public class JSONTaskPost extends AsyncTask<String, Void, Void>{
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            return null;
+        }
+    }
+
+    public class JSONTaskGet extends AsyncTask<String, String, String>{
+
+        ProgressDialog progressDialog;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(MainActivity.this, "Aguarde", "Verificando Credenciais");
+
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            return Network.getEndereco(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            aluno = getAlunoJson(s);
+
+            if(aluno == null){ //Valida se o aluno é nulo e trata ele com o aviso antes de passar pra HomeActivity
+                dlg = new AlertDialog.Builder(MainActivity.this);
+                validator.mensagemErroLogin("Opa!", "Matricula/Senha não cadastrados", "Ok", dlg);
+                progressDialog.dismiss();
+            }else{
+                intent = new Intent(MainActivity.this, HomeActivity.class);
+                intent.putExtra("ObjAluno", aluno);
+                progressDialog.dismiss();
                 startActivity(intent);
-                break;
-            case R.id.btnLogar:
-                edtMatricula = (EditText) findViewById(R.id.edtLogin);
-                edtSenha = (EditText) findViewById(R.id.edtSenha);
-                //endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString()+"/"+edtSenha.getText().toString();
-                endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC14100729/tchecao";
-                jsonTaskGet = new JSONTaskGet();
-                jsonTaskGet.execute(endereco);
-
-                break;
+            }
         }
     }
 }

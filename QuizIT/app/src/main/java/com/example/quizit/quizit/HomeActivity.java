@@ -1,6 +1,7 @@
 package com.example.quizit.quizit;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private ImageView imgPerfil;
     private Intent intent;
     private Aluno aluno;
+    Validator validator = new Validator();
+    AlertDialog.Builder dlg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +29,6 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         txtSemestre = (TextView) findViewById(R.id.txtSemestreHome);
         imgPerfil = (ImageView) findViewById(R.id.imgPerfilHome);
 
-
-
         aluno = getIntent().getParcelableExtra("ObjAluno");
 
         if(aluno != null){
@@ -36,10 +37,6 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             txtPontuacao.setText(String.valueOf(aluno.getPontuacao()));
 
             imgPerfil.setOnClickListener(this);
-
-
-        }else{
-            txtNome.setText("null");
 
         }
 
