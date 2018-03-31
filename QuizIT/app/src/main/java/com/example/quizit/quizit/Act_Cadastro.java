@@ -8,6 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Act_Cadastro extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -23,7 +27,9 @@ public class Act_Cadastro extends Activity implements AdapterView.OnItemSelected
     //Bloco de variaveis relacionadas ao spinner da opcao sexo.
     private Spinner spin_sexo;
     private String spin_valor;
-    private String[] sexo = {"Masculino","Feminino"};
+    private String[] sexo = {"M","F"};
+
+    private String url = "http://apitccapp.azurewebsites.net/api/Aluno";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +73,29 @@ public class Act_Cadastro extends Activity implements AdapterView.OnItemSelected
         edt_Matricula = (EditText) findViewById(R.id.edt_Matricula);
         edt_Semestre = (EditText) findViewById(R.id.edt_Semestre);
 
+        JSONObject jsonObject = new JSONObject();
 
+        try {
+            jsonObject.put("nome", edt_Nome.getText().toString());
+            jsonObject.put("email", edt_Email.getText().toString());
+            jsonObject.put("senha", edt_Senha.getText().toString());
+            jsonObject.put("matricula", edt_Matricula.getText().toString());
+            jsonObject.put("semestre", edt_Semestre.getText());
+            jsonObject.put("curso", "Ciência da Computação");
+            //Verificar STRING do sexo
+            jsonObject.put("sexo", spin_sexo.getSelectedItem().toString());
+
+
+            if(Network.sendPost(jsonObject, url)){
+                Toast.makeText(this, "Cadastro realizado", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(this, "ERRO NO JSON", Toast.LENGTH_LONG).show();
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
     }

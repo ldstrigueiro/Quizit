@@ -3,11 +3,16 @@ package com.example.quizit.quizit;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by Lucas Dilan on 24/03/2018.
@@ -15,13 +20,37 @@ import java.net.URL;
 
 public class Network {
 
-    public static void sendPost(JSONObject jsonObject, String url){
+    public static Boolean sendPost(JSONObject jsonObject, String url){
 
         HttpURLConnection conn;
+        //StringBuilder stringBuilder;
+        OutputStreamWriter out;
+        try {
+            URL postUrl = new URL (url);
+            conn = (HttpURLConnection) postUrl.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setUseCaches(false);
+            conn.setConnectTimeout(2000);
+            conn.setReadTimeout(2000);
 
+            conn.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+            conn.setRequestProperty("Host", "apitccapp.azurewebsites.net");
 
+            conn.connect();
 
+            out = new OutputStreamWriter(conn.getOutputStream());
+            out.write(String.valueOf(jsonObject.toString().getBytes("UTF-8")));
+            out.close();
 
+            return true;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
 
     }
 
