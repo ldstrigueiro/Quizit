@@ -1,8 +1,10 @@
 package com.example.quizit.quizit;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +15,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Iterator;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Lucas Dilan on 24/03/2018.
@@ -20,38 +25,83 @@ import java.net.URLEncoder;
 
 public class Network {
 
-    public static Boolean sendPost(JSONObject jsonObject, String url){
+    public static String postCadastro(JSONObject jsonObject, String url){
 
-        HttpURLConnection conn;
-        //StringBuilder stringBuilder;
-        OutputStreamWriter out;
-        try {
-            URL postUrl = new URL (url);
-            conn = (HttpURLConnection) postUrl.openConnection();
-            conn.setDoOutput(true);
+        try{
+            URL postUrl = new URL(url);
+
+            HttpURLConnection conn = (HttpURLConnection) postUrl.openConnection();
+            conn.setReadTimeout(15000);
+            conn.setConnectTimeout(15000);
             conn.setRequestMethod("POST");
-            conn.setUseCaches(false);
-            conn.setConnectTimeout(2000);
-            conn.setReadTimeout(2000);
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
 
-            conn.setRequestProperty("Content-Type","application/json; charset=UTF-8");
-            conn.setRequestProperty("Host", "apitccapp.azurewebsites.net");
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(getPostDataString(jsonObject));
 
-            conn.connect();
+            writer.flush();
+            writer.close();
+            os.close();
 
-            out = new OutputStreamWriter(conn.getOutputStream());
-            out.write(String.valueOf(jsonObject.toString().getBytes("UTF-8")));
-            out.close();
+            int responseCode = conn.getResponseCode();
 
-            return true;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+
+                BufferedReader in=new BufferedReader(
+                        new InputStreamReader(
+                                conn.getInputStream()));
+                StringBuffer sb = new StringBuffer("");
+                String line="";
+
+                while((line = in.readLine()) != null) {
+
+                    sb.append(line);
+                    break;
+                }
+
+                in.close();
+                return sb.toString();
+
+            }
+            else {
+                return new String("false : "+responseCode);
+            }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
+    }
 
-        return false;
+    public static String getPostDataString(JSONObject params) throws Exception {
 
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+
+        Iterator<String> itr = params.keys();
+
+        while(itr.hasNext()){
+
+            String key= itr.next();
+            Object value = params.get(key);
+
+            if (first)
+                first = false;
+            else
+                result.append("&");
+
+            result.append(URLEncoder.encode(key, "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+
+        }
+        return result.toString();
     }
 
     public static String getEndereco (String url){

@@ -1,7 +1,10 @@
 package com.example.quizit.quizit;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +15,20 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Iterator;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class CadastroActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -30,6 +47,8 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
     private String[] sexo = {"M","F"};
 
     private String url = "http://apitccapp.azurewebsites.net/api/Aluno";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,36 +88,58 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
     public void onClick(View view) {
         edt_Nome = (EditText) findViewById(R.id.edt_Nome);
         edt_Email = (EditText) findViewById(R.id.edt_Email);
-        edt_Senha = (EditText) findViewById(R.id.edtSenha);
+        edt_Senha = (EditText) findViewById(R.id.edt_Senha);
         edt_Matricula = (EditText) findViewById(R.id.edt_Matricula);
         edt_Semestre = (EditText) findViewById(R.id.edt_Semestre);
 
-        JSONObject jsonObject = new JSONObject();
+        new JSONTaskPost().execute();
 
-        try {
-            jsonObject.put("nome", edt_Nome.getText().toString());
-            jsonObject.put("email", edt_Email.getText().toString());
-            jsonObject.put("senha", edt_Senha.getText().toString());
-            jsonObject.put("matricula", edt_Matricula.getText().toString());
-            //jsonObject.put("semestre", edt_Semestre.getText());
-            jsonObject.put("curso", "Ciência da Computação");
-            //Verificar STRING do sexo
-            jsonObject.put("sexo", spin_sexo.getSelectedItem().toString());
+        Toast.makeText(this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
+
+    }
+
+    public class JSONTaskPost extends AsyncTask<String, Void, String>{
 
 
-            Toast.makeText(this, "Cadastro realizado", Toast.LENGTH_LONG).show();
+        protected void onPreExecute(){
 
-            /*if(Network.sendPost(jsonObject, url)){
-                Toast.makeText(this, "Cadastro realizado", Toast.LENGTH_LONG).show();
-            }else{
-                Toast.makeText(this, "ERRO NO JSON", Toast.LENGTH_LONG).show();
-            }*/
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
 
 
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                //Popula o JSON com os dados dos campos ta tela de cadastro
+                JSONObject jsonObject = new JSONObject();
+
+                jsonObject.put("nome", edt_Nome.getText().toString());
+                jsonObject.put("email", edt_Email.getText().toString());
+                jsonObject.put("senha", edt_Senha.getText().toString());
+                jsonObject.put("matricula", edt_Matricula.getText().toString().toUpperCase());
+                jsonObject.put("semestre", edt_Semestre.getText());
+                jsonObject.put("curso", "Ciência da Computação");
+                jsonObject.put("sexo", spin_valor.toString());
+
+                Log.e("params", jsonObject.toString());
+
+                //Obtem a conexao, transforma o JSON em URL e envia pro AZURE para popular o banco.
+               return Network.postCadastro(jsonObject, url);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(String result) {
+            Intent intent = new Intent(CadastroActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
+
 }
