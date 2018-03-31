@@ -2,10 +2,10 @@ package com.example.quizit.quizit;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,20 +17,6 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Iterator;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class CadastroActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -49,9 +35,14 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
     private String spin_valor;
     private String[] sexo = {"M","F"};
 
-    private String url = "http://apitccapp.azurewebsites.net/api/Aluno";
+    private String urlCadastro = "http://apitccapp.azurewebsites.net/api/Aluno";
+    private String urlVerifica = "http://apitccapp.azurewebsites.net/Aluno/autenticaAlunoMatricula/";
+    private boolean isMatriculaValida;
     Validator validator = new Validator();
     AlertDialog.Builder dlg;
+    Intent intent;
+    JSONTaskGet jsonTaskGet;
+
 
 
     //============ onCreate & onClick ===============
@@ -84,12 +75,16 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
         if(!isCamposValidado(edt_Nome.getText().toString(), edt_Email.getText().toString(),
                 edt_Senha.getText().toString(), edt_Matricula.getText().toString().toUpperCase(),
                 edt_Semestre.getText().toString()) ) {
-            Toast.makeText(this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
+
+            //Valida se a matricula ja existe
+            jsonTaskGet = new JSONTaskGet();
+            jsonTaskGet.execute(urlVerifica + edt_Matricula.getText().toString());
+
+            if(isMatriculaValida){
+
+            }
+
         }
-
-        //new JSONTaskPost().execute();
-
-
 
     }
 
@@ -183,7 +178,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                 Log.e("params", jsonObject.toString());
 
                 //Obtem a conexao, transforma o JSON em URL e envia pro AZURE para popular o banco.
-               return Network.postCadastro(jsonObject, url);
+               return Network.postCadastro(jsonObject, urlCadastro);
 
 
             } catch (JSONException e) {
@@ -198,6 +193,40 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
         protected void onPostExecute(String result) {
             Intent intent = new Intent(CadastroActivity.this, MainActivity.class);
             startActivity(intent);
+        }
+    }
+
+
+    public class JSONTaskGet extends AsyncTask<String, String, String>{
+
+        ProgressDialog progressDialog;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = ProgressDialog.show(CadastroActivity.this, "Aguarde", "Cadastrando...");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            return Network.getMatriculaRepetida(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            int isMatriculaRepetida = Integer.parseInt(s);
+
+            if(isMatriculaRepetida == 1){
+                edt_Matricula.requestFocus();
+                validator.mensagemErroLogin("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
+            }else{
+                Toast.makeText(CadastroActivity.this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
+
+                //new JSONTaskPost().execute();
+                intent = new Intent(CadastroActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+            progressDialog.dismiss();
         }
     }
 

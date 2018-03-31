@@ -61,7 +61,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
                 //se os campos não estiveres vazios ele entra...
-                if(!validaCampos(edtMatricula.getText().toString(), edtSenha.getText().toString())){
+                if(!validaCampo(edtMatricula.getText().toString(), edtSenha.getText().toString())){
                     endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
                     //endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC14100729/tchecao";
                     jsonTaskGet = new JSONTaskGet();
@@ -104,19 +104,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
     //Objetivo: Validar campos de matricula e senha da página de login
-    private boolean validaCampos(String matricula, String senha){
-        boolean res = false;
+    private boolean validaCampo(String matricula, String senha){
+        boolean res;
+        dlg = new AlertDialog.Builder(this);
 
-        if(res = validator.isCampoVazio(matricula))
+
+        if(res = validator.isCampoVazio(matricula)) {
             edtMatricula.requestFocus();
-        else
-        if(res = validator.isCampoVazio(senha))
-            edtSenha.requestFocus();
-
-        if(res){
-            dlg = new AlertDialog.Builder(this);
-            validator.mensagemErroLogin("Opa!", "Matricula/Senha inválidos", "Ok", dlg);
-        }
+            validator.mensagemErroLogin("Opa!", "Campo matrícula vazio!", "Ok", dlg);
+        }else
+            if(res = validator.isCampoVazio(senha)) {
+                edtSenha.requestFocus();
+                validator.mensagemErroLogin("Opa!", "Campo senha vazio!", "Ok", dlg);
+            }
 
         return res;
     }
@@ -140,6 +140,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             progressDialog = ProgressDialog.show(MainActivity.this, "Aguarde", "Verificando Credenciais");
 
         }
+
         @Override
         protected String doInBackground(String... params) {
             return Network.getEndereco(params[0]);

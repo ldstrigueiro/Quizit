@@ -125,6 +125,27 @@ public class Network {
         return resultado;
     }
 
+    public static String getMatriculaRepetida (String url){
+        InputStream inputStream;
+        String resultado = "nada";
+
+        try {
+            HttpURLConnection conn;
+            URL endPoint = new URL(url);
+            conn = (HttpURLConnection) endPoint.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(2000);
+            conn.setReadTimeout(2000);
+
+            inputStream = conn.getInputStream();
+            resultado = Network.parseToString(inputStream);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+
     public static String parseToString(InputStream inputStream) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
