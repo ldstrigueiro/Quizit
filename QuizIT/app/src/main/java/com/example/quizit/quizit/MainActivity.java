@@ -14,7 +14,7 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-;import java.util.concurrent.ExecutionException;
+;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -26,7 +26,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Intent intent;
     private Button btnLogar;
     private String endereco;
-    JSONTask jsonTask;
+    JSONTaskGet jsonTaskGet;
     Aluno aluno;
 
 
@@ -44,7 +44,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
-    public class JSONTask extends AsyncTask<String, String, String>{
+    public class JSONTaskPost extends AsyncTask<String, Void, Void>{
+
+
+        @Override
+        protected Void doInBackground(String... strings) {
+
+            return null;
+        }
+    }
+
+    public class JSONTaskGet extends AsyncTask<String, String, String>{
 
         ProgressDialog progressDialog;
 
@@ -103,7 +113,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         switch (view.getId()){
 
-            
+
             case R.id.txtCadastrar:
                 intent = new Intent(this, Act_Cadastro.class);
                 startActivity(intent);
@@ -113,8 +123,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 edtSenha = (EditText) findViewById(R.id.edtSenha);
                 //endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString()+"/"+edtSenha.getText().toString();
                 endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC14100729/tchecao";
-                jsonTask = new JSONTask();
-                jsonTask.execute(endereco);
+                jsonTaskGet = new JSONTaskGet();
+                jsonTaskGet.execute(endereco);
 
                 break;
         }

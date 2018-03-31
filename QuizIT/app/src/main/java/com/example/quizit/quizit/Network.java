@@ -1,5 +1,7 @@
 package com.example.quizit.quizit;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +14,17 @@ import java.net.URL;
  */
 
 public class Network {
+
+    public static void sendPost(JSONObject jsonObject, String url){
+
+        HttpURLConnection conn;
+
+
+
+
+
+    }
+
     public static String getEndereco (String url){
         InputStream inputStream;
         String resultado = "nada";
