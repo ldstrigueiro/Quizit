@@ -42,6 +42,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
     AlertDialog.Builder dlg;
     Intent intent;
     JSONTaskGet jsonTaskGet;
+    JSONTaskPost jsonTaskPost;
 
 
 
@@ -81,7 +82,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
             jsonTaskGet.execute(urlVerifica + edt_Matricula.getText().toString());
 
             if(isMatriculaValida){
-
+                jsonTaskPost.execute(urlCadastro);
             }
 
         }
@@ -207,24 +208,31 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            return Network.getMatriculaRepetida(params[0]);
+        protected String doInBackground(String... params) { //  Retorna o resultado do json passado pelo parametro params[0] em
+            return Network.getMatriculaRepetida(params[0]); //  forma de string.
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            int isMatriculaRepetida = Integer.parseInt(s);
+        protected void onPostExecute(String s) { //  String s = resultado do json. Se for nulo (sem conexão pra consumir o json)
+            super.onPostExecute(s);              //  ele retorna do doInBackground uma string null
 
-            if(isMatriculaRepetida == 1){
-                edt_Matricula.requestFocus();
-                validator.mensagemErroLogin("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
+            if(s != null){
+                int isMatriculaRepetida = Integer.parseInt(s);
+
+                if(isMatriculaRepetida == 1){
+                    edt_Matricula.requestFocus();
+                    validator.mensagemErroLogin("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
+                }else{
+                    Toast.makeText(CadastroActivity.this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
+
+                    new JSONTaskPost().execute();
+                    intent = new Intent(CadastroActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }else{
-                Toast.makeText(CadastroActivity.this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
-
-                //new JSONTaskPost().execute();
-                intent = new Intent(CadastroActivity.this, MainActivity.class);
-                startActivity(intent);
+                validator.mensagemErroLogin("Opa!",
+                        "Parece que você está sem conexão...",
+                        "Tentar novamente", dlg);
             }
             progressDialog.dismiss();
         }

@@ -1,5 +1,7 @@
 package com.example.quizit.quizit;
 
+import android.widget.Toast;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -127,7 +129,7 @@ public class Network {
 
     public static String getMatriculaRepetida (String url){
         InputStream inputStream;
-        String resultado = "nada";
+        String resultado;
 
         try {
             HttpURLConnection conn;
@@ -140,10 +142,13 @@ public class Network {
             inputStream = conn.getInputStream();
             resultado = Network.parseToString(inputStream);
 
+            return resultado;
         }catch (Exception e){
-            e.printStackTrace();
+            return null;
+
+
         }
-        return resultado;
+
     }
 
     public static String parseToString(InputStream inputStream) throws IOException {
