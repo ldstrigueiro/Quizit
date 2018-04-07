@@ -12,6 +12,8 @@
     <string name="btn_Logar">Logar</string>
     <string name="btnJogar">Jogar Grupo</string>
     <string name="btnJogarSolo">Jogar Solo</string>
+    <string name="txtForgotPass">Informe o seu email. Dentro de instantes, você receberá um link em seu email para a criação de uma nova senha.</string>
+    <string name="btn_EnviarForgot">Enviar</string>
 
 
 </resources>

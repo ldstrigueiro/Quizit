@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".CadastroActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".PerfilActivity"></activity>
+        <activity android:name=".PerfilActivity" />
+        <activity android:name=".ForgotPassActivity"></activity>
     </application>
 
 </manifest>
