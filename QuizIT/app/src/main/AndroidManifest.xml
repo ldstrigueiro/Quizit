@@ -23,7 +23,7 @@
         <activity android:name=".CadastroActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".PerfilActivity" />
-        <activity android:name=".ForgotPassActivity"></activity>
+        <activity android:name=".ForgotPassActivity" />
     </application>
 
 </manifest>

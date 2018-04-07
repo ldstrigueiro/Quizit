@@ -2,9 +2,12 @@ package com.example.quizit.quizit;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +18,12 @@ public class ForgotPassActivity extends Activity implements View.OnClickListener
 
     private Button btnEnviar;
     private EditText edtEmail;
-    Validator validator;
+    private Validator validator = new Validator();
+    private boolean checkEmail;
     AlertDialog.Builder dlg;
+    Intent intent;
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,22 +36,31 @@ public class ForgotPassActivity extends Activity implements View.OnClickListener
 
     }
 
+
     @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.btnEnviarForgot:
-                enviarEmail();
+                onPreExecute(); //Metodo que pausa a tela
+                enviarEmail(); //Envia email
+
+
                 break;
         }
     }
 
+    protected void onPreExecute() {
+        progressDialog = ProgressDialog.show(ForgotPassActivity.this, "Aguarde", "Enviando email");
+    }
+
     private void enviarEmail() {
-         //final String email = edtEmail.getText().toString();
 
         if(isOnline()){
             new Thread(new Runnable() {
+
                 @Override
                 public void run() {
+                    //Cria um objeto email e prepara ele para ser disparado
                     Mail m = new Mail("quizit.project@gmail.com", "michaelbinbows");
 
                     String[] toArr = {edtEmail.getText().toString()};
@@ -56,33 +72,27 @@ public class ForgotPassActivity extends Activity implements View.OnClickListener
 
                     try {
                         //m.addAttachment("pathDoAnexo");//anexo opcional
-                        if(m.send()){
-                            //Toast.makeText(ForgotPassActivity.this, "Email de recuperação enviado com sucesso.", Toast.LENGTH_LONG);
-                            validator.mensagemErro("Opa!", "Email de recuperação enviado com sucesso", "Ok", dlg);
-
-                        }else{
-                            //Toast.makeText(ForgotPassActivity.this, "Erro ao enviar email. Por favor, contate a equipe de suporte ou algum professor.", Toast.LENGTH_LONG);
-                            validator.mensagemErro("Opa!", "Erro ao enviar email. Por favor, contate a equipe de suporte ou algum professor.", "Ok", dlg);
-
-                        }
+                        m.send(); //Pega o objeto populado e envia
+                        progressDialog.dismiss(); //Mata o objeto que para a tela
+                        //Continuar a jornada aqui para poder apresentar uma mensagem de sucesso
                     }
                     catch(RuntimeException rex){
 
                     }//erro ignorado
                     catch(Exception e) {
                         //tratar algum outro erro aqui
-                        //validator.mensagemErro("Opa!", "Exception", "Ok", dlg);
                     }
-
-                    finish();
-
+                    System.exit(0);
                 }
-            }).start();
+            }
+            ).start();
+
         }else{
             Toast.makeText(getApplicationContext(), "Não estava online para enviar e-mail!", Toast.LENGTH_LONG).show();
         }
 
     }
+
 
     private boolean isOnline() {
         try {
@@ -95,4 +105,6 @@ public class ForgotPassActivity extends Activity implements View.OnClickListener
             return false;
         }
     }
+
+
 }

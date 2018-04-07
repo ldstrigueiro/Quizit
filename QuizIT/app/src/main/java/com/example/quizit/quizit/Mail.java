@@ -1,5 +1,7 @@
 package com.example.quizit.quizit;
 
+import android.widget.Toast;
+
 import java.util.Date;
 import java.util.Properties;
 import javax.activation.CommandMap;
@@ -112,6 +114,8 @@ public class Mail extends javax.mail.Authenticator {
             }
             _multipart.addBodyPart(messageBodyPart);
             msg.setContent(_multipart);
+
+
 
             // envia o email
             Transport.send(msg);
