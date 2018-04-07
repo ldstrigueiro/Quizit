@@ -25,6 +25,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Intent intent;
     private Button btnLogar;
     private String endereco;
+
     JSONTaskGet jsonTaskGet;
     Aluno aluno;
     Validator validator = new Validator();
@@ -43,6 +44,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         txtCadastrar.setOnClickListener(this);
         btnLogar.setOnClickListener(this);
+        txtForgot.setOnClickListener(this);
+
     }
 
     //@Override
@@ -68,6 +71,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     jsonTaskGet.execute(endereco);
                 }
                    break;
+            case R.id.txtForgot:
+                intent = new Intent(this, ForgotPassActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -111,11 +118,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         if(res = validator.isCampoVazio(matricula)) {
             edtMatricula.requestFocus();
-            validator.mensagemErroLogin("Opa!", "Campo matrícula vazio!", "Ok", dlg);
+            validator.mensagemErro("Opa!", "Campo matrícula vazio!", "Ok", dlg);
         }else
             if(res = validator.isCampoVazio(senha)) {
                 edtSenha.requestFocus();
-                validator.mensagemErroLogin("Opa!", "Campo senha vazio!", "Ok", dlg);
+                validator.mensagemErro("Opa!", "Campo senha vazio!", "Ok", dlg);
             }
 
         return res;
@@ -153,7 +160,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             if(aluno == null){ //Valida se o aluno é nulo e trata ele com o aviso antes de passar pra HomeActivity
                 dlg = new AlertDialog.Builder(MainActivity.this);
-                validator.mensagemErroLogin("Opa!", "Matricula/Senha não cadastrados", "Ok", dlg);
+                validator.mensagemErro("Opa!", "Matricula/Senha não cadastrados", "Ok", dlg);
                 progressDialog.dismiss();
             }else{
                 intent = new Intent(MainActivity.this, HomeActivity.class);

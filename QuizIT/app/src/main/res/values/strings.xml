@@ -15,5 +15,9 @@
     <string name="txtForgotPass">Informe o seu email. Dentro de instantes, você receberá um link em seu email para a criação de uma nova senha.</string>
     <string name="btn_EnviarForgot">Enviar</string>
 
+    <!--  nao da pra usar no .java
+    <string name="contentEmailForgot">Clique no link a seguir para criar uma nova senha: https://www.youtube.com/watch?v=dQw4w9WgXcQ</string>
+    <string name="subjectEmailForgot">Recuperação de senha</string>
+    -->
 
 </resources>

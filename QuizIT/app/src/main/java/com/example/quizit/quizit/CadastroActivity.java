@@ -114,31 +114,31 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
         if(res = validator.isCampoVazio(nome)) {
             edt_Nome.requestFocus();
-            validator.mensagemErroLogin("Nome inválido!",
+            validator.mensagemErro("Nome inválido!",
                     "O nome não pode ser vazio.",
                     "Ok", dlg);
         }else
             if(res = !validator.isEmailValido(email)) {
                 edt_Email.requestFocus();
-                validator.mensagemErroLogin("Email inválido!",
+                validator.mensagemErro("Email inválido!",
                         "Confira se o email inserido está correto.",
                         "Ok", dlg);
             }else
                 if(res = validator.isCampoVazio(senha)) {
                     edt_Senha.requestFocus();
-                    validator.mensagemErroLogin("Senha inválida!",
+                    validator.mensagemErro("Senha inválida!",
                             "A senha não pode ser vazia.",
                             "Ok", dlg);
                 }else
                     if(res = (validator.isCampoVazio(matricula) || !validator.isPadraoMatricula(matricula))){
                         edt_Matricula.requestFocus();
-                        validator.mensagemErroLogin("Matrícula inválida!",
+                        validator.mensagemErro("Matrícula inválida!",
                                 "A matrícula está vazia ou não está no padrão correto. Ex: UC12345678",
                                 "Ok", dlg);
                     }else
                         if(res = (validator.isCampoVazio(semestre) || (semestreInt <= 0 || semestreInt > 8))) {
                             edt_Semestre.requestFocus();
-                            validator.mensagemErroLogin("Semestre inválido!",
+                            validator.mensagemErro("Semestre inválido!",
                                     "O semestre tem que estár entre 1 e 8.",
                                     "Ok", dlg);
                         }
@@ -221,7 +221,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
                 if(isMatriculaRepetida == 1){
                     edt_Matricula.requestFocus();
-                    validator.mensagemErroLogin("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
+                    validator.mensagemErro("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
                 }else{
                     Toast.makeText(CadastroActivity.this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
 
@@ -230,7 +230,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                     startActivity(intent);
                 }
             }else{
-                validator.mensagemErroLogin("Opa!",
+                validator.mensagemErro("Opa!",
                         "Parece que você está sem conexão...",
                         "Tentar novamente", dlg);
             }

@@ -35,7 +35,7 @@ public class Validator {
     //Objetivo: Validar se o padrão da matricula segue o exemplo "UC12345678"
     //Entrada: Matricula inserida no EditText
     //Saida: boolean. True: está no padrão
-    public void mensagemErroLogin(String cabecalho, String mensagem, String msgButton, AlertDialog.Builder contexto){
+    public void mensagemErro(String cabecalho, String mensagem, String msgButton, AlertDialog.Builder contexto){
         AlertDialog.Builder dlg = contexto;
         dlg.setTitle(cabecalho);
         dlg.setMessage(mensagem);
