@@ -15,12 +15,12 @@ public class Aluno implements Parcelable {
     private int idAluno;
     private int semestre;
     private String sexo;
-    private Double pontuacao;
+    private Integer pontuacao;
     private String curso;
     private String senha;
 
 
-    public Aluno(String nome, String matricula, String email, int idAluno, int semestre, String sexo, Double pontuacao, String curso, String senha){
+    public Aluno(String nome, String matricula, String email, int idAluno, int semestre, String sexo, Integer pontuacao, String curso, String senha){
         this.setNome(nome);
         this.setCurso(curso);
         this.setEmail(email);
@@ -43,11 +43,11 @@ public class Aluno implements Parcelable {
         idAluno = in.readInt();
         semestre = in.readInt();
         sexo = in.readString();
-        if (in.readByte() == 0) {
-            pontuacao = null;
-        } else {
-            pontuacao = in.readDouble();
-        }
+        //if (in.readByte() == 0) {
+            //pontuacao = null;
+        //} else {
+            pontuacao = in.readInt();
+        //}
         curso = in.readString();
         senha = in.readString();
     }
@@ -118,11 +118,11 @@ public class Aluno implements Parcelable {
         this.sexo = sexo;
     }
 
-    public Double getPontuacao() {
+    public Integer getPontuacao() {
         return pontuacao;
     }
 
-    public void setPontuacao(Double pontuacao) {
+    public void setPontuacao(Integer pontuacao) {
         this.pontuacao = pontuacao;
     }
 
