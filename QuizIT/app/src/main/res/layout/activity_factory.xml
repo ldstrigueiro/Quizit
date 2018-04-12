@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FactoryActivity">
+
+    <EditText
+        android:id="@+id/edtEnunciadoFactory"
+        android:layout_width="0dp"
+        android:layout_height="139dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="@string/hint_Enunciado"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/edtRespostaFactory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/hint_RespostaFactory"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintEnd_toEndOf="@+id/edtEnunciadoFactory"
+        app:layout_constraintStart_toStartOf="@+id/edtEnunciadoFactory"
+        app:layout_constraintTop_toBottomOf="@+id/edtEnunciadoFactory" />
+
+    <EditText
+        android:id="@+id/edtOpcao1Factory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/hint_AlternativaFactory"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/edtRespostaFactory"
+        app:layout_constraintStart_toStartOf="@+id/edtRespostaFactory"
+        app:layout_constraintTop_toBottomOf="@+id/edtRespostaFactory" />
+
+    <EditText
+        android:id="@+id/edtOpcao2Factory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/hint_AlternativaFactory"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/edtOpcao1Factory"
+        app:layout_constraintStart_toStartOf="@+id/edtOpcao1Factory"
+        app:layout_constraintTop_toBottomOf="@+id/edtOpcao1Factory" />
+
+    <EditText
+        android:id="@+id/edtOpcao3Factory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/hint_AlternativaFactory"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/edtOpcao2Factory"
+        app:layout_constraintStart_toStartOf="@+id/edtOpcao2Factory"
+        app:layout_constraintTop_toBottomOf="@+id/edtOpcao2Factory" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="364dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_Factory"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnConcluirFactory"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/btn_ConcluirFactory"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtSugestaoDiscFactory" />
+
+    <EditText
+        android:id="@+id/edtSugestaoDiscFactory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/hint_Disc"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/edtOpcao3Factory"
+        app:layout_constraintStart_toStartOf="@+id/edtOpcao3Factory"
+        app:layout_constraintTop_toBottomOf="@+id/edtOpcao3Factory" />
+
+</android.support.constraint.ConstraintLayout>

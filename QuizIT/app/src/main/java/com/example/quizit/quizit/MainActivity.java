@@ -26,10 +26,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnLogar;
     private String endereco;
 
-    JSONTaskGet jsonTaskGet;
-    Aluno aluno;
-    Validator validator = new Validator();
-    AlertDialog.Builder dlg;
+    private JSONTaskGet jsonTaskGet = new JSONTaskGet();
+    private Aluno aluno;
+    private Validator validator = new Validator();
+    private AlertDialog.Builder dlg;
 
 
     //============ onCreate & onClick ===============
@@ -60,16 +60,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 edtMatricula = (EditText) findViewById(R.id.edtLogin);
                 edtSenha = (EditText) findViewById(R.id.edtSenha);
 
-                //Transoforma o UC da matricula pra maiusculo
-
-
                 //se os campos não estiveres vazios ele entra...
-                //if(!validaCampo(edtMatricula.getText().toString(), edtSenha.getText().toString())){
-                    //endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
-                    endereco = "http://apitccapp.azurewebsites.net/Aluno/getbymatricula/UC14100729";
+                if(!validaCampo(edtMatricula.getText().toString(), edtSenha.getText().toString())){
+                    endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
+                    //endereco = "http://apitccapp.azurewebsites.net/Aluno/getbymatricula/UC14100729";
                     jsonTaskGet = new JSONTaskGet();
                     jsonTaskGet.execute(endereco);
-                //}
+
+
+                }
                    break;
             case R.id.txtForgot:
                 intent = new Intent(this, ForgotPassActivity.class);
@@ -94,10 +93,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
             aluno.setEmail(jsonObj.getString("email"));
             aluno.setSemestre(jsonObj.getInt("semestre"));
             aluno.setSexo(jsonObj.getString("sexo"));
-            aluno.setPontuacao(jsonObj.getInt("idPontuacao"));
+            //aluno.setPontuacao(jsonObj.getInt("idPontuacao"));
             aluno.setCurso(jsonObj.getString("curso"));
             aluno.setSenha(jsonObj.getString("senha"));
             aluno.setMatricula(jsonObj.getString("matricula"));
+            aluno.setAvatar(jsonObj.getInt("avatar"));
 
             return aluno;
 
@@ -130,15 +130,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     //============= JSON TASKS ===============
 
-    public class JSONTaskPost extends AsyncTask<String, Void, Void>{
 
-        @Override
-        protected Void doInBackground(String... strings) {
-            return null;
-        }
-    }
 
-    public class JSONTaskGet extends AsyncTask<String, String, String>{
+    private class JSONTaskGet extends AsyncTask<String, String, String>{
 
         ProgressDialog progressDialog;
 

@@ -37,12 +37,12 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
     private String urlCadastro = "http://apitccapp.azurewebsites.net/api/Aluno";
     private String urlVerifica = "http://apitccapp.azurewebsites.net/Aluno/autenticaAlunoMatricula/";
-    private boolean isMatriculaValida;
-    Validator validator = new Validator();
-    AlertDialog.Builder dlg;
-    Intent intent;
-    JSONTaskGet jsonTaskGet;
-    JSONTaskPost jsonTaskPost;
+    private int isMatriculaValida;
+    private Validator validator = new Validator();
+    private AlertDialog.Builder dlg;
+    private Intent intent;
+    private JSONTaskGet jsonTaskGet;
+    private JSONTaskPost jsonTaskPost = new JSONTaskPost();
 
 
 
@@ -78,11 +78,14 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                 edt_Semestre.getText().toString()) ) {
 
             //Valida se a matricula ja existe
-            jsonTaskGet = new JSONTaskGet();
-            jsonTaskGet.execute(urlVerifica + edt_Matricula.getText().toString());
+            //jsonTaskGet = new JSONTaskGet();
+            isMatriculaValida = Integer.parseInt(Network.getMatriculaRepetida(urlVerifica + edt_Matricula.getText().toString())) ;
 
-            if(isMatriculaValida){
+            if(isMatriculaValida == 0){
                 jsonTaskPost.execute(urlCadastro);
+            }else{
+                Toast.makeText(this, "Matricula repetida", Toast.LENGTH_SHORT).show();
+                edt_Matricula.requestFocus();
             }
 
         }
@@ -156,7 +159,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
     }
 
     //================== JSONTasks ===================
-    public class JSONTaskPost extends AsyncTask<String, Void, String>{
+    private class JSONTaskPost extends AsyncTask<String, Void, String>{
 
         protected void onPreExecute(){
 
@@ -192,8 +195,8 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
         }
 
         protected void onPostExecute(String result) {
-            Intent intent = new Intent(CadastroActivity.this, MainActivity.class);
-            startActivity(intent);
+            Toast.makeText(CadastroActivity.this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 
@@ -223,11 +226,8 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                     edt_Matricula.requestFocus();
                     validator.mensagemErro("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
                 }else{
-                    Toast.makeText(CadastroActivity.this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CadastroActivity.this, "erro", Toast.LENGTH_SHORT).show();
 
-                    new JSONTaskPost().execute();
-                    intent = new Intent(CadastroActivity.this, MainActivity.class);
-                    startActivity(intent);
                 }
             }else{
                 validator.mensagemErro("Opa!",

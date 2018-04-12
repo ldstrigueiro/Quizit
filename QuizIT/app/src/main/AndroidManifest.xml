@@ -24,6 +24,7 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".PerfilActivity" />
         <activity android:name=".ForgotPassActivity" />
+        <activity android:name=".FactoryActivity"></activity>
     </application>
 
 </manifest>

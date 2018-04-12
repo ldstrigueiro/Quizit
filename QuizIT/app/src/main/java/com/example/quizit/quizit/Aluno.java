@@ -18,9 +18,14 @@ public class Aluno implements Parcelable {
     private Integer pontuacao;
     private String curso;
     private String senha;
+    private int avatar;
+    private int idPontuacao;
 
+    public Aluno (){
 
-    public Aluno(String nome, String matricula, String email, int idAluno, int semestre, String sexo, Integer pontuacao, String curso, String senha){
+    }
+
+    public Aluno(String nome, String matricula, String email, int idAluno, int semestre, String sexo, Integer pontuacao, String curso, String senha, int avatar, int idPontuacao){
         this.setNome(nome);
         this.setCurso(curso);
         this.setEmail(email);
@@ -30,10 +35,8 @@ public class Aluno implements Parcelable {
         this.setSenha(senha);
         this.setSexo(sexo);
         this.setSemestre(semestre);
-    }
-
-    public Aluno (){
-
+        this.setAvatar(avatar);
+        this.setIdPontuacao(idPontuacao);
     }
 
     protected Aluno(Parcel in) {
@@ -50,6 +53,8 @@ public class Aluno implements Parcelable {
         //}
         curso = in.readString();
         senha = in.readString();
+        avatar = in.readInt();
+        idPontuacao = in.readInt();
     }
 
     public static final Creator<Aluno> CREATOR = new Creator<Aluno>() {
@@ -63,6 +68,22 @@ public class Aluno implements Parcelable {
             return new Aluno[size];
         }
     };
+
+    public int getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+    }
+
+    public int getIdPontuacao() {
+        return idPontuacao;
+    }
+
+    public void setIdPontuacao(int idPontuacao) {
+        this.idPontuacao = idPontuacao;
+    }
 
     @Override
     public String toString() {

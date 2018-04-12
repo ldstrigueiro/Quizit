@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,8 +18,9 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private ImageView imgPerfil;
     private Intent intent;
     private Aluno aluno;
-    Validator validator = new Validator();
-    AlertDialog.Builder dlg;
+    private Validator validator = new Validator();
+    private AlertDialog.Builder dlg;
+    private ImageButton btnFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,9 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         txtPontuacao = (TextView) findViewById(R.id.txtPontuacaoHome);
         txtSemestre = (TextView) findViewById(R.id.txtSemestreHome);
         imgPerfil = (ImageView) findViewById(R.id.imgPerfilHome);
+        btnFactory = (ImageButton) findViewById(R.id.btnFactoryHome);
 
+        btnFactory.setOnClickListener(this);
         aluno = getIntent().getParcelableExtra("ObjAluno");
 
         if(aluno != null){
@@ -47,6 +52,13 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         switch (view.getId()){
             case R.id.imgPerfilHome:
                 intent = new Intent(this, PerfilActivity.class);
+                intent.putExtra("ObjAluno", aluno);
+                startActivity(intent);
+                break;
+
+            case R.id.btnFactoryHome:
+
+                intent = new Intent(this, FactoryActivity.class);
                 intent.putExtra("ObjAluno", aluno);
                 startActivity(intent);
                 break;

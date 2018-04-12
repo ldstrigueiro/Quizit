@@ -15,6 +15,13 @@
     <string name="txtForgotPass">Informe o seu email. Dentro de instantes, você receberá um link em seu email para a criação de uma nova senha.</string>
     <string name="btn_EnviarForgot">Enviar</string>
     <string name="title_activity_email_enviado">EmailEnviadoActivity</string>
+    <string name="hint_Enunciado">Enunciado</string>
+    <string name="txt_InstrucaoFactory">Preencha os campos e em seguida marque a opção que representa a resposta.</string>
+    <string name="hint_AlternativaFactory">Alternativa</string>
+    <string name="btn_ConcluirFactory">Concluir</string>
+    <string name="hint_Disc">Disciplina</string>
+    <string name="hint_RespostaFactory">Resposta</string>
+    <string name="title_Factory">Fábrica de Perguntas</string>
 
     <!--  nao da pra usar no .java
     <string name="contentEmailForgot">Clique no link a seguir para criar uma nova senha: https://www.youtube.com/watch?v=dQw4w9WgXcQ</string>
