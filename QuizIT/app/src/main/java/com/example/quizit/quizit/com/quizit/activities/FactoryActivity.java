@@ -1,16 +1,18 @@
-package com.example.quizit.quizit;
+package com.example.quizit.quizit.com.quizit.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.example.quizit.quizit.R;
+import com.example.quizit.quizit.com.quizit.objetos.Aluno;
+import com.example.quizit.quizit.com.quizit.util.Network;
 
 import org.json.JSONException;
 import org.json.JSONObject;

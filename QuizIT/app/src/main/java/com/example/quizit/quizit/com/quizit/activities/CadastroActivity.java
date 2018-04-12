@@ -42,24 +42,14 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
     private String urlCadastro = "http://apitccapp.azurewebsites.net/api/Aluno";
     private String urlVerifica = "http://apitccapp.azurewebsites.net/Aluno/autenticaAlunoMatricula/";
-<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/CadastroActivity.java
     private int isMatriculaValida;
     private Validator validator = new Validator();
     private AlertDialog.Builder dlg;
     private Intent intent;
     private JSONTaskGet jsonTaskGet;
     private JSONTaskPost jsonTaskPost = new JSONTaskPost();
-=======
-    private boolean isMatriculaValida;
-    Validator validator = new Validator();
+
     Util util = new Util();
-    AlertDialog.Builder dlg;
-    Intent intent;
-    JSONTaskGet jsonTaskGet;
-    JSONTaskPost jsonTaskPost;
->>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/CadastroActivity.java
-
-
 
     //============ onCreate & onClick ===============
     @Override
@@ -92,23 +82,14 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                 edt_Senha.getText().toString(), edt_Matricula.getText().toString().toUpperCase(),
                 edt_Semestre.getText().toString()) ) {
 
-<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/CadastroActivity.java
-            //Valida se a matricula ja existe
-            //jsonTaskGet = new JSONTaskGet();
-            isMatriculaValida = Integer.parseInt(Network.getMatriculaRepetida(urlVerifica + edt_Matricula.getText().toString())) ;
 
-            if(isMatriculaValida == 0){
-                jsonTaskPost.execute(urlCadastro);
-            }else{
-                Toast.makeText(this, "Matricula repetida", Toast.LENGTH_SHORT).show();
-                edt_Matricula.requestFocus();
-            }
 
-=======
+
+
             //Valida se a matricula ja existe e cadastra
             jsonTaskGet = new JSONTaskGet();
             jsonTaskGet.execute(urlVerifica + edt_Matricula.getText().toString());
->>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/CadastroActivity.java
+
         }
 
     }
@@ -217,15 +198,12 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
             return null;
         }
 
-<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/CadastroActivity.java
-        protected void onPostExecute(String result) {
-            Toast.makeText(CadastroActivity.this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
-=======
+
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Toast.makeText(CadastroActivity.this,"Cadastro realizado com sucesso! oi", Toast.LENGTH_LONG).show();
->>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/CadastroActivity.java
+
             finish();
         }
     }
@@ -256,17 +234,14 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                     edt_Matricula.requestFocus();
                     util.mensagem("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
                 }else{
-<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/CadastroActivity.java
-                    Toast.makeText(CadastroActivity.this, "erro", Toast.LENGTH_SHORT).show();
 
-=======
                     //intent = new Intent(CadastroActivity.this, CadastroSucessoActivity.class);
                     //intent.putExtra("json", s);
                     //startActivity(intent);
                     jsonTaskPost = new JSONTaskPost();
                     jsonTaskPost.execute(urlCadastro);
                     finish();
->>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/CadastroActivity.java
+
                 }
             }else{
                 util.mensagem("Opa!",
@@ -276,5 +251,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
             progressDialog.dismiss();
         }
     }
+    }
 
-}
+
+

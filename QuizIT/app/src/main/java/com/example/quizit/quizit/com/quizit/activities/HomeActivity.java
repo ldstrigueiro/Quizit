@@ -38,9 +38,10 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     Util util = new Util();
     AlertDialog.Builder dlg;
     private JSONTaskPost jsonTaskPost;
+    private ImageButton imgBtnFactory;
 
 
-    //========== ONCREATE & ONCREATE ============
+    //========== ONCREATE & ONCLICK ============
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         txtSemestre = (TextView) findViewById(R.id.txtSemestreHome);
         imgPerfil = (ImageView) findViewById(R.id.imgPerfilHome);
         imgBtnConfig = (ImageButton) findViewById(R.id.btnConfigHome);
+        imgBtnFactory = (ImageButton) findViewById(R.id.btnFactoryHome);
 
 
         //Pega o aluno
@@ -62,8 +64,9 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             txtPontuacao.setText(String.valueOf(aluno.getPontuacao()));
 
             imgPerfil.setOnClickListener(this);
-        }
 
+        }
+        imgBtnFactory.setOnClickListener(this);
         //Botão configuração
         imgBtnConfig.setOnClickListener(this);
 
@@ -80,6 +83,11 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
             case R.id.btnConfigHome:
                 mostraMenuConfig();
+                break;
+            case R.id.btnFactoryHome:
+                intent = new Intent(this, FactoryActivity.class);
+                intent.putExtra("ObjAluno", aluno);
+                startActivity(intent);
                 break;
         }
     }

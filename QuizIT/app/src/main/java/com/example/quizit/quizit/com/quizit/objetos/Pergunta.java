@@ -1,4 +1,4 @@
-package com.example.quizit.quizit;
+package com.example.quizit.quizit.com.quizit.objetos;
 
 public class Pergunta {
 

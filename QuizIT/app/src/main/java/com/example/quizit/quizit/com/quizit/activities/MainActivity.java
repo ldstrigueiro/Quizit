@@ -32,18 +32,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Button btnLogar;
     private String endereco;
 
-<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/MainActivity.java
     private JSONTaskGet jsonTaskGet = new JSONTaskGet();
     private Aluno aluno;
     private Validator validator = new Validator();
     private AlertDialog.Builder dlg;
-=======
-    JSONTaskGet jsonTaskGet;
-    Aluno aluno;
-    Validator validator = new Validator();
-    Util util = new Util();
-    AlertDialog.Builder dlg;
->>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/MainActivity.java
+    private Util util = new Util();
+
+
 
 
     //============ onCreate & onClick ===============
@@ -76,19 +71,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 //se os campos não estiveres vazios ele entra...
                 if(!validaCampo(edtMatricula.getText().toString(), edtSenha.getText().toString())){
-<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/MainActivity.java
+
                     endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
                     //endereco = "http://apitccapp.azurewebsites.net/Aluno/getbymatricula/UC14100729";
                     jsonTaskGet = new JSONTaskGet();
                     jsonTaskGet.execute(endereco);
 
 
-=======
+
                     //endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
                     endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC14100729/fodao2";
                     jsonTaskGet = new JSONTaskGet();
                     jsonTaskGet.execute(endereco);
->>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/MainActivity.java
+
                 }
                    break;
             case R.id.txtForgot:
@@ -151,13 +146,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     //============= JSON TASKS ===============
 
-<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/MainActivity.java
 
 
-    private class JSONTaskGet extends AsyncTask<String, String, String>{
-=======
+
+
     public class JSONTaskGet extends AsyncTask<String, String, String>{
->>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/MainActivity.java
+
 
         ProgressDialog progressDialog;
 
