@@ -1,7 +1,6 @@
-package com.example.quizit.quizit;
+package com.example.quizit.quizit.com.quizit.activities;
 
 import android.app.Activity;
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,6 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.quizit.quizit.com.quizit.objetos.Aluno;
+import com.example.quizit.quizit.com.quizit.util.Network;
+import com.example.quizit.quizit.R;
+import com.example.quizit.quizit.com.quizit.util.Util;
+import com.example.quizit.quizit.com.quizit.util.Validator;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +35,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     JSONTaskGet jsonTaskGet;
     Aluno aluno;
     Validator validator = new Validator();
+    Util util = new Util();
     AlertDialog.Builder dlg;
 
 
@@ -60,16 +67,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 edtMatricula = (EditText) findViewById(R.id.edtLogin);
                 edtSenha = (EditText) findViewById(R.id.edtSenha);
 
-                //Transoforma o UC da matricula pra maiusculo
-
-
                 //se os campos não estiveres vazios ele entra...
-                //if(!validaCampo(edtMatricula.getText().toString(), edtSenha.getText().toString())){
+                if(!validaCampo(edtMatricula.getText().toString(), edtSenha.getText().toString())){
                     //endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
-                    endereco = "http://apitccapp.azurewebsites.net/Aluno/getbymatricula/UC14100729";
+                    endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC14100729/fodao2";
                     jsonTaskGet = new JSONTaskGet();
                     jsonTaskGet.execute(endereco);
-                //}
+                }
                    break;
             case R.id.txtForgot:
                 intent = new Intent(this, ForgotPassActivity.class);
@@ -118,25 +122,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         if(res = validator.isCampoVazio(matricula)) {
             edtMatricula.requestFocus();
-            validator.mensagemErro("Opa!", "Campo matrícula vazio!", "Ok", dlg);
+            util.mensagem("Opa!", "Campo matrícula vazio!", "Ok", dlg);
         }else
             if(res = validator.isCampoVazio(senha)) {
                 edtSenha.requestFocus();
-                validator.mensagemErro("Opa!", "Campo senha vazio!", "Ok", dlg);
+                util.mensagem("Opa!", "Campo senha vazio!", "Ok", dlg);
             }
 
         return res;
     }
 
     //============= JSON TASKS ===============
-
-    public class JSONTaskPost extends AsyncTask<String, Void, Void>{
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            return null;
-        }
-    }
 
     public class JSONTaskGet extends AsyncTask<String, String, String>{
 
@@ -160,7 +156,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             if(aluno == null){ //Valida se o aluno é nulo e trata ele com o aviso antes de passar pra HomeActivity
                 dlg = new AlertDialog.Builder(MainActivity.this);
-                validator.mensagemErro("Opa!", "Matricula/Senha não cadastrados", "Ok", dlg);
+                util.mensagem("Opa!", "Matricula/Senha não cadastrados", "Ok", dlg);
                 progressDialog.dismiss();
             }else{
                 intent = new Intent(MainActivity.this, HomeActivity.class);

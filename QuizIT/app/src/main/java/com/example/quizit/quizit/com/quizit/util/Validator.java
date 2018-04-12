@@ -1,6 +1,6 @@
-package com.example.quizit.quizit;
+package com.example.quizit.quizit.com.quizit.util;
 
-import android.app.AlertDialog;
+
 import android.text.TextUtils;
 
 import java.util.regex.Matcher;
@@ -30,17 +30,6 @@ public class Validator {
             return false;
         }
 
-    }
-
-    //Objetivo: Validar se o padrão da matricula segue o exemplo "UC12345678"
-    //Entrada: Matricula inserida no EditText
-    //Saida: boolean. True: está no padrão
-    public void mensagemErro(String cabecalho, String mensagem, String msgButton, AlertDialog.Builder contexto){
-        AlertDialog.Builder dlg = contexto;
-        dlg.setTitle(cabecalho);
-        dlg.setMessage(mensagem);
-        dlg.setNeutralButton(msgButton, null);
-        dlg.show();
     }
 
     //Objetivo: Validar se a string é composta apenas por numeros

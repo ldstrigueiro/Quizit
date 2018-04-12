@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.quizit.quizit.HomeActivity">
+    tools:context="com.example.quizit.quizit.com.quizit.activities.HomeActivity">
 
     <TextView
         android:id="@+id/txtNomeHome"
@@ -97,5 +97,15 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@+id/txtNomeHome"
         app:layout_constraintTop_toBottomOf="@+id/txtNomeHome" />
+
+    <ImageButton
+        android:id="@+id/btnConfigHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@android:drawable/ic_menu_preferences"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

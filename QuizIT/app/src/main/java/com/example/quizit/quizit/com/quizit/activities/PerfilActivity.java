@@ -1,8 +1,11 @@
-package com.example.quizit.quizit;
+package com.example.quizit.quizit.com.quizit.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.quizit.quizit.com.quizit.objetos.Aluno;
+import com.example.quizit.quizit.R;
 
 public class PerfilActivity extends Activity {
 
