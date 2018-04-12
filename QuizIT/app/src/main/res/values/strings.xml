@@ -1,19 +1,24 @@
 <resources>
     <string name="app_name">QuizIT</string>
 
+    <!-- Main Activity -->
     <string name="txtForgot"><u>Esqueceu sua senha?</u></string>
     <string name="txtCadastrar"><u>Cadastrar</u></string>
     <string name="hint_Matricula">Matrícula</string>
     <string name="hint_Senha">Senha</string>
+    <string name="btn_Logar">Logar</string>
+
+    <!-- Cadastro Activity -->
     <string name="hint_Nome">Nome</string>
     <string name="hint_Email">Email</string>
     <string name="hint_Semestre">Semestre</string>
     <string name="btn_Cadastrar">Cadastrar</string>
-    <string name="btn_Logar">Logar</string>
-    <string name="btnJogar">Jogar Grupo</string>
-    <string name="btnJogarSolo">Jogar Solo</string>
+
+    <!-- ForgotPassword Activity -->
     <string name="txtForgotPass">Informe o seu email. Dentro de instantes, você receberá um link em seu email para a criação de uma nova senha.</string>
     <string name="btn_EnviarForgot">Enviar</string>
+
+    <!-- EmailEnviado Activity -->
     <string name="title_activity_email_enviado">EmailEnviadoActivity</string>
     <string name="hint_Enunciado">Enunciado</string>
     <string name="txt_InstrucaoFactory">Preencha os campos e em seguida marque a opção que representa a resposta.</string>
@@ -23,9 +28,21 @@
     <string name="hint_RespostaFactory">Resposta</string>
     <string name="title_Factory">Fábrica de Perguntas</string>
 
-    <!--  nao da pra usar no .java
-    <string name="contentEmailForgot">Clique no link a seguir para criar uma nova senha: https://www.youtube.com/watch?v=dQw4w9WgXcQ</string>
-    <string name="subjectEmailForgot">Recuperação de senha</string>
-    -->
+    <!-- Home Activity -->
+    <string name="btnJogar">Jogar Grupo</string>
+    <string name="btnJogarSolo">Jogar Solo</string>
+
+    <!-- Home Activity / Configurações -->
+    <string name="titleConfig">Configurações</string>
+    <string-array name="listaItensConfig">
+        <item>Editar Perfil</item>
+        <item>Feedback</item>
+        <item>Informações</item>
+        <item>Convidar amigos</item>
+    </string-array>
+
+    <!-- Home Activity / Configurações /Feedback -->
+    <string name="textoFeedback">Escreva seu feedback aqui...</string>
+    <string name="btnEnviarFeedback">Enviar</string>
 
 </resources>

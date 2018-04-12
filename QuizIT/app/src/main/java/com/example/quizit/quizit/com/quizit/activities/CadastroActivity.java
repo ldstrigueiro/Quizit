@@ -1,4 +1,4 @@
-package com.example.quizit.quizit;
+package com.example.quizit.quizit.com.quizit.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.quizit.quizit.com.quizit.util.Network;
+import com.example.quizit.quizit.R;
+import com.example.quizit.quizit.com.quizit.util.Util;
+import com.example.quizit.quizit.com.quizit.util.Validator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,12 +42,22 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
     private String urlCadastro = "http://apitccapp.azurewebsites.net/api/Aluno";
     private String urlVerifica = "http://apitccapp.azurewebsites.net/Aluno/autenticaAlunoMatricula/";
+<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/CadastroActivity.java
     private int isMatriculaValida;
     private Validator validator = new Validator();
     private AlertDialog.Builder dlg;
     private Intent intent;
     private JSONTaskGet jsonTaskGet;
     private JSONTaskPost jsonTaskPost = new JSONTaskPost();
+=======
+    private boolean isMatriculaValida;
+    Validator validator = new Validator();
+    Util util = new Util();
+    AlertDialog.Builder dlg;
+    Intent intent;
+    JSONTaskGet jsonTaskGet;
+    JSONTaskPost jsonTaskPost;
+>>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/CadastroActivity.java
 
 
 
@@ -55,7 +70,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
         //Spinner (dropdownlist) da opção sexo
         spin_sexo = findViewById(R.id.spinner_Sexo);
         spin_sexo.setOnItemSelectedListener(this);
-        ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sexo );
+        ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sexo);
         spin_sexo.setAdapter(spinAdapter);
 
         //Botão cadastrar
@@ -77,6 +92,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                 edt_Senha.getText().toString(), edt_Matricula.getText().toString().toUpperCase(),
                 edt_Semestre.getText().toString()) ) {
 
+<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/CadastroActivity.java
             //Valida se a matricula ja existe
             //jsonTaskGet = new JSONTaskGet();
             isMatriculaValida = Integer.parseInt(Network.getMatriculaRepetida(urlVerifica + edt_Matricula.getText().toString())) ;
@@ -88,6 +104,11 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                 edt_Matricula.requestFocus();
             }
 
+=======
+            //Valida se a matricula ja existe e cadastra
+            jsonTaskGet = new JSONTaskGet();
+            jsonTaskGet.execute(urlVerifica + edt_Matricula.getText().toString());
+>>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/CadastroActivity.java
         }
 
     }
@@ -107,6 +128,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {  }
 
+
     //=============== Métodos ================
     //Objetivo: Validar campos de matricula e senha da página de login
     private boolean isCamposValidado(String nome, String email, String senha, String matricula, String semestre){
@@ -117,31 +139,31 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
         if(res = validator.isCampoVazio(nome)) {
             edt_Nome.requestFocus();
-            validator.mensagemErro("Nome inválido!",
+            util.mensagem("Nome inválido!",
                     "O nome não pode ser vazio.",
                     "Ok", dlg);
         }else
             if(res = !validator.isEmailValido(email)) {
                 edt_Email.requestFocus();
-                validator.mensagemErro("Email inválido!",
+                util.mensagem("Email inválido!",
                         "Confira se o email inserido está correto.",
                         "Ok", dlg);
             }else
                 if(res = validator.isCampoVazio(senha)) {
                     edt_Senha.requestFocus();
-                    validator.mensagemErro("Senha inválida!",
+                    util.mensagem("Senha inválida!",
                             "A senha não pode ser vazia.",
                             "Ok", dlg);
                 }else
                     if(res = (validator.isCampoVazio(matricula) || !validator.isPadraoMatricula(matricula))){
                         edt_Matricula.requestFocus();
-                        validator.mensagemErro("Matrícula inválida!",
+                        util.mensagem("Matrícula inválida!",
                                 "A matrícula está vazia ou não está no padrão correto. Ex: UC12345678",
                                 "Ok", dlg);
                     }else
                         if(res = (validator.isCampoVazio(semestre) || (semestreInt <= 0 || semestreInt > 8))) {
                             edt_Semestre.requestFocus();
-                            validator.mensagemErro("Semestre inválido!",
+                            util.mensagem("Semestre inválido!",
                                     "O semestre tem que estár entre 1 e 8.",
                                     "Ok", dlg);
                         }
@@ -171,13 +193,14 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                 //Popula o JSON com os dados dos campos ta tela de cadastro
                 JSONObject jsonObject = new JSONObject();
 
+                jsonObject.put("matricula", edt_Matricula.getText().toString().toUpperCase());
                 jsonObject.put("nome", edt_Nome.getText().toString());
                 jsonObject.put("email", edt_Email.getText().toString());
-                jsonObject.put("senha", edt_Senha.getText().toString());
-                jsonObject.put("matricula", edt_Matricula.getText().toString().toUpperCase());
                 jsonObject.put("semestre", edt_Semestre.getText());
+                jsonObject.put("sexo", spin_valor);
+                jsonObject.put("senha", edt_Senha.getText().toString());
                 jsonObject.put("curso", "Ciência da Computação");
-                jsonObject.put("sexo", spin_valor.toString());
+                jsonObject.put("avatar", 0);
 
                 Log.e("params", jsonObject.toString());
 
@@ -194,8 +217,15 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
             return null;
         }
 
+<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/CadastroActivity.java
         protected void onPostExecute(String result) {
             Toast.makeText(CadastroActivity.this,"Cadastro Realizado com sucesso!!!", Toast.LENGTH_LONG).show();
+=======
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Toast.makeText(CadastroActivity.this,"Cadastro realizado com sucesso! oi", Toast.LENGTH_LONG).show();
+>>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/CadastroActivity.java
             finish();
         }
     }
@@ -224,13 +254,22 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
                 if(isMatriculaRepetida == 1){
                     edt_Matricula.requestFocus();
-                    validator.mensagemErro("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
+                    util.mensagem("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
                 }else{
+<<<<<<< HEAD:QuizIT/app/src/main/java/com/example/quizit/quizit/CadastroActivity.java
                     Toast.makeText(CadastroActivity.this, "erro", Toast.LENGTH_SHORT).show();
 
+=======
+                    //intent = new Intent(CadastroActivity.this, CadastroSucessoActivity.class);
+                    //intent.putExtra("json", s);
+                    //startActivity(intent);
+                    jsonTaskPost = new JSONTaskPost();
+                    jsonTaskPost.execute(urlCadastro);
+                    finish();
+>>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75:QuizIT/app/src/main/java/com/example/quizit/quizit/com/quizit/activities/CadastroActivity.java
                 }
             }else{
-                validator.mensagemErro("Opa!",
+                util.mensagem("Opa!",
                         "Parece que você está sem conexão...",
                         "Tentar novamente", dlg);
             }

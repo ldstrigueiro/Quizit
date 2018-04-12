@@ -13,18 +13,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".com.quizit.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".CadastroActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".PerfilActivity" />
         <activity android:name=".ForgotPassActivity" />
         <activity android:name=".FactoryActivity"></activity>
+=======
+        <activity android:name=".com.quizit.activities.CadastroActivity" />
+        <activity android:name=".com.quizit.activities.HomeActivity" />
+        <activity android:name=".com.quizit.activities.PerfilActivity" />
+        <activity android:name=".com.quizit.activities.ForgotPassActivity" />
+        <activity android:name=".com.quizit.activities.CadastroSucessoActivity" />
+>>>>>>> 8139282299bdc64ea3616798dcfff58f455fff75
     </application>
 
 </manifest>
