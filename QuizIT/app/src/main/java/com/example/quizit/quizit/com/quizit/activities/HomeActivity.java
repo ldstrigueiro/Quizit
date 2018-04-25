@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +41,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private JSONTaskPost jsonTaskPost;
     private ImageButton imgBtnFactory;
 
+    private Button btnJogarSolo;
+
 
     //========== ONCREATE & ONCLICK ============
     @Override
@@ -54,6 +57,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         imgBtnConfig = (ImageButton) findViewById(R.id.btnConfigHome);
         imgBtnFactory = (ImageButton) findViewById(R.id.btnFactoryHome);
 
+        btnJogarSolo = (Button) findViewById(R.id.btnJogarSoloHome);
 
         //Pega o aluno
         aluno = getIntent().getParcelableExtra("ObjAluno");
@@ -88,6 +92,9 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 intent = new Intent(this, FactoryActivity.class);
                 intent.putExtra("ObjAluno", aluno);
                 startActivity(intent);
+                break;
+            case R.id.btnJogarSoloHome:
+                intent = new Intent();
                 break;
         }
     }
