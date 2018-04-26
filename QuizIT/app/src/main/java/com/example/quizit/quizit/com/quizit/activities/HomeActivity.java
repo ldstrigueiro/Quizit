@@ -32,7 +32,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private ImageView imgPerfil;
     private ImageButton imgBtnConfig;
     private ImageButton imgBtnFactory;
-    private Button btnJogar;
+    private Button btnJogarRandom;
     private Button btnModoRun;
 
     private String [] listaOpcoesPersonalizada;
@@ -44,7 +44,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private AlertDialog.Builder dlg;
     private JSONTaskPost jsonTaskPost;
 
-    private Button btnJogarRandom;
+
 
 
 
@@ -64,8 +64,6 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
 
         btnJogarRandom = (Button) findViewById(R.id.btnJogarRandomHome);
-
-        btnJogar = findViewById(R.id.btnJogarRandomHome);
         btnModoRun = findViewById(R.id.btnJogarRunHome);
 
 
@@ -82,7 +80,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         }
 
         //Botão Jogar
-        btnJogar.setOnClickListener(this);
+        btnJogarRandom.setOnClickListener(this);
 
         //Botão Modo Run
         btnModoRun.setOnClickListener(this);
@@ -92,7 +90,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
         //Botão configuração
         imgBtnConfig.setOnClickListener(this);
-        btnJogarRandom.setOnClickListener(this);
+
 
 
     }
@@ -120,7 +118,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 intent = new Intent(this, JogarRandomActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
+                break;
 
             case R.id.btnJogarRunHome:
                 mostraModosRun();
@@ -215,7 +213,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     //PEGAR ESSE JSON TASK E COLOCAR ELE NA FEEDBACK ACTIVITY
 
     //=========== JSON TASKS ================
-    public class JSONTaskPost extends AsyncTask<String, Void, String> {
+    private class JSONTaskPost extends AsyncTask<String, Void, String> {
 
         /*ProgressDialog progressDialog;
 

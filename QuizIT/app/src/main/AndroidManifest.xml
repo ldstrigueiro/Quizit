@@ -25,7 +25,8 @@
         <activity android:name=".com.quizit.activities.HomeActivity" />
         <activity android:name=".com.quizit.activities.PerfilActivity" />
         <activity android:name=".com.quizit.activities.ForgotPassActivity" />
-        <activity android:name=".com.quizit.activities.JogarRandomActivity"></activity>
+        <activity android:name=".com.quizit.activities.JogarRandomActivity" />
+        <activity android:name=".com.quizit.activities.PerguntaActivity"></activity>
     </application>
 
 </manifest>

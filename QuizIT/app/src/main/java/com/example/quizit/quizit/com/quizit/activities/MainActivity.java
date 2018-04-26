@@ -71,19 +71,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 //se os campos não estiveres vazios ele entra...
                 if(!validaCampo(edtMatricula.getText().toString(), edtSenha.getText().toString())){
-
                     endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
-                    //endereco = "http://apitccapp.azurewebsites.net/Aluno/getbymatricula/UC14100729";
                     jsonTaskGet = new JSONTaskGet();
                     jsonTaskGet.execute(endereco);
-
-
-
-                    //endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
-                    endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/UC14100729/fodao2";
-                    jsonTaskGet = new JSONTaskGet();
-                    jsonTaskGet.execute(endereco);
-
                 }
                    break;
             case R.id.txtForgot:
@@ -98,7 +88,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //Sintese: Popula o aluno a partir do JSON
     //Entrada:  Json
     //Saída: Aluno populado
-    public Aluno getAlunoJson (String json){
+    private Aluno getAlunoJson (String json){
 
         Aluno aluno = new Aluno();
         try {
@@ -109,7 +99,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             aluno.setEmail(jsonObj.getString("email"));
             aluno.setSemestre(jsonObj.getInt("semestre"));
             aluno.setSexo(jsonObj.getString("sexo"));
-            //aluno.setPontuacao(jsonObj.getInt("idPontuacao"));
             aluno.setCurso(jsonObj.getString("curso"));
             aluno.setSenha(jsonObj.getString("senha"));
             aluno.setMatricula(jsonObj.getString("matricula"));
@@ -150,7 +139,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
 
-    public class JSONTaskGet extends AsyncTask<String, String, String>{
+    private class JSONTaskGet extends AsyncTask<String, String, String>{
 
 
         ProgressDialog progressDialog;

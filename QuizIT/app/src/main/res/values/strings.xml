@@ -33,11 +33,10 @@
     <string name="btnJogarSolo">Jogar</string>
 
 
-
-
     <string name="titleConfig">Configurações</string>
     <string name="titleModoRun">Modo Run</string>
     <string name="textoFeedback">Escreva seu feedback aqui...</string>
     <string name="btnEnviarFeedback">Enviar</string>
+    <string name="btnPlayRand">Jogar</string>
 
 </resources>

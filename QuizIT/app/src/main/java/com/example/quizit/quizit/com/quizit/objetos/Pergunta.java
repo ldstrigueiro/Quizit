@@ -8,12 +8,18 @@ public class Pergunta {
     private String opcao3;
     private String respostas;
     private String sugestaoDisc;
+    private int id;
+    private String area;
+
+    private int idArea;
 
     public Pergunta(){
 
     }
 
+
     //Construtor com sugestao para a fabrica de perguntas
+
     public Pergunta(String enunciado, String opcao1, String opcao2, String opcao3, String respostas, String sugestaoDisc) {
         this.enunciado = enunciado;
         this.opcao1 = opcao1;
@@ -21,15 +27,40 @@ public class Pergunta {
         this.opcao3 = opcao3;
         this.respostas = respostas;
         this.sugestaoDisc = sugestaoDisc;
+
     }
-     //Construtor sem sugestao para o jogo em si
-    public Pergunta(String enunciado, String opcao1, String opcao2, String opcao3, String respostas) {
+    //Construtor sem sugestao para o jogo em si
+
+    public Pergunta(String enunciado, String opcao1, String opcao2, String opcao3, String respostas, int id, String area, int idArea) {
         this.enunciado = enunciado;
         this.opcao1 = opcao1;
         this.opcao2 = opcao2;
         this.opcao3 = opcao3;
         this.respostas = respostas;
+        this.id = id;
+        this.area = area;
+        this.idArea = idArea;
     }
+
+    public int getIdArea() {
+        return idArea;
+    }
+
+    public void setIdArea(int idArea) {
+        this.idArea = idArea;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public int getId() { return id;    }
+
+    public void setId(int id) { this.id = id;    }
 
     public String getEnunciado() {
         return enunciado;
