@@ -44,10 +44,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private AlertDialog.Builder dlg;
     private JSONTaskPost jsonTaskPost;
 
-<<<<<<< HEAD
     private Button btnJogarRandom;
-=======
->>>>>>> messias
+
 
 
     //========== ONCREATE & ONCLICK ============
@@ -63,13 +61,13 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         imgPerfil = (ImageView) findViewById(R.id.imgPerfilHome);
         imgBtnConfig = (ImageButton) findViewById(R.id.btnConfigHome);
         imgBtnFactory = (ImageButton) findViewById(R.id.btnFactoryHome);
-<<<<<<< HEAD
+
 
         btnJogarRandom = (Button) findViewById(R.id.btnJogarRandomHome);
-=======
+
         btnJogar = findViewById(R.id.btnJogarRandomHome);
         btnModoRun = findViewById(R.id.btnJogarRunHome);
->>>>>>> messias
+
 
         //Pega o aluno
         aluno = getIntent().getParcelableExtra("ObjAluno");
@@ -117,20 +115,16 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 intent.putExtra("ObjAluno", aluno);
                 startActivity(intent);
                 break;
-<<<<<<< HEAD
+
             case R.id.btnJogarRandomHome:
                 intent = new Intent(this, JogarRandomActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-=======
 
-            case R.id.btnJogarRandomHome:
-                //Implementar jogo aleatorio aqui
-                break;
 
             case R.id.btnJogarRunHome:
                 mostraModosRun();
->>>>>>> messias
+
                 break;
 
         }
