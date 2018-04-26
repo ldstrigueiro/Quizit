@@ -31,17 +31,13 @@
     <!-- Home Activity -->
     <string name="btnJogar">Modo Run</string>
     <string name="btnJogarSolo">Jogar</string>
+<<<<<<< HEAD
 
     <!-- Home Activity / Configurações -->
+=======
+>>>>>>> messias
     <string name="titleConfig">Configurações</string>
-    <string-array name="listaItensConfig">
-        <item>Editar Perfil</item>
-        <item>Feedback</item>
-        <item>Informações</item>
-        <item>Convidar amigos</item>
-    </string-array>
-
-    <!-- Home Activity / Configurações /Feedback -->
+    <string name="titleModoRun">Modo Run</string>
     <string name="textoFeedback">Escreva seu feedback aqui...</string>
     <string name="btnEnviarFeedback">Enviar</string>
 

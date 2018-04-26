@@ -31,18 +31,23 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private TextView txtPontuacao;
     private ImageView imgPerfil;
     private ImageButton imgBtnConfig;
+    private ImageButton imgBtnFactory;
+    private Button btnJogar;
+    private Button btnModoRun;
 
-    private String [] listaOpcoesConfig;
+    private String [] listaOpcoesPersonalizada;
     private ArrayAdapter<String> adapter;
     private String urlPostFeedback = "http://apitccapp.azurewebsites.net/api/Suporte";
     private Intent intent;
     private Aluno aluno;
-    Util util = new Util();
-    AlertDialog.Builder dlg;
+    private Util util = new Util();
+    private AlertDialog.Builder dlg;
     private JSONTaskPost jsonTaskPost;
-    private ImageButton imgBtnFactory;
 
+<<<<<<< HEAD
     private Button btnJogarRandom;
+=======
+>>>>>>> messias
 
 
     //========== ONCREATE & ONCLICK ============
@@ -51,14 +56,20 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //Referências
         txtNome = (TextView) findViewById(R.id.txtNomeHome);
         txtPontuacao = (TextView) findViewById(R.id.txtPontuacaoHome);
         txtSemestre = (TextView) findViewById(R.id.txtSemestreHome);
         imgPerfil = (ImageView) findViewById(R.id.imgPerfilHome);
         imgBtnConfig = (ImageButton) findViewById(R.id.btnConfigHome);
         imgBtnFactory = (ImageButton) findViewById(R.id.btnFactoryHome);
+<<<<<<< HEAD
 
         btnJogarRandom = (Button) findViewById(R.id.btnJogarRandomHome);
+=======
+        btnJogar = findViewById(R.id.btnJogarRandomHome);
+        btnModoRun = findViewById(R.id.btnJogarRunHome);
+>>>>>>> messias
 
         //Pega o aluno
         aluno = getIntent().getParcelableExtra("ObjAluno");
@@ -71,7 +82,16 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             imgPerfil.setOnClickListener(this);
 
         }
+
+        //Botão Jogar
+        btnJogar.setOnClickListener(this);
+
+        //Botão Modo Run
+        btnModoRun.setOnClickListener(this);
+
+        //Botão fábrica de perguntas
         imgBtnFactory.setOnClickListener(this);
+
         //Botão configuração
         imgBtnConfig.setOnClickListener(this);
         btnJogarRandom.setOnClickListener(this);
@@ -91,16 +111,28 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             case R.id.btnConfigHome:
                 mostraMenuConfig();
                 break;
+
             case R.id.btnFactoryHome:
                 intent = new Intent(this, FactoryActivity.class);
                 intent.putExtra("ObjAluno", aluno);
                 startActivity(intent);
                 break;
+<<<<<<< HEAD
             case R.id.btnJogarRandomHome:
                 intent = new Intent(this, JogarRandomActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+=======
+
+            case R.id.btnJogarRandomHome:
+                //Implementar jogo aleatorio aqui
                 break;
+
+            case R.id.btnJogarRunHome:
+                mostraModosRun();
+>>>>>>> messias
+                break;
+
         }
     }
 
@@ -108,16 +140,16 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
     private void mostraMenuConfig(){
         //Popula a lista de acordo com o strings.xml
-        listaOpcoesConfig = getResources().getStringArray(R.array.listaItensConfig);
+        listaOpcoesPersonalizada = getResources().getStringArray(R.array.listaItensConfig);
 
         //Instancia o adapter associando ele ao xml personalizado e à lista populada acima
-        adapter = new ArrayAdapter<>(this, R.layout.config_home, listaOpcoesConfig);
+        adapter = new ArrayAdapter<>(this, R.layout.config_home, listaOpcoesPersonalizada);
 
         //Cria o Dialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         //Configura o builder
-        builder.setTitle("Configurações");
+        builder.setTitle(getResources().getString(R.string.titleConfig));
         builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
 
             //which é a posição onde foi clicada nas opçoes apresentadas
@@ -137,6 +169,44 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                     case 3:
                         //Convidar amigos (Envia email)
                         break;
+
+                }
+            }
+        });
+
+        //Cria e executa o builder
+        builder.create();
+        builder.show();
+    }
+
+    private void mostraModosRun(){
+        //Popula a lista de acordo com o strings.xml
+        listaOpcoesPersonalizada = getResources().getStringArray(R.array.listaItensRun);
+
+        //Instancia o adapter associando ele ao xml personalizado e à lista populada acima
+        adapter = new ArrayAdapter<>(this, R.layout.config_home, listaOpcoesPersonalizada);
+
+        //Cria o Dialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //Configura o builder
+        builder.setTitle(getResources().getString(R.string.titleModoRun));
+        builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
+
+            //which é a posição onde foi clicada nas opçoes apresentadas
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                switch (which){
+                    case 0:
+                        //Single Run
+                        break;
+                    case 1:
+                        //5 Run
+                        break;
+                    case 2:
+                        //10 Run
+                        break;
+
 
                 }
             }
