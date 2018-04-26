@@ -25,7 +25,7 @@
         android:id="@+id/txtSemestreHome"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_above="@+id/btnJogarGrupoHome"
+        android:layout_above="@+id/btnJogarRunHome"
         android:layout_alignStart="@+id/txtNomeHome"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imgPerfilHome" />
 
     <Button
-        android:id="@+id/btnJogarGrupoHome"
+        android:id="@+id/btnJogarRunHome"
         android:layout_width="141dp"
         android:layout_height="70dp"
         android:layout_below="@+id/txtNomeHome"
@@ -45,9 +45,9 @@
         android:layout_marginTop="8dp"
         android:text="@string/btnJogar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnJogarSoloHome"
-        app:layout_constraintStart_toStartOf="@+id/btnJogarSoloHome"
-        app:layout_constraintTop_toBottomOf="@+id/btnJogarSoloHome"
+        app:layout_constraintEnd_toEndOf="@+id/btnJogarRandomHome"
+        app:layout_constraintStart_toStartOf="@+id/btnJogarRandomHome"
+        app:layout_constraintTop_toBottomOf="@+id/btnJogarRandomHome"
         app:layout_constraintVertical_bias="0.133" />
 
     <TextView
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toTopOf="@+id/imgPerfilHome" />
 
     <Button
-        android:id="@+id/btnJogarSoloHome"
+        android:id="@+id/btnJogarRandomHome"
         android:layout_width="143dp"
         android:layout_height="69dp"
         android:layout_marginTop="76dp"

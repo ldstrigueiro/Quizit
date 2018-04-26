@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Home Activity / Array Configurações -->
+    <string-array name="listaItensConfig">
+        <item>Editar Perfil</item>
+        <item>Feedback</item>
+        <item>Informações</item>
+        <item>Convidar amigos</item>
+    </string-array>
+
+    <!-- Home Activity / Array Modo Run -->
+    <string-array name="listaItensRun">
+        <item>Single Run</item>
+        <item>5 Run</item>
+        <item>10 Run</item>
+    </string-array>
+
+</resources>

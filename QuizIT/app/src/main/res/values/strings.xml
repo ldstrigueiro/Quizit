@@ -29,19 +29,10 @@
     <string name="title_Factory">Fábrica de Perguntas</string>
 
     <!-- Home Activity -->
-    <string name="btnJogar">Jogar Grupo</string>
-    <string name="btnJogarSolo">Jogar Solo</string>
-
-    <!-- Home Activity / Configurações -->
+    <string name="btnJogar">Modo Run</string>
+    <string name="btnJogarSolo">Jogar</string>
     <string name="titleConfig">Configurações</string>
-    <string-array name="listaItensConfig">
-        <item>Editar Perfil</item>
-        <item>Feedback</item>
-        <item>Informações</item>
-        <item>Convidar amigos</item>
-    </string-array>
-
-    <!-- Home Activity / Configurações /Feedback -->
+    <string name="titleModoRun">Modo Run</string>
     <string name="textoFeedback">Escreva seu feedback aqui...</string>
     <string name="btnEnviarFeedback">Enviar</string>
 
