@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -41,7 +42,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private JSONTaskPost jsonTaskPost;
     private ImageButton imgBtnFactory;
 
-    private Button btnJogarSolo;
+    private Button btnJogarRandom;
 
 
     //========== ONCREATE & ONCLICK ============
@@ -57,7 +58,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         imgBtnConfig = (ImageButton) findViewById(R.id.btnConfigHome);
         imgBtnFactory = (ImageButton) findViewById(R.id.btnFactoryHome);
 
-        btnJogarSolo = (Button) findViewById(R.id.btnJogarSoloHome);
+        btnJogarRandom = (Button) findViewById(R.id.btnJogarRandomHome);
 
         //Pega o aluno
         aluno = getIntent().getParcelableExtra("ObjAluno");
@@ -73,6 +74,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         imgBtnFactory.setOnClickListener(this);
         //Botão configuração
         imgBtnConfig.setOnClickListener(this);
+        btnJogarRandom.setOnClickListener(this);
+
 
     }
 
@@ -93,8 +96,10 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 intent.putExtra("ObjAluno", aluno);
                 startActivity(intent);
                 break;
-            case R.id.btnJogarSoloHome:
-                intent = new Intent();
+            case R.id.btnJogarRandomHome:
+                intent = new Intent(this, JogarRandomActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
         }
     }

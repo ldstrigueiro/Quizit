@@ -82,10 +82,6 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                 edt_Senha.getText().toString(), edt_Matricula.getText().toString().toUpperCase(),
                 edt_Semestre.getText().toString()) ) {
 
-
-
-
-
             //Valida se a matricula ja existe e cadastra
             jsonTaskGet = new JSONTaskGet();
             jsonTaskGet.execute(urlVerifica + edt_Matricula.getText().toString());
@@ -203,7 +199,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Toast.makeText(CadastroActivity.this,"Cadastro realizado com sucesso! oi", Toast.LENGTH_LONG).show();
-
+            //Popular aluno e passar como parametro para a activity home.
             finish();
         }
     }

@@ -29,8 +29,8 @@
     <string name="title_Factory">Fábrica de Perguntas</string>
 
     <!-- Home Activity -->
-    <string name="btnJogar">Jogar Grupo</string>
-    <string name="btnJogarSolo">Jogar Solo</string>
+    <string name="btnJogar">Modo Run</string>
+    <string name="btnJogarSolo">Jogar</string>
 
     <!-- Home Activity / Configurações -->
     <string name="titleConfig">Configurações</string>
