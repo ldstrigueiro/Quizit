@@ -198,14 +198,14 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(CadastroActivity.this,"Cadastro realizado com sucesso! oi", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroActivity.this,"Cadastro realizado com sucesso!!", Toast.LENGTH_LONG).show();
             //Popular aluno e passar como parametro para a activity home.
             finish();
         }
     }
 
 
-    public class JSONTaskGet extends AsyncTask<String, String, String>{
+    private class JSONTaskGet extends AsyncTask<String, String, String>{
 
         ProgressDialog progressDialog;
 
@@ -224,9 +224,9 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
             super.onPostExecute(s);              //  ele retorna do doInBackground uma string null
 
             if(s != null){
-                int isMatriculaRepetida = Integer.parseInt(s);
+                boolean isMatriculaRepetida = Boolean.parseBoolean(s);
 
-                if(isMatriculaRepetida == 1){
+                if(isMatriculaRepetida == true){
                     edt_Matricula.requestFocus();
                     util.mensagem("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
                 }else{

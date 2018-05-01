@@ -38,5 +38,6 @@
     <string name="textoFeedback">Escreva seu feedback aqui...</string>
     <string name="btnEnviarFeedback">Enviar</string>
     <string name="btnPlayRand">Jogar</string>
+    <string name="btnEscolherPerg">Confirmar</string>
 
 </resources>

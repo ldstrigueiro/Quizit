@@ -1,12 +1,15 @@
 package com.example.quizit.quizit.com.quizit.objetos;
 
-public class Pergunta {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Pergunta implements Parcelable {
 
     private String enunciado;
     private String opcao1;
     private String opcao2;
     private String opcao3;
-    private String respostas;
+    private String resposta;
     private String sugestaoDisc;
     private int id;
     private String area;
@@ -25,7 +28,7 @@ public class Pergunta {
         this.opcao1 = opcao1;
         this.opcao2 = opcao2;
         this.opcao3 = opcao3;
-        this.respostas = respostas;
+        this.resposta = respostas;
         this.sugestaoDisc = sugestaoDisc;
 
     }
@@ -36,11 +39,35 @@ public class Pergunta {
         this.opcao1 = opcao1;
         this.opcao2 = opcao2;
         this.opcao3 = opcao3;
-        this.respostas = respostas;
+        this.resposta = respostas;
         this.id = id;
         this.area = area;
         this.idArea = idArea;
     }
+
+    protected Pergunta(Parcel in) {
+        enunciado = in.readString();
+        opcao1 = in.readString();
+        opcao2 = in.readString();
+        opcao3 = in.readString();
+        resposta = in.readString();
+        sugestaoDisc = in.readString();
+        id = in.readInt();
+        area = in.readString();
+        idArea = in.readInt();
+    }
+
+    public static final Creator<Pergunta> CREATOR = new Creator<Pergunta>() {
+        @Override
+        public Pergunta createFromParcel(Parcel in) {
+            return new Pergunta(in);
+        }
+
+        @Override
+        public Pergunta[] newArray(int size) {
+            return new Pergunta[size];
+        }
+    };
 
     public int getIdArea() {
         return idArea;
@@ -94,12 +121,12 @@ public class Pergunta {
         this.opcao3 = opcao3;
     }
 
-    public String getRespostas() {
-        return respostas;
+    public String getResposta() {
+        return resposta;
     }
 
-    public void setRespostas(String respostas) {
-        this.respostas = respostas;
+    public void setResposta(String resposta) {
+        this.resposta = resposta;
     }
 
     public String getSugestaoDisc() {
@@ -111,5 +138,21 @@ public class Pergunta {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(enunciado);
+        dest.writeString(opcao1);
+        dest.writeString(opcao2);
+        dest.writeString(opcao3);
+        dest.writeString(resposta);
+        dest.writeString(sugestaoDisc);
+        dest.writeInt(id);
+        dest.writeString(area);
+        dest.writeInt(idArea);
+    }
 }
