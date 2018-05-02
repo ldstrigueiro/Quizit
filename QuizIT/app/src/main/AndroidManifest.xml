@@ -13,20 +13,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".com.quizit.activities.MainActivity">
+        <activity android:name=".com.quizit.activities.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".com.quizit.activities.FactoryActivity" />
-        <activity android:name=".com.quizit.activities.CadastroActivity" />
-        <activity android:name=".com.quizit.activities.HomeActivity" />
-        <activity android:name=".com.quizit.activities.PerfilActivity" />
-        <activity android:name=".com.quizit.activities.ForgotPassActivity" />
-        <activity android:name=".com.quizit.activities.JogarRandomActivity" />
-        <activity android:name=".com.quizit.activities.PerguntaActivity"></activity>
+        <activity android:name=".com.quizit.activities.FactoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".com.quizit.activities.CadastroActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".com.quizit.activities.HomeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".com.quizit.activities.PerfilActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".com.quizit.activities.ForgotPassActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".com.quizit.activities.JogarRandomActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".com.quizit.activities.PerguntaActivity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

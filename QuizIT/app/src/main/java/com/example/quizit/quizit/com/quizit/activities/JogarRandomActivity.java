@@ -47,6 +47,11 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     private Pergunta getPerguntaJSON(String json){
        Pergunta pergunta = new Pergunta();
         try {
@@ -93,8 +98,10 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
                 pergunta = getPerguntaJSON(s);
                 intent = new Intent(JogarRandomActivity.this, PerguntaActivity.class);
                 intent.putExtra("ObjPergunta", pergunta);
+                intent.putExtra("ObjAluno", aluno);
                 progressDialog.dismiss();
                 startActivity(intent);
+                finish();
             }else{
 
                 Toast.makeText(JogarRandomActivity.this, "teste", Toast.LENGTH_LONG).show();

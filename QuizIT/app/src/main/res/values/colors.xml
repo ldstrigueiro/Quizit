@@ -8,6 +8,6 @@
     <color name="blue_pressed">@android:color/holo_blue_dark</color>
     <color name="blue_normal">@android:color/holo_blue_light</color>
 
-    <color name="white_pressed"></color>
-    <color name="white_normal"></color>
+    <color name="white_pressed">@android:color/background_dark</color>
+    <color name="white_normal">@android:color/background_light</color>
 </resources>
