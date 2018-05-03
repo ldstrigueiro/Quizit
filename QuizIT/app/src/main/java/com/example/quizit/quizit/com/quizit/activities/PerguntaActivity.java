@@ -85,7 +85,7 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 alertDialog.dismiss();
-                intent = new Intent(PerguntaActivity.this, JogarRandomActivity.class);
+                intent = new Intent(PerguntaActivity.this, HomeActivity.class);
                 intent.putExtra("ObjAluno", aluno);
                 startActivity(intent);
                 finish();
@@ -125,7 +125,7 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
 
         @Override
         protected String doInBackground(String... strings) {
-            return Network.getEndereco(strings[0]);
+            return Network.getDados(strings[0]);
         }
 
         @Override

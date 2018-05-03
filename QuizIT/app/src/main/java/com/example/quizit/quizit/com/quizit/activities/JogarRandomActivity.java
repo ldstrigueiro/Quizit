@@ -87,7 +87,7 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
 
         @Override
         protected String doInBackground(String... strings) {
-            return Network.getEndereco(strings[0]);
+            return Network.getDados(strings[0]);
         }
 
         @Override

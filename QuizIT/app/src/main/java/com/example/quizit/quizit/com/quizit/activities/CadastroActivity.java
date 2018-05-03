@@ -230,10 +230,6 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                     edt_Matricula.requestFocus();
                     util.mensagem("Erro!", "Matrícula já cadastrada no sistema!", "Ok", dlg);
                 }else{
-
-                    //intent = new Intent(CadastroActivity.this, CadastroSucessoActivity.class);
-                    //intent.putExtra("json", s);
-                    //startActivity(intent);
                     jsonTaskPost = new JSONTaskPost();
                     jsonTaskPost.execute(urlCadastro);
                     finish();

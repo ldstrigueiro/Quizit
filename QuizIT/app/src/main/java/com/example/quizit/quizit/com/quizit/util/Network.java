@@ -1,5 +1,7 @@
 package com.example.quizit.quizit.com.quizit.util;
 
+import com.example.quizit.quizit.com.quizit.objetos.Area;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -102,7 +105,7 @@ public class Network {
         return result.toString();
     }
 
-    public static String getEndereco (String url){
+    public static String getDados(String url){
         InputStream inputStream;
         String resultado = "nada";
 
@@ -122,6 +125,7 @@ public class Network {
         }
         return resultado;
     }
+
 
     public static String getMatriculaRepetida (String url){
         InputStream inputStream;

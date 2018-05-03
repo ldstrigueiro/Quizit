@@ -28,7 +28,6 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
     private TextView txtNome;
     private TextView txtSemestre;
-    private TextView txtPontuacao;
     private ImageView imgPerfil;
     private ImageButton imgBtnConfig;
     private ImageButton imgBtnFactory;
@@ -56,7 +55,6 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
         //Referências
         txtNome = (TextView) findViewById(R.id.txtNomeHome);
-        txtPontuacao = (TextView) findViewById(R.id.txtPontuacaoHome);
         txtSemestre = (TextView) findViewById(R.id.txtSemestreHome);
         imgPerfil = (ImageView) findViewById(R.id.imgPerfilHome);
         imgBtnConfig = (ImageButton) findViewById(R.id.btnConfigHome);
@@ -73,7 +71,6 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         if(aluno != null){
             txtNome.setText(aluno.getNome());
             txtSemestre.setText(String.valueOf(aluno.getSemestre()));
-            txtPontuacao.setText(String.valueOf(aluno.getPontuacao()));
 
             imgPerfil.setOnClickListener(this);
 
@@ -171,6 +168,12 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         builder.create();
         builder.show();
     }
+    private void doIntent(){
+        intent = new Intent(this, JogarRunActivity.class);
+        intent.putExtra("ObjAluno", aluno);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
 
     private void mostraModosRun(){
         //Popula a lista de acordo com o strings.xml
@@ -192,6 +195,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 switch (which){
                     case 0:
                         //Single Run
+                        doIntent();
+                        //overridePendingTransition(R.anim.from_middle, R.anim.to_middle); Usar na tela de feedback de acerto
                         break;
                     case 1:
                         //5 Run
@@ -209,6 +214,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         builder.create();
         builder.show();
     }
+
 
 
     //PEGAR ESSE JSON TASK E COLOCAR ELE NA FEEDBACK ACTIVITY

@@ -39,5 +39,6 @@
     <string name="btnEnviarFeedback">Enviar</string>
     <string name="btnPlayRand">Jogar</string>
     <string name="btnEscolherPerg">Confirmar</string>
+    <string name="txtInstrucao">Escolha a área da(s) pergunta(s):</string>
 
 </resources>

@@ -21,7 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class LoginActivity extends Activity implements View.OnClickListener {
 
     //=============== Variáveis Globais =================
     private TextView txtForgot;
@@ -146,26 +146,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(MainActivity.this, "Aguarde", "Verificando Credenciais");
+            progressDialog = ProgressDialog.show(LoginActivity.this, "Aguarde", "Verificando Credenciais");
 
         }
 
         @Override
         protected String doInBackground(String... params) {
-            return Network.getEndereco(params[0]);
+            return Network.getDados(params[0]);
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
             aluno = getAlunoJson(s);
 
             if(aluno == null){ //Valida se o aluno é nulo e trata ele com o aviso antes de passar pra HomeActivity
-                dlg = new AlertDialog.Builder(MainActivity.this);
+                dlg = new AlertDialog.Builder(LoginActivity.this);
                 util.mensagem("Opa!", "Matricula/Senha não cadastrados", "Ok", dlg);
                 progressDialog.dismiss();
             }else{
-                intent = new Intent(MainActivity.this, HomeActivity.class);
+                intent = new Intent(LoginActivity.this, HomeActivity.class);
                 intent.putExtra("ObjAluno", aluno);
                 progressDialog.dismiss();
                 startActivity(intent);
