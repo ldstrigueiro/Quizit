@@ -3,8 +3,12 @@ package com.example.quizit.quizit.com.quizit.activities;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.example.quizit.quizit.R;
 import com.example.quizit.quizit.com.quizit.objetos.Aluno;
@@ -19,12 +23,13 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JogarRunActivity extends Activity {
+public class JogarRunActivity extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private Area area;
     private Spinner spinner;
     private JSONTaskGet jsonTaskGet = new JSONTaskGet();
     private String urlGetAreas = "http://apitccapp.azurewebsites.net/Pergunta/getIdNomeArea/";
     private Aluno aluno;
+    private Button btnSelecionar;
 
 
 
@@ -33,6 +38,8 @@ public class JogarRunActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jogar_run);
         spinner = (Spinner) findViewById(R.id.spinner_area);
+
+
 
         aluno = getIntent().getParcelableExtra("ObjAluno");
         String url = urlGetAreas+String.valueOf(aluno.getSemestre());
@@ -59,6 +66,28 @@ public class JogarRunActivity extends Activity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnSelecionaAreaRun:
+
+
+                break;
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (position){
+            
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
 
     private class JSONTaskGet extends AsyncTask<String, String, String>{
 
@@ -80,6 +109,10 @@ public class JogarRunActivity extends Activity {
 
             ArrayAdapter areaAdapter = new ArrayAdapter<Area>(JogarRunActivity.this, android.R.layout.simple_list_item_1, listArea);
             spinner.setAdapter(areaAdapter);
+            spinner.setOnItemSelectedListener(JogarRunActivity.this);
+
+            btnSelecionar = (Button) findViewById(R.id.btnSelecionaAreaRun);
+            btnSelecionar.setOnClickListener(JogarRunActivity.this);
 
 
         }

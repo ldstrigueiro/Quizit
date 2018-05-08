@@ -103,7 +103,6 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
                 startActivity(intent);
                 finish();
             }else{
-
                 Toast.makeText(JogarRandomActivity.this, "teste", Toast.LENGTH_LONG).show();
             }
 
