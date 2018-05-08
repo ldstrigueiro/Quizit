@@ -216,7 +216,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
         @Override
         protected String doInBackground(String... params) { //  Retorna o resultado do json passado pelo parametro params[0] em
-            return Network.getMatriculaRepetida(params[0]); //  forma de string.
+            return Network.getDados(params[0]); //  forma de string.
         }
 
         @Override

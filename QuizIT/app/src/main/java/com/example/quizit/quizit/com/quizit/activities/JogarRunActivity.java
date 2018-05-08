@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,9 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class JogarRunActivity extends Activity implements View.OnClickListener {
     private Area area;
@@ -64,7 +60,7 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
         jsonTaskGet.execute(url);
     }
 
-    private ArrayList<Area> getPerguntaJSON(String json){
+    private ArrayList<Area> getAreaJSON(String json){
         try {
             JSONArray jsonArray = new JSONArray(json);
             ArrayList<Area> listArea = new ArrayList<>();
@@ -113,7 +109,7 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            ArrayList<Area> listArea = getPerguntaJSON(s);
+            ArrayList<Area> listArea = getAreaJSON(s);
 
 
             ArrayAdapter areaAdapter = new ArrayAdapter<Area>(JogarRunActivity.this, android.R.layout.simple_list_item_1, listArea);

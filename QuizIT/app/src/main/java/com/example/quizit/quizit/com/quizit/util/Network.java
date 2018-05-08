@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -106,52 +107,39 @@ public class Network {
     }
 
     public static String getDados(String url){
-        InputStream inputStream;
-        String resultado = "nada";
+        String resultado = null;
 
         try {
-            HttpURLConnection conn;
             URL endPoint = new URL(url);
+            HttpURLConnection conn;
+            InputStream inputStream;
+
             conn = (HttpURLConnection) endPoint.openConnection();
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(2000);
             conn.setReadTimeout(2000);
 
             inputStream = conn.getInputStream();
-            resultado = Network.parseToString(inputStream);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return resultado;
-    }
-
-
-    public static String getMatriculaRepetida (String url){
-        InputStream inputStream;
-        String resultado;
-
-        try {
-            HttpURLConnection conn;
-            URL endPoint = new URL(url);
-            conn = (HttpURLConnection) endPoint.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setConnectTimeout(2000);
-            conn.setReadTimeout(2000);
-
-            inputStream = conn.getInputStream();
-            resultado = Network.parseToString(inputStream);
-
+            resultado = Network.readStringContent(inputStream);
             return resultado;
         }catch (Exception e){
-            return null;
+            e.printStackTrace();
+            return resultado;
+        }
+    }
+    private static String readStringContent(InputStream in) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-
+        int len;
+        byte[] buffer = new byte[1024];
+        while ((len = in.read(buffer)) != -1) {
+            baos.write(buffer, 0, len);
         }
 
+        return new String(baos.toByteArray());
     }
 
-    public static String parseToString(InputStream inputStream) throws IOException {
+    /*public static String parseToString(InputStream inputStream) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line = null;
@@ -160,5 +148,5 @@ public class Network {
         }
 
         return stringBuilder.toString();
-    }
+    }*/
 }
