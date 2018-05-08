@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.quizit.quizit.R;
 import com.example.quizit.quizit.com.quizit.objetos.Aluno;
+import com.example.quizit.quizit.com.quizit.objetos.Area;
 import com.example.quizit.quizit.com.quizit.objetos.Pergunta;
 import com.example.quizit.quizit.com.quizit.util.Network;
 
@@ -29,7 +30,7 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
     private RadioButton rbOpcao4;
     private RadioButton rbResposta;
     private Button btnEscolherPerg;
-    private TextView area;
+    private TextView txtArea;
     private ConstraintLayout constraintLayout;
     private JSONTaskGet jsonTaskGet = new JSONTaskGet();
 
@@ -40,13 +41,14 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
     private Pergunta pergunta;
     private Aluno aluno;
 
+
     private AlertDialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pergunta);
 
-        area = (TextView) findViewById(R.id.txtAreaPerg);
+        txtArea = (TextView) findViewById(R.id.txtAreaPerg);
         enunciado = (TextView) findViewById(R.id.txtEnunciadoPerg);
         rgOpcoes = (RadioGroup) findViewById(R.id.rgOpcoesPerg);
         rbOpcao1 = (RadioButton) findViewById(R.id.rbOpcao1Perg);
@@ -62,7 +64,7 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         pergunta = getIntent().getParcelableExtra("ObjPergunta");
         aluno = getIntent().getParcelableExtra("ObjAluno");
 
-        area.setText(pergunta.getArea());
+        txtArea.setText(pergunta.getArea());
         enunciado.setText(pergunta.getEnunciado());
         rbOpcao1.setText(pergunta.getOpcao1());
         rbOpcao2.setText(pergunta.getOpcao2());

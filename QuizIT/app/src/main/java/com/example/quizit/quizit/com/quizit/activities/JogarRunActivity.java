@@ -1,6 +1,7 @@
 package com.example.quizit.quizit.com.quizit.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.quizit.quizit.R;
 import com.example.quizit.quizit.com.quizit.objetos.Aluno;
@@ -23,13 +26,16 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JogarRunActivity extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class JogarRunActivity extends Activity implements View.OnClickListener {
     private Area area;
     private Spinner spinner;
     private JSONTaskGet jsonTaskGet = new JSONTaskGet();
     private String urlGetAreas = "http://apitccapp.azurewebsites.net/Pergunta/getIdNomeArea/";
     private Aluno aluno;
     private Button btnSelecionar;
+    private Intent intent;
+    private TextView txtExplicacao;
+    private int modo;
 
 
 
@@ -38,10 +44,22 @@ public class JogarRunActivity extends Activity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jogar_run);
         spinner = (Spinner) findViewById(R.id.spinner_area);
+        txtExplicacao = (TextView) findViewById(R.id.txtExplicaRun);
 
-
-
+        modo = getIntent().getIntExtra("Modo", -1);
         aluno = getIntent().getParcelableExtra("ObjAluno");
+
+        if(modo == 1){
+            txtExplicacao.setText("Modo Single Run\n\n Neste modo, você responderá a apenas uma pergunta da área selecionada acima.");
+        }else if(modo == 5){
+            txtExplicacao.setText("Modo Single Run\n\n Neste modo, você responderá a CINCO perguntas da área selecionada acima. Terá duas tentativas extras");
+        }else if(modo == 10){
+            txtExplicacao.setText("Modo Single Run\n\n Neste modo, você responderá a DEZ perguntas da área selecionada acima. Terá tres tentativas extras");
+        }else if(modo == -1){
+            txtExplicacao.setText("ERROR -1");
+        }
+
+
         String url = urlGetAreas+String.valueOf(aluno.getSemestre());
         jsonTaskGet.execute(url);
     }
@@ -70,23 +88,14 @@ public class JogarRunActivity extends Activity implements View.OnClickListener, 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnSelecionaAreaRun:
-
+                area = (Area)spinner.getSelectedItem();
+                Toast.makeText(this, ""+area.getNome(), Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, PerguntaActivity.class);
 
                 break;
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){
-            
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
 
     private class JSONTaskGet extends AsyncTask<String, String, String>{
@@ -109,7 +118,6 @@ public class JogarRunActivity extends Activity implements View.OnClickListener, 
 
             ArrayAdapter areaAdapter = new ArrayAdapter<Area>(JogarRunActivity.this, android.R.layout.simple_list_item_1, listArea);
             spinner.setAdapter(areaAdapter);
-            spinner.setOnItemSelectedListener(JogarRunActivity.this);
 
             btnSelecionar = (Button) findViewById(R.id.btnSelecionaAreaRun);
             btnSelecionar.setOnClickListener(JogarRunActivity.this);

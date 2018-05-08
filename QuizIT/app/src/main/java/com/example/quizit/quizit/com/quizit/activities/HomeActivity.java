@@ -168,9 +168,10 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         builder.create();
         builder.show();
     }
-    private void doIntent(){
+    private void doIntent(int modo){
         intent = new Intent(this, JogarRunActivity.class);
         intent.putExtra("ObjAluno", aluno);
+        intent.putExtra("Modo", modo);
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
@@ -195,14 +196,16 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 switch (which){
                     case 0:
                         //Single Run
-                        doIntent();
+                        doIntent(1);
                         //overridePendingTransition(R.anim.from_middle, R.anim.to_middle); Usar na tela de feedback de acerto
                         break;
                     case 1:
                         //5 Run
+                        doIntent(5);
                         break;
                     case 2:
                         //10 Run
+                        doIntent(10);
                         break;
 
 
