@@ -47,6 +47,7 @@ public class Aluno implements Parcelable {
         senha = in.readString();
         avatar = in.readInt();
 
+
     }
 
     public static final Creator<Aluno> CREATOR = new Creator<Aluno>() {
@@ -61,18 +62,19 @@ public class Aluno implements Parcelable {
         }
     };
 
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+
     public int getAvatar() {
         return avatar;
     }
 
     public void setAvatar(int avatar) {
         this.avatar = avatar;
-    }
-
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 
     //Getter and Setters
@@ -156,5 +158,6 @@ public class Aluno implements Parcelable {
         parcel.writeString(sexo);
         parcel.writeString(curso);
         parcel.writeString(senha);
+
     }
 }

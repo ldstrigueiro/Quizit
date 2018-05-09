@@ -15,7 +15,7 @@
     <string name="btn_Cadastrar">Cadastrar</string>
 
     <!-- ForgotPassword Activity -->
-    <string name="txtForgotPass">Informe o seu email. Dentro de instantes, você receberá um link em seu email para a criação de uma nova senha.</string>
+    <string name="txtForgotPass">Informe o seu email e sua matricula. Dentro de instantes, você receberá uma nova senha em seu email que poderá ser alterada posteriormente.</string>
     <string name="btn_EnviarForgot">Enviar</string>
 
     <!-- EmailEnviado Activity -->
