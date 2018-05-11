@@ -87,7 +87,7 @@ public class ForgotPassActivity extends Activity implements View.OnClickListener
             boolean isCorrect = Boolean.parseBoolean(s);
 
             progressDialog.dismiss();
-            
+
             if(isCorrect){
                 Toast.makeText(ForgotPassActivity.this, "Senha enviada com sucesso!!", Toast.LENGTH_LONG).show();
                 finish();

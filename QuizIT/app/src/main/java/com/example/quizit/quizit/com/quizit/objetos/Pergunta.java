@@ -3,6 +3,9 @@ package com.example.quizit.quizit.com.quizit.objetos;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Pergunta implements Parcelable {
 
     private String enunciado;
@@ -154,5 +157,28 @@ public class Pergunta implements Parcelable {
         dest.writeInt(id);
         dest.writeString(area);
         dest.writeInt(idArea);
+    }
+    public static Pergunta getPerguntaJSON(String json){
+        Pergunta pergunta = new Pergunta();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            pergunta.setId(jsonObject.getInt("idPergunta"));
+            pergunta.setEnunciado(jsonObject.getString("pergunta"));
+            pergunta.setResposta(jsonObject.getString("resposta"));
+            pergunta.setOpcao1(jsonObject.getString("opcao1"));
+            pergunta.setOpcao2(jsonObject.getString("opcao2"));
+            pergunta.setOpcao3(jsonObject.getString("opcao3"));
+            pergunta.setIdArea(jsonObject.getInt("idArea"));
+            pergunta.setArea(jsonObject.getString("nomeArea"));
+
+            return pergunta;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
     }
 }

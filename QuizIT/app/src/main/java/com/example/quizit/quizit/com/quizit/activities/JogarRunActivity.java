@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.quizit.quizit.R;
 import com.example.quizit.quizit.com.quizit.objetos.Aluno;
 import com.example.quizit.quizit.com.quizit.objetos.Area;
+import com.example.quizit.quizit.com.quizit.objetos.Pergunta;
 import com.example.quizit.quizit.com.quizit.util.Network;
 
 import org.json.JSONArray;
@@ -27,11 +28,16 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
     private Spinner spinner;
     private JSONTaskGet jsonTaskGet = new JSONTaskGet();
     private String urlGetAreas = "http://apitccapp.azurewebsites.net/Pergunta/getIdNomeArea/";
+    private String urlPergunta = "http://apitccapp.azurewebsites.net/Pergunta/getPerguntaRandomArea/";
     private Aluno aluno;
     private Button btnSelecionar;
     private Intent intent;
     private TextView txtExplicacao;
+
     private int modo;
+    private int vidas;
+    //Para reutilizar o AsyncTask verificando se for true, ja populou o spinner.
+    private boolean jaPassou = false;
 
 
 
@@ -48,9 +54,9 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
         if(modo == 1){
             txtExplicacao.setText("Modo Single Run\n\n Neste modo, você responderá a apenas uma pergunta da área selecionada acima.");
         }else if(modo == 5){
-            txtExplicacao.setText("Modo Single Run\n\n Neste modo, você responderá a CINCO perguntas da área selecionada acima. Terá duas tentativas extras");
+            txtExplicacao.setText("Modo 5 Run\n\n Neste modo, você responderá a CINCO perguntas da área selecionada acima. Terá duas tentativas extras");
         }else if(modo == 10){
-            txtExplicacao.setText("Modo Single Run\n\n Neste modo, você responderá a DEZ perguntas da área selecionada acima. Terá tres tentativas extras");
+            txtExplicacao.setText("Modo 10 Run\n\n Neste modo, você responderá a DEZ perguntas da área selecionada acima. Terá tres tentativas extras");
         }else if(modo == -1){
             txtExplicacao.setText("ERROR -1");
         }
@@ -84,17 +90,18 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnSelecionaAreaRun:
+                jsonTaskGet = new JSONTaskGet();
                 area = (Area)spinner.getSelectedItem();
                 Toast.makeText(this, ""+area.getNome(), Toast.LENGTH_SHORT).show();
-                intent = new Intent(this, PerguntaActivity.class);
-
+                String url = urlPergunta+aluno.getSemestre()+"/"+area.getId();
+                jsonTaskGet.execute(url);
                 break;
         }
     }
 
 
 
-    private class JSONTaskGet extends AsyncTask<String, String, String>{
+    private class JSONTaskGet extends AsyncTask<String, Void, String>{
 
         @Override
         protected void onPreExecute() {
@@ -102,21 +109,46 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
         }
 
         @Override
-        protected String doInBackground(String... strings) {
-            return Network.getDados(strings[0]);
-        }
+        protected String doInBackground(String... strings) { return Network.getDados(strings[0]);   }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            ArrayList<Area> listArea = getAreaJSON(s);
 
+            if(!jaPassou){
+                if(s != null){
+                    jaPassou = true;
+                    ArrayList<Area> listArea = getAreaJSON(s);
+                    ArrayAdapter areaAdapter = new ArrayAdapter<Area>(JogarRunActivity.this, android.R.layout.simple_list_item_1, listArea);
+                    spinner.setAdapter(areaAdapter);
+                    btnSelecionar = (Button) findViewById(R.id.btnSelecionaAreaRun);
+                    btnSelecionar.setOnClickListener(JogarRunActivity.this);
 
-            ArrayAdapter areaAdapter = new ArrayAdapter<Area>(JogarRunActivity.this, android.R.layout.simple_list_item_1, listArea);
-            spinner.setAdapter(areaAdapter);
-
-            btnSelecionar = (Button) findViewById(R.id.btnSelecionaAreaRun);
-            btnSelecionar.setOnClickListener(JogarRunActivity.this);
+                }else{
+                    Toast.makeText(JogarRunActivity.this, "Erro ao obter dados do servidor, tente mais tarde.", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }else{
+                if(s != null){
+                    Pergunta pergunta = Pergunta.getPerguntaJSON(s);
+                    intent = new Intent(JogarRunActivity.this, PerguntaActivity.class);
+                    intent.putExtra("Modo", modo);
+                    if(modo == 1)
+                        vidas = 0;
+                    else if (modo == 5)
+                        vidas = 2;
+                    else if (modo == 10)
+                        vidas = 3;
+                    intent.putExtra("Vidas", vidas);
+                    intent.putExtra("ObjPergunta", pergunta);
+                    intent.putExtra("ObjAluno", aluno);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(JogarRunActivity.this, "Erro ao obter dados do servidor, tente mais tarde.", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }
 
 
         }

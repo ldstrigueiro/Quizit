@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.quizit.quizit.R;
 import com.example.quizit.quizit.com.quizit.objetos.Aluno;
-import com.example.quizit.quizit.com.quizit.objetos.Area;
 import com.example.quizit.quizit.com.quizit.objetos.Pergunta;
 import com.example.quizit.quizit.com.quizit.util.Network;
 
@@ -38,8 +37,11 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
 
     private Intent intent;
 
+    //Extras da intent
     private Pergunta pergunta;
     private Aluno aluno;
+    private int vidas;
+    private int modo;
 
 
     private AlertDialog alertDialog;
@@ -63,6 +65,15 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
 
         pergunta = getIntent().getParcelableExtra("ObjPergunta");
         aluno = getIntent().getParcelableExtra("ObjAluno");
+
+        //Se vidas == -1 entao PerguntaActivity entende que está no modo baloon.
+        //Se vidas == 0 ou 2 ou 3 entao PerguntaActivity entende que está no modo Run.
+        //Contabilizar as vidas do jogador
+        vidas = getIntent().getIntExtra("Vidas", -2);
+
+        //Valor a ser apresentado na RunFeedbackActivity
+        modo = getIntent().getIntExtra("Modo", -1);
+
 
         txtArea.setText(pergunta.getArea());
         enunciado.setText(pergunta.getEnunciado());
@@ -111,7 +122,7 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.btnEscolherPerg:
                 int idResposta = rgOpcoes.getCheckedRadioButtonId();
-                rbResposta = (RadioButton) findViewById(idResposta);
+                rbResposta = findViewById(idResposta);
                 if(idResposta != -1)
                     jsonTaskGet.execute(urlPontuacao+pergunta.getId()+"/"+aluno.getIdAluno()+"/"+rbResposta.getText()+"/"+pergunta.getIdArea());
                 break;
@@ -133,16 +144,39 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            String[] txtResultado = {"Acertou!!", "Errou!!", "GAME OVER"};
+
             boolean isCorreto = Boolean.parseBoolean(s);
             if(isCorreto){
                 Toast.makeText(PerguntaActivity.this, "Acertou", Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(PerguntaActivity.this, "Errou", Toast.LENGTH_LONG).show();
             }
-            intent = new Intent(PerguntaActivity.this, JogarRandomActivity.class);
-            intent.putExtra("ObjAluno", aluno);
-            startActivity(intent);
-            finish();
+
+            if (vidas == -1 && vidas != -2){
+                intent = new Intent(PerguntaActivity.this, JogarRandomActivity.class);
+                intent.putExtra("ObjAluno", aluno);
+                intent.putExtra("Modo", modo);
+                startActivity(intent);
+                finish();
+            }else if(vidas != -1 && vidas != -2){
+                intent = new Intent(PerguntaActivity.this, RunFeedbackActivity.class);
+                if(!isCorreto){
+                    vidas -= 1;
+                    //Se entrar 0 e ficar -1, finaliza o jogo. Game over
+                    if(vidas == -1)
+                        intent.putExtra("TxtResultado", txtResultado[2]);//GAME OVER
+                    else
+                        intent.putExtra("TxtResultado", txtResultado[1]);//Errou, apresenta msg e desconta vida
+                }else{
+                    intent.putExtra("TxtResultado", txtResultado[0]);//Acertou, desconta questionsLeft;
+                }
+                intent.putExtra("ObjAluno", aluno);
+                intent.putExtra("Vidas", vidas); //VIDAs
+                intent.putExtra("Modo", modo);
+                startActivity(intent);
+                finish();
+            }
         }
     }
 }

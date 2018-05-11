@@ -158,6 +158,6 @@ public class Aluno implements Parcelable {
         parcel.writeString(sexo);
         parcel.writeString(curso);
         parcel.writeString(senha);
-
+        parcel.writeInt(avatar);
     }
 }

@@ -23,7 +23,9 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
     private Pergunta pergunta;
     private JSONTaskGet jsonTaskGet = new JSONTaskGet();
     private String urlPergunta = "http://apitccapp.azurewebsites.net/Pergunta/getPerguntaRandom/";
+
     private Aluno aluno;
+    private int modo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
         btnPlay.setOnClickListener(this);
 
         aluno = getIntent().getParcelableExtra("ObjAluno");
+        modo = getIntent().getIntExtra("Modo", -1);
 
 
     }
@@ -52,29 +55,7 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
         super.onDestroy();
     }
 
-    private Pergunta getPerguntaJSON(String json){
-       Pergunta pergunta = new Pergunta();
-        try {
-            JSONObject jsonObject = new JSONObject(json);
 
-            pergunta.setId(jsonObject.getInt("idPergunta"));
-            pergunta.setEnunciado(jsonObject.getString("pergunta"));
-            pergunta.setResposta(jsonObject.getString("resposta"));
-            pergunta.setOpcao1(jsonObject.getString("opcao1"));
-            pergunta.setOpcao2(jsonObject.getString("opcao2"));
-            pergunta.setOpcao3(jsonObject.getString("opcao3"));
-            pergunta.setIdArea(jsonObject.getInt("idArea"));
-            pergunta.setArea(jsonObject.getString("nomeArea"));
-
-            return pergunta;
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        return null;
-    }
 
     private class JSONTaskGet extends AsyncTask<String, String, String>{
 
@@ -95,10 +76,12 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
             super.onPostExecute(s);
 
             if(s != null) {
-                pergunta = getPerguntaJSON(s);
+                pergunta = Pergunta.getPerguntaJSON(s);
                 intent = new Intent(JogarRandomActivity.this, PerguntaActivity.class);
                 intent.putExtra("ObjPergunta", pergunta);
                 intent.putExtra("ObjAluno", aluno);
+                intent.putExtra("Modo", modo);
+                intent.putExtra("Vidas", -1);
                 progressDialog.dismiss();
                 startActivity(intent);
                 finish();

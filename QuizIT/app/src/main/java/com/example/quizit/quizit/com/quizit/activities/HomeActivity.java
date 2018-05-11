@@ -113,6 +113,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
             case R.id.btnJogarRandomHome:
                 intent = new Intent(this, JogarRandomActivity.class);
+                intent.putExtra("Modo", 0);
                 intent.putExtra("ObjAluno", aluno);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -168,6 +169,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         builder.create();
         builder.show();
     }
+
+
     private void doIntent(int modo){
         intent = new Intent(this, JogarRunActivity.class);
         intent.putExtra("ObjAluno", aluno);
