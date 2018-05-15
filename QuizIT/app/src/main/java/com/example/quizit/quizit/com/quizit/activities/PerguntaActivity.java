@@ -19,6 +19,9 @@ import com.example.quizit.quizit.com.quizit.objetos.Aluno;
 import com.example.quizit.quizit.com.quizit.objetos.Pergunta;
 import com.example.quizit.quizit.com.quizit.util.Network;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class PerguntaActivity extends Activity implements View.OnClickListener {
 
     private TextView enunciado;
@@ -50,6 +53,9 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pergunta);
 
+        ArrayList<String> arrayList = new ArrayList<String>();
+
+
         txtArea = (TextView) findViewById(R.id.txtAreaPerg);
         enunciado = (TextView) findViewById(R.id.txtEnunciadoPerg);
         rgOpcoes = (RadioGroup) findViewById(R.id.rgOpcoesPerg);
@@ -74,13 +80,20 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         //Valor a ser apresentado na RunFeedbackActivity
         modo = getIntent().getIntExtra("Modo", -1);
 
+        arrayList.add(pergunta.getOpcao1());
+        arrayList.add(pergunta.getOpcao2());
+        arrayList.add(pergunta.getOpcao3());
+        arrayList.add(pergunta.getResposta());
+
+        Collections.shuffle(arrayList);
 
         txtArea.setText(pergunta.getArea());
         enunciado.setText(pergunta.getEnunciado());
-        rbOpcao1.setText(pergunta.getOpcao1());
-        rbOpcao2.setText(pergunta.getOpcao2());
-        rbOpcao3.setText(pergunta.getOpcao3());
-        rbOpcao4.setText(pergunta.getResposta());
+
+        rbOpcao1.setText(arrayList.get(0));
+        rbOpcao2.setText(arrayList.get(1));
+        rbOpcao3.setText(arrayList.get(2));
+        rbOpcao4.setText(arrayList.get(3));
         //Dar shuffle num ArrayList com as perguntas.
 
     }
@@ -138,19 +151,20 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
 
         @Override
         protected String doInBackground(String... strings) {
-            return Network.getDados(strings[0]);
+            return Network.httpGet(strings[0]);
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             String[] txtResultado = {"Acertou!!", "Errou!!", "GAME OVER"};
+            int resultado;
 
             boolean isCorreto = Boolean.parseBoolean(s);
             if(isCorreto){
-                Toast.makeText(PerguntaActivity.this, "Acertou", Toast.LENGTH_LONG).show();
+                Toast.makeText(PerguntaActivity.this, "Acertou", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(PerguntaActivity.this, "Errou", Toast.LENGTH_LONG).show();
+                Toast.makeText(PerguntaActivity.this, "Errou", Toast.LENGTH_SHORT).show();
             }
 
             if (vidas == -1 && vidas != -2){
@@ -163,17 +177,24 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
                 intent = new Intent(PerguntaActivity.this, RunFeedbackActivity.class);
                 if(!isCorreto){
                     vidas -= 1;
+
                     //Se entrar 0 e ficar -1, finaliza o jogo. Game over
-                    if(vidas == -1)
-                        intent.putExtra("TxtResultado", txtResultado[2]);//GAME OVER
+                    if(vidas == -1 || modo == 0)
+                        resultado = 2;//GAME OVER
                     else
-                        intent.putExtra("TxtResultado", txtResultado[1]);//Errou, apresenta msg e desconta vida
+                        resultado = 1;//Errou, apresenta msg e desconta vida
                 }else{
-                    intent.putExtra("TxtResultado", txtResultado[0]);//Acertou, desconta questionsLeft;
+                    resultado = 0;//Acertou, desconta questionsLeft;
+                    modo -= 1;
+                    if(modo == 0)
+                        resultado = 2;
                 }
+
+                intent.putExtra("TxtResultado", txtResultado[resultado]);
                 intent.putExtra("ObjAluno", aluno);
                 intent.putExtra("Vidas", vidas); //VIDAs
                 intent.putExtra("Modo", modo);
+                intent.putExtra("IdArea", pergunta.getIdArea());
                 startActivity(intent);
                 finish();
             }

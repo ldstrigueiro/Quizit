@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -149,6 +148,10 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 switch (which){
                     case 0:
                         //Editar Perfil
+                        intent = new Intent(HomeActivity.this, EditarPerfilActivity.class);
+                        intent.putExtra("ObjAluno", aluno);
+                        startActivity(intent);
+                        finish();
                         break;
                     case 1:
                         //Feedback activity
@@ -245,7 +248,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
                 Log.e("params", jsonObject.toString());
 
-                return Network.postCadastro(jsonObject, urlPostFeedback);
+                return Network.httpPost(jsonObject, urlPostFeedback);
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (Exception e) {

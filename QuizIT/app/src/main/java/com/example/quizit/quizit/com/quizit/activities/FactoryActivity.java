@@ -103,7 +103,7 @@ public class FactoryActivity extends Activity implements View.OnClickListener {
                 Log.e("params", jsonObject.toString());
 
                 //Obtem a conexao, transforma o JSON em URL e envia pro AZURE para popular o banco.
-                return Network.postCadastro(jsonObject, url);
+                return Network.httpPost(jsonObject, url);
 
 
             } catch (JSONException e) {

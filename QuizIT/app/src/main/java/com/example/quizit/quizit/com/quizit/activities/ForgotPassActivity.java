@@ -9,12 +9,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.example.quizit.quizit.com.quizit.util.Mail;
+
 import com.example.quizit.quizit.R;
 import com.example.quizit.quizit.com.quizit.util.Network;
 import com.example.quizit.quizit.com.quizit.util.Validator;
@@ -78,7 +77,7 @@ public class ForgotPassActivity extends Activity implements View.OnClickListener
 
         @Override
         protected String doInBackground(String... strings) {
-            return Network.getDados(strings[0]);
+            return Network.httpGet(strings[0]);
         }
 
         @Override

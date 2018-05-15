@@ -14,9 +14,6 @@ import com.example.quizit.quizit.com.quizit.objetos.Aluno;
 import com.example.quizit.quizit.com.quizit.objetos.Pergunta;
 import com.example.quizit.quizit.com.quizit.util.Network;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class JogarRandomActivity extends Activity implements View.OnClickListener {
     private Button btnPlay;
     private Intent intent;
@@ -68,7 +65,7 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
 
         @Override
         protected String doInBackground(String... strings) {
-            return Network.getDados(strings[0]);
+            return Network.httpGet(strings[0]);
         }
 
         @Override

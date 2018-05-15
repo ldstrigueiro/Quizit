@@ -109,7 +109,7 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
         }
 
         @Override
-        protected String doInBackground(String... strings) { return Network.getDados(strings[0]);   }
+        protected String doInBackground(String... strings) { return Network.httpGet(strings[0]);   }
 
         @Override
         protected void onPostExecute(String s) {
@@ -136,9 +136,9 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
                     if(modo == 1)
                         vidas = 0;
                     else if (modo == 5)
-                        vidas = 2;
+                        vidas = 1;
                     else if (modo == 10)
-                        vidas = 3;
+                        vidas = 2;
                     intent.putExtra("Vidas", vidas);
                     intent.putExtra("ObjPergunta", pergunta);
                     intent.putExtra("ObjAluno", aluno);

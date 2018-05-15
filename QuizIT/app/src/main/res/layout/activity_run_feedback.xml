@@ -32,4 +32,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="134dp"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/btnProximaRunFB"
+        android:layout_width="146dp"
+        android:layout_height="84dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="132dp"
+        android:text="@string/btn_Proximo" />
+
+    <Button
+        android:id="@+id/btnSairRunFB"
+        android:layout_width="89dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="54dp"
+        android:text="@string/btn_Sair" />
 </RelativeLayout>

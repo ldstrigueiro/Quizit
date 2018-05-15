@@ -44,7 +44,8 @@
             android:name=".com.quizit.activities.PerguntaActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".com.quizit.activities.JogarRunActivity" />
-        <activity android:name=".com.quizit.activities.RunFeedbackActivity"></activity>
+        <activity android:name=".com.quizit.activities.RunFeedbackActivity" />
+        <activity android:name=".com.quizit.activities.EditarPerfilActivity"></activity>
     </application>
 
 </manifest>

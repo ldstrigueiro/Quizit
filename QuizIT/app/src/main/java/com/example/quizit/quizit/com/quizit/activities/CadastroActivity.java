@@ -9,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,8 +26,6 @@ import com.example.quizit.quizit.com.quizit.util.Validator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 public class CadastroActivity extends Activity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -96,6 +93,8 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
             //Tira "." e coloca "-" na string do email
             emailSemPonto = edt_Email.getText().toString().replace(".", "-");
 
+            //Desativa o botao
+            btn_Cadastrar.setEnabled(false);
 
             //Valida se a matricula ja existe e cadastra
             jsonTaskGet = new JSONTaskGet();
@@ -131,26 +130,31 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
 
         if (res = validator.isCampoVazio(nome)) {
+            btn_Cadastrar.setEnabled(true);
             edt_Nome.requestFocus();
             util.mensagem("Nome inválido!",
                     "O nome não pode ser vazio.",
                     "Ok", dlg);
         } else if (res = !validator.isEmailValido(email)) {
+            btn_Cadastrar.setEnabled(true);
             edt_Email.requestFocus();
             util.mensagem("Email inválido!",
                     "Confira se o email inserido está correto.",
                     "Ok", dlg);
         } else if (res = validator.isCampoVazio(senha)) {
+            btn_Cadastrar.setEnabled(true);
             edt_Senha.requestFocus();
             util.mensagem("Senha inválida!",
                     "A senha não pode ser vazia.",
                     "Ok", dlg);
         } else if (res = (validator.isCampoVazio(matricula) || !validator.isPadraoMatricula(matricula))) {
+            btn_Cadastrar.setEnabled(true);
             edt_Matricula.requestFocus();
             util.mensagem("Matrícula inválida!",
                     "A matrícula está vazia ou não está no padrão correto. Ex: UC12345678",
                     "Ok", dlg);
         } else if (res = (validator.isCampoVazio(semestre) || (semestreInt <= 0 || semestreInt > 8))) {
+            btn_Cadastrar.setEnabled(true);
             edt_Semestre.requestFocus();
             util.mensagem("Semestre inválido!",
                     "O semestre tem que estár entre 1 e 8.",
@@ -199,7 +203,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                 Log.e("params", jsonObject.toString());
 
                 //Obtem a conexao, transforma o JSON em URL e envia pro AZURE para popular o banco.
-                return Network.postCadastro(jsonObject, urlCadastro);
+                return Network.httpPost(jsonObject, urlCadastro);
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -219,6 +223,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
             if(!isCorrect){
                 edt_Matricula.requestFocus();
                 util.mensagem("OPA!", "Matricula já cadastrada no sistema!", "Ok", dlg);
+                btn_Cadastrar.setEnabled(true);
             }else{
                 Toast.makeText(CadastroActivity.this, "Cadastro realizado com sucesso!!", Toast.LENGTH_LONG).show();
                 //Popular aluno e passar como parametro para a activity home.
@@ -239,7 +244,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
         @Override
         protected String doInBackground(String... params) { //  Retorna o resultado do json passado pelo parametro params[0] em
-            return Network.getDados(params[0]); //  forma de string.
+            return Network.httpGet(params[0]); //  forma de string.
         }
 
         @Override
@@ -253,13 +258,15 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
                     if (isEmailRepetido == true) {
                         edt_Email.requestFocus();
                         util.mensagem("OPA!", "Email já cadastrado no sistema!", "Ok", dlg);
+                        btn_Cadastrar.setEnabled(true);
                     } else {
                         jsonTaskPost = new JSONTaskPost();
                         jsonTaskPost.execute(urlCadastro);
 
                     }
                 } else {
-                    Toast.makeText(CadastroActivity.this, "JSON está null", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CadastroActivity.this, "ERRO AO OBTER COM O SERVIDOR", Toast.LENGTH_LONG).show();
+                    btn_Cadastrar.setEnabled(true);
                 }
             } else {
                 util.mensagem("Opa!",

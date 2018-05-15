@@ -152,7 +152,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         @Override
         protected String doInBackground(String... params) {
-            return Network.getDados(params[0]);
+            return Network.httpGet(params[0]);
         }
 
         @Override

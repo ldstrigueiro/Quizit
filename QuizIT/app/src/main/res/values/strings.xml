@@ -42,5 +42,8 @@
     <string name="txtInstrucao">Escolha a área da(s) pergunta(s):</string>
     <string name="btn_Proximo">Proxima</string>
     <string name="btn_Sair">Sair</string>
+    <string name="hint_SenhaAtual">Senha atual</string>
+    <string name="hint_NovaSenha">Nova senha</string>
+    <string name="hint_ConfirmarSenha">Confirmar senha</string>
 
 </resources>
