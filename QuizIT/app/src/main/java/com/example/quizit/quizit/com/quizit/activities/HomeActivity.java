@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.quizit.quizit.com.quizit.objetos.Aluno;
 import com.example.quizit.quizit.R;
+import com.example.quizit.quizit.com.quizit.objetos.ImagemPojo;
 import com.example.quizit.quizit.com.quizit.util.Network;
 import com.example.quizit.quizit.com.quizit.util.Util;
 
@@ -72,7 +73,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             txtSemestre.setText(String.valueOf(aluno.getSemestre()));
 
             imgPerfil.setOnClickListener(this);
-
+            imgPerfil.setImageResource(ImagemPojo.idImagem[aluno.getAvatar()]);
 
             //Botão Jogar
             btnJogarRandom.setOnClickListener(this);
