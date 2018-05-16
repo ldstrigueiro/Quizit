@@ -163,6 +163,7 @@ public class Network {
 
             inputStream = conn.getInputStream();
             resultado = Network.parseToString(inputStream);
+
             return resultado;
         }catch (Exception e){
             e.printStackTrace();

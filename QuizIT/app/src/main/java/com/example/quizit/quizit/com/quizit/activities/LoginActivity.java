@@ -159,17 +159,27 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            aluno = getAlunoJson(s);
 
-            if(aluno == null){ //Valida se o aluno é nulo e trata ele com o aviso antes de passar pra HomeActivity
-                dlg = new AlertDialog.Builder(LoginActivity.this);
-                util.mensagem("Opa!", "Matricula/Senha não cadastrados", "Ok", dlg);
-                progressDialog.dismiss();
+            //Validar S == null
+            if (s != null){
+
+
+                aluno = getAlunoJson(s);
+
+                if(aluno == null){ //Valida se o aluno é nulo e trata ele com o aviso antes de passar pra HomeActivity
+                    dlg = new AlertDialog.Builder(LoginActivity.this);
+                    util.mensagem("Opa!", "Matricula/Senha não cadastrados", "Ok", dlg);
+                    progressDialog.dismiss();
+                }else{
+                    intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.putExtra("ObjAluno", aluno);
+                    progressDialog.dismiss();
+                    startActivity(intent);
+                }
             }else{
-                intent = new Intent(LoginActivity.this, HomeActivity.class);
-                intent.putExtra("ObjAluno", aluno);
+                dlg = new AlertDialog.Builder(LoginActivity.this);
+                util.mensagem("Opa!", "ERRO AO ESTABELECER CONEXAO", "Tente novamente", dlg);
                 progressDialog.dismiss();
-                startActivity(intent);
             }
         }
     }

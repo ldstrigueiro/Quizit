@@ -44,7 +44,7 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
     private Pergunta pergunta;
     private Aluno aluno;
     private int vidas;
-    private int modo;
+    private int left;
 
 
     private AlertDialog alertDialog;
@@ -72,13 +72,13 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         pergunta = getIntent().getParcelableExtra("ObjPergunta");
         aluno = getIntent().getParcelableExtra("ObjAluno");
 
-        //Se vidas == -1 entao PerguntaActivity entende que está no modo baloon.
-        //Se vidas == 0 ou 2 ou 3 entao PerguntaActivity entende que está no modo Run.
+        //Se vidas == -1 entao PerguntaActivity entende que está no left baloon.
+        //Se vidas == 0 ou 2 ou 3 entao PerguntaActivity entende que está no left Run.
         //Contabilizar as vidas do jogador
         vidas = getIntent().getIntExtra("Vidas", -2);
 
         //Valor a ser apresentado na RunFeedbackActivity
-        modo = getIntent().getIntExtra("Modo", -1);
+        left = getIntent().getIntExtra("Modo", -1);
 
         arrayList.add(pergunta.getOpcao1());
         arrayList.add(pergunta.getOpcao2());
@@ -167,33 +167,35 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
                 Toast.makeText(PerguntaActivity.this, "Errou", Toast.LENGTH_SHORT).show();
             }
 
+            //-2 situação de erro
             if (vidas == -1 && vidas != -2){
                 intent = new Intent(PerguntaActivity.this, JogarRandomActivity.class);
                 intent.putExtra("ObjAluno", aluno);
-                intent.putExtra("Modo", modo);
+                intent.putExtra("Modo", left);
                 startActivity(intent);
                 finish();
-            }else if(vidas != -1 && vidas != -2){
+
+                //-2 situação de erro
+            }else if(vidas != 0 && vidas != -2){
                 intent = new Intent(PerguntaActivity.this, RunFeedbackActivity.class);
                 if(!isCorreto){
                     vidas -= 1;
-
                     //Se entrar 0 e ficar -1, finaliza o jogo. Game over
-                    if(vidas == -1 || modo == 0)
+                    if(vidas == 0 || left == 0)
                         resultado = 2;//GAME OVER
                     else
                         resultado = 1;//Errou, apresenta msg e desconta vida
                 }else{
                     resultado = 0;//Acertou, desconta questionsLeft;
-                    modo -= 1;
-                    if(modo == 0)
+                    left -= 1;
+                    if(left == 0)
                         resultado = 2;
                 }
 
                 intent.putExtra("TxtResultado", txtResultado[resultado]);
                 intent.putExtra("ObjAluno", aluno);
                 intent.putExtra("Vidas", vidas); //VIDAs
-                intent.putExtra("Modo", modo);
+                intent.putExtra("Modo", left);
                 intent.putExtra("IdArea", pergunta.getIdArea());
                 startActivity(intent);
                 finish();

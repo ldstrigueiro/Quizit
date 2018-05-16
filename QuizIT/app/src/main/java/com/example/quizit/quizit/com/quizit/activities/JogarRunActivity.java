@@ -134,11 +134,11 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
                     intent = new Intent(JogarRunActivity.this, PerguntaActivity.class);
                     intent.putExtra("Modo", modo);
                     if(modo == 1)
-                        vidas = 0;
-                    else if (modo == 5)
                         vidas = 1;
-                    else if (modo == 10)
+                    else if (modo == 5)
                         vidas = 2;
+                    else if (modo == 10)
+                        vidas = 3;
                     intent.putExtra("Vidas", vidas);
                     intent.putExtra("ObjPergunta", pergunta);
                     intent.putExtra("ObjAluno", aluno);

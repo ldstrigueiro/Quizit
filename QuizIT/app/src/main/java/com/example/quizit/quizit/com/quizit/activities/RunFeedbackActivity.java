@@ -23,7 +23,7 @@ public class RunFeedbackActivity extends Activity implements View.OnClickListene
     private int idArea;
     private Aluno aluno;
     private int vidas;
-    private int modo;
+    private int left;
     private String resultado;
 
     private Button btnProxima;
@@ -51,16 +51,16 @@ public class RunFeedbackActivity extends Activity implements View.OnClickListene
         btnSair.setOnClickListener(this);
 
         vidas = getIntent().getIntExtra("Vidas", -2);
-        modo = getIntent().getIntExtra("Modo", -1);
+        left = getIntent().getIntExtra("Modo", -1);
         resultado = getIntent().getStringExtra("TxtResultado");
         aluno = getIntent().getParcelableExtra("ObjAluno");
         idArea = getIntent().getIntExtra("IdArea", -1);
 
         txtResultado.setText(resultado);
-        txtQuestionsLeft.setText("Faltam "+String.valueOf(modo)+ " perguntas");
+        txtQuestionsLeft.setText("Faltam "+String.valueOf(left)+ " perguntas");
 
 
-        txtVidas.setText("Ainda tem "+String.valueOf(vidas+1) + " tentativas");
+        txtVidas.setText("Ainda tem "+String.valueOf(vidas) + " tentativas");
 
 
         if(txtResultado.getText().toString().equals("GAME OVER")){
@@ -78,7 +78,7 @@ public class RunFeedbackActivity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnProximaRunFB:
-                if(modo != 0){
+                if(left != 0 && vidas != 0){
                     String link = url+aluno.getSemestre()+"/"+idArea;
                     jsonTaskGet = new JSONTaskGet();
                     jsonTaskGet.execute(link);
@@ -140,7 +140,7 @@ public class RunFeedbackActivity extends Activity implements View.OnClickListene
             intent.putExtra("ObjPergunta", pergunta);
             intent.putExtra("ObjAluno", aluno);
             intent.putExtra("Vidas", vidas);
-            intent.putExtra("Modo", modo);
+            intent.putExtra("Modo", left);
             startActivity(intent);
             finish();
 

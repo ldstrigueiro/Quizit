@@ -147,6 +147,11 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
             util.mensagem("Senha inválida!",
                     "A senha não pode ser vazia.",
                     "Ok", dlg);
+        }else if(res = !validator.isValidPassword(senha.trim())){
+            btn_Cadastrar.setEnabled(true);
+            edt_Senha.requestFocus();
+            util.mensagem("Senha inválida", "A senha deverá ser composta por letras maiuscula e minuscula, numeros e ter pelo menos 8 caracteres", "OK", dlg);
+
         } else if (res = (validator.isCampoVazio(matricula) || !validator.isPadraoMatricula(matricula))) {
             btn_Cadastrar.setEnabled(true);
             edt_Matricula.requestFocus();
@@ -265,7 +270,7 @@ public class CadastroActivity extends Activity implements AdapterView.OnItemSele
 
                     }
                 } else {
-                    Toast.makeText(CadastroActivity.this, "ERRO AO OBTER COM O SERVIDOR", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CadastroActivity.this, "ERRO AO OBTER DADOS COM O SERVIDOR", Toast.LENGTH_LONG).show();
                     btn_Cadastrar.setEnabled(true);
                 }
             } else {

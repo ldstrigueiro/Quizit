@@ -67,27 +67,26 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         //Pega o aluno
         aluno = getIntent().getParcelableExtra("ObjAluno");
 
-        if(aluno != null){
+        if(aluno != null) {
             txtNome.setText(aluno.getNome());
             txtSemestre.setText(String.valueOf(aluno.getSemestre()));
 
             imgPerfil.setOnClickListener(this);
 
+
+            //Botão Jogar
+            btnJogarRandom.setOnClickListener(this);
+
+            //Botão Modo Run
+            btnModoRun.setOnClickListener(this);
+
+            //Botão fábrica de perguntas
+            imgBtnFactory.setOnClickListener(this);
+
+            //Botão configuração
+            imgBtnConfig.setOnClickListener(this);
+
         }
-
-        //Botão Jogar
-        btnJogarRandom.setOnClickListener(this);
-
-        //Botão Modo Run
-        btnModoRun.setOnClickListener(this);
-
-        //Botão fábrica de perguntas
-        imgBtnFactory.setOnClickListener(this);
-
-        //Botão configuração
-        imgBtnConfig.setOnClickListener(this);
-
-
 
     }
 

@@ -116,7 +116,11 @@ public class EditarPerfilActivity extends Activity implements View.OnClickListen
                 if(!validator.isCampoVazio(edtNovaSenha.getText().toString())){
                     //Se a nova senha conferir com a confirmação, troca a informação do JSONObject
                     if(edtNovaSenha.getText().toString().equals(edtConfirmarSenha.getText().toString())){
-                        jsonObject.put("senha", edtNovaSenha.getText().toString());
+                        if(validator.isValidPassword(edtNovaSenha.getText().toString())){
+                            jsonObject.put("senha", edtNovaSenha.getText().toString());
+                        }else{
+                            Toast.makeText(this, "A senha deverá ser composta por letras maiuscula e minuscula, numeros e ter pelo menos 8 caracteres", Toast.LENGTH_SHORT).show();
+                        }
                     }else{
                         Toast.makeText(this, "As senhas nao conferem!!", Toast.LENGTH_SHORT).show();
                         edtNovaSenha.requestFocus();
