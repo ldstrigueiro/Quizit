@@ -32,9 +32,6 @@
             android:name=".com.quizit.activities.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".com.quizit.activities.PerfilActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".com.quizit.activities.ForgotPassActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -45,7 +42,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".com.quizit.activities.JogarRunActivity" />
         <activity android:name=".com.quizit.activities.RunFeedbackActivity" />
-        <activity android:name=".com.quizit.activities.EditarPerfilActivity"></activity>
+        <activity android:name=".com.quizit.activities.EditarPerfilActivity" />
+        <activity android:name=".com.quizit.activities.AlteraAvatarActivity"></activity>
     </application>
 
 </manifest>

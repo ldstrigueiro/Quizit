@@ -95,7 +95,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.imgPerfilHome:
-                intent = new Intent(this, PerfilActivity.class);
+                intent = new Intent(this, AlteraAvatarActivity.class);
                 intent.putExtra("ObjAluno", aluno);
                 startActivity(intent);
                 break;
