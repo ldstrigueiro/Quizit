@@ -52,7 +52,6 @@
         android:id="@+id/imgPerfilHome"
         android:layout_width="156dp"
         android:layout_height="151dp"
-        android:layout_below="@+id/txtPontuacaoHome"
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"

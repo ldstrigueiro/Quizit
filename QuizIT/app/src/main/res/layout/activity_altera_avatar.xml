@@ -6,4 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".com.quizit.activities.AlteraAvatarActivity">
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Escolha seu avatar"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/imgAlteraAvatar"
+        android:layout_width="137dp"
+        android:layout_height="142dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="87dp"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <ImageButton
+        android:id="@+id/btnNextAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="43dp"
+        android:layout_marginTop="134dp"
+        android:src="@android:drawable/ic_media_next" />
+
+    <ImageButton
+        android:id="@+id/btnPrevAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/btnNextAvatar"
+        android:layout_marginStart="43dp"
+        android:src="@android:drawable/ic_media_previous" />
+
+    <Button
+        android:id="@+id/btnEscolherAvatar"
+        android:layout_width="128dp"
+        android:layout_height="76dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="117dp"
+        android:text="@string/btn_ConcluirFactory" />
 </RelativeLayout>

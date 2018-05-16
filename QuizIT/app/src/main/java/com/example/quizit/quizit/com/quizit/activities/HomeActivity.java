@@ -179,6 +179,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         intent.putExtra("ObjAluno", aluno);
         intent.putExtra("Modo", modo);
         startActivity(intent);
+        finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
