@@ -10,4 +10,6 @@
 
     <color name="white_pressed">@android:color/background_dark</color>
     <color name="white_normal">@android:color/background_light</color>
+
+    <color name="verde_acerto">#37e624</color>
 </resources>

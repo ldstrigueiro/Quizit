@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgAreaDesempenho"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@mipmap/ic_launcher"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/txtAreaDesempenho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="11dp"
+        android:text="NomeArea"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="25dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/txtAreaDesempenho"
+        android:layout_marginTop="38dp"
+        android:text="Ratio:"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="51dp" />
+
+    <TextView
+        android:id="@+id/txtRatio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/textView8"
+        android:layout_marginStart="144dp"
+        android:text="0,00"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="51dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/txtAreaDesempenho"
+        android:layout_marginEnd="70dp"
+        android:text="Acertos:"
+        android:textColor="@color/verde_acerto" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView6"
+        android:layout_alignTop="@+id/textView8"
+        android:text="Erros:"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <TextView
+        android:id="@+id/txtAcertosDesempenho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/txtAreaDesempenho"
+        android:layout_marginEnd="46dp"
+        android:text="00"
+        android:textColor="@color/verde_acerto" />
+
+    <TextView
+        android:id="@+id/txtErrosDesempenho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/txtAcertosDesempenho"
+        android:layout_alignTop="@+id/textView8"
+        android:text="00"
+        android:textColor="@android:color/holo_red_dark" />
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.quizit.quizit.com.quizit.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -118,7 +119,10 @@ public class FactoryActivity extends Activity implements View.OnClickListener {
             Toast.makeText(FactoryActivity.this, "Pergunta enviada com sucesso!", Toast.LENGTH_SHORT).show();
             finish();
         }
+
     }
+
+
 
 
 }

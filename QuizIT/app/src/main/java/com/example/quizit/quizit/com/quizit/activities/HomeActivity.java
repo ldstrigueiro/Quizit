@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private ImageView imgPerfil;
     private ImageButton imgBtnConfig;
     private ImageButton imgBtnFactory;
+    private ImageButton imgBtnRanking;
+    private ImageButton imgBtnDesempenho;
     private Button btnJogarRandom;
     private Button btnModoRun;
 
@@ -43,8 +46,9 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private AlertDialog.Builder dlg;
     private JSONTaskPost jsonTaskPost;
 
+    private SharedPreferences sp;
 
-
+    private AlertDialog alertDialog;
 
 
     //========== ONCREATE & ONCLICK ============
@@ -59,7 +63,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         imgPerfil = (ImageView) findViewById(R.id.imgPerfilHome);
         imgBtnConfig = (ImageButton) findViewById(R.id.btnConfigHome);
         imgBtnFactory = (ImageButton) findViewById(R.id.btnFactoryHome);
-
+        imgBtnRanking = findViewById(R.id.btnRankingHome);
+        imgBtnDesempenho = findViewById(R.id.btnDesempenhoHome);
 
         btnJogarRandom = (Button) findViewById(R.id.btnJogarRandomHome);
         btnModoRun = findViewById(R.id.btnJogarRunHome);
@@ -87,6 +92,10 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             //Botão configuração
             imgBtnConfig.setOnClickListener(this);
 
+            imgBtnRanking.setOnClickListener(this);
+
+            imgBtnDesempenho.setOnClickListener(this);
+
         }
 
     }
@@ -95,9 +104,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.imgPerfilHome:
-                intent = new Intent(this, AlteraAvatarActivity.class);
-                intent.putExtra("ObjAluno", aluno);
-                startActivity(intent);
+                goToAlteraAvatarActivity ();
                 break;
 
             case R.id.btnConfigHome:
@@ -105,25 +112,61 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.btnFactoryHome:
-                intent = new Intent(this, FactoryActivity.class);
-                intent.putExtra("ObjAluno", aluno);
-                startActivity(intent);
+                goToFactoryActivity();
                 break;
 
             case R.id.btnJogarRandomHome:
-                intent = new Intent(this, JogarRandomActivity.class);
-                intent.putExtra("Modo", 0);
-                intent.putExtra("ObjAluno", aluno);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                goToJogarRandomActivity();
                 break;
 
             case R.id.btnJogarRunHome:
                 mostraModosRun();
 
                 break;
+            case R.id.btnRankingHome:
+                goToRankingActivity();
 
+                break;
+            case R.id.btnDesempenhoHome:
+                goToDesempenhoActivity();
+
+                break;
         }
+    }
+
+    private void goToDesempenhoActivity() {
+        intent = new Intent(this, DesempenhoActivity.class);
+        intent.putExtra("ObjAluno", aluno);
+        startActivity(intent);
+        
+    }
+
+    private void goToAlteraAvatarActivity (){
+        intent = new Intent(this, AlteraAvatarActivity.class);
+        intent.putExtra("ObjAluno", aluno);
+        startActivity(intent);
+        finish();
+    }
+
+    private void goToFactoryActivity(){
+        intent = new Intent(this, FactoryActivity.class);
+        intent.putExtra("ObjAluno", aluno);
+        startActivity(intent);
+
+    }
+
+    private void goToJogarRandomActivity(){
+        intent = new Intent(this, JogarRandomActivity.class);
+        intent.putExtra("Modo", 0);
+        intent.putExtra("ObjAluno", aluno);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    private void goToRankingActivity(){
+        intent = new Intent(this, RankingActivity.class);
+        intent.putExtra("ObjAluno", aluno);
+        startActivity(intent);
     }
 
     //============= METODOS ==============
@@ -161,7 +204,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                         //com as formulas
                         break;
                     case 3:
-                        //Convidar amigos (Envia email)
+                        doSair();
                         break;
 
                 }
@@ -173,6 +216,37 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         builder.show();
     }
 
+    private void doSair(){
+        ;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("ÉOQ?");
+        builder.setMessage("Deseja realmente sair?");
+
+        //Opcao sim que volta de tela passando como extra o ObjAluno
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+                intent = new Intent(HomeActivity.this, LoginActivity.class);
+                sp = getSharedPreferences("login",MODE_PRIVATE);
+                sp.edit().putBoolean("logged",false).apply();
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        //Opcao nao que continua na activity
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog = builder.create();
+        alertDialog.show();
+    }
 
     private void doIntent(int modo){
         intent = new Intent(this, JogarRunActivity.class);

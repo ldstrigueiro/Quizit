@@ -58,6 +58,11 @@ public class AlteraAvatarActivity extends Activity implements View.OnClickListen
     }
 
     @Override
+    public void onBackPressed() {
+        
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnNextAvatar:

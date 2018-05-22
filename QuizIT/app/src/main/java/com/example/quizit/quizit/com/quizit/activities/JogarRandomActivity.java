@@ -16,6 +16,7 @@ import com.example.quizit.quizit.com.quizit.util.Network;
 
 public class JogarRandomActivity extends Activity implements View.OnClickListener {
     private Button btnPlay;
+    private Button btnSair;
     private Intent intent;
     private Pergunta pergunta;
     private JSONTaskGet jsonTaskGet = new JSONTaskGet();
@@ -30,7 +31,10 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_jogar_random);
 
         btnPlay = (Button) findViewById(R.id.btnPlayRand);
+        btnSair = findViewById(R.id.btnSairRandom);
+
         btnPlay.setOnClickListener(this);
+        btnSair.setOnClickListener(this);
 
         aluno = getIntent().getParcelableExtra("ObjAluno");
         modo = getIntent().getIntExtra("Modo", -1);
@@ -44,7 +48,15 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
             case R.id.btnPlayRand:
                 jsonTaskGet.execute(urlPergunta+aluno.getSemestre());
                 break;
+            case R.id.btnSairRandom:
+                finish();
+                break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     @Override
@@ -83,7 +95,7 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
                 startActivity(intent);
                 finish();
             }else{
-                Toast.makeText(JogarRandomActivity.this, "teste", Toast.LENGTH_LONG).show();
+                Toast.makeText(JogarRandomActivity.this, "ERRO AO SINCRONIZAR DADOS COM O SERVIDOR", Toast.LENGTH_LONG).show();
             }
 
         }

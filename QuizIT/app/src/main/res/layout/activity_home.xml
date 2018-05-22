@@ -87,8 +87,8 @@
 
     <ImageButton
         android:id="@+id/btnConfigHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@android:drawable/ic_menu_preferences"
@@ -97,8 +97,8 @@
 
     <ImageButton
         android:id="@+id/btnFactoryHome"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="120dp"
@@ -106,6 +106,29 @@
         app:layout_constraintEnd_toStartOf="@+id/imgPerfilHome"
         app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgPerfilHome" />
+
+    <ImageButton
+        android:id="@+id/btnRankingHome"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@android:drawable/btn_star_big_on"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnDesempenhoHome"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="120dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintStart_toEndOf="@+id/imgPerfilHome"
         app:layout_constraintTop_toTopOf="@+id/imgPerfilHome" />
 
 </android.support.constraint.ConstraintLayout>

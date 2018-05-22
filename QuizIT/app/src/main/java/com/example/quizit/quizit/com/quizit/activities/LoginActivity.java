@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private AlertDialog.Builder dlg;
     private Util util = new Util();
 
+    private SharedPreferences sp;
+
+    private String url = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/";
 
 
 
@@ -55,6 +59,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         btnLogar.setOnClickListener(this);
         txtForgot.setOnClickListener(this);
 
+        //Armazena os valores para resgatar e logar automaticamente na próxima tentativa
+        sp = getSharedPreferences("login",MODE_PRIVATE);
+
+        if(sp.getBoolean("logged", false)){
+            //String matricula = sp.getString("matricula", "");
+            jsonTaskGet.execute(url+sp.getString("matricula", "")+"/"+sp.getString("senha", ""));
+        }
+
     }
 
     //@Override
@@ -71,7 +83,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
                 //se os campos não estiveres vazios ele entra...
                 if(!validaCampo(edtMatricula.getText().toString(), edtSenha.getText().toString())){
-                    endereco = "http://apitccapp.azurewebsites.net/Aluno/autenticaAluno/"+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
+                    endereco = url+edtMatricula.getText().toString().toUpperCase()+"/"+edtSenha.getText().toString();
                     jsonTaskGet = new JSONTaskGet();
                     jsonTaskGet.execute(endereco);
                 }
@@ -171,16 +183,25 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     util.mensagem("Opa!", "Matricula/Senha não cadastrados", "Ok", dlg);
                     progressDialog.dismiss();
                 }else{
-                    intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    intent.putExtra("ObjAluno", aluno);
-                    progressDialog.dismiss();
-                    startActivity(intent);
+                    goToHomeActivity();
+                    //Seta o sharedPreferences para true
+                    sp.edit().putBoolean("logged",true).apply();
+                    sp.edit().putString("matricula", aluno.getMatricula()).apply();
+                    sp.edit().putString("senha", aluno.getSenha()).apply();
                 }
             }else{
                 dlg = new AlertDialog.Builder(LoginActivity.this);
                 util.mensagem("Opa!", "ERRO AO ESTABELECER CONEXAO", "Tente novamente", dlg);
                 progressDialog.dismiss();
             }
+        }
+
+        public void goToHomeActivity(){
+            intent = new Intent(LoginActivity.this, HomeActivity.class);
+            intent.putExtra("ObjAluno", aluno);
+            progressDialog.dismiss();
+            startActivity(intent);
+            finish();
         }
     }
 }

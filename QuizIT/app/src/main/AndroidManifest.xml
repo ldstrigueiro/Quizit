@@ -24,26 +24,53 @@
         </activity>
         <activity
             android:name=".com.quizit.activities.FactoryActivity"
+            android:label="Fábrica de Perguntas"
             android:screenOrientation="portrait" />
         <activity
             android:name=".com.quizit.activities.CadastroActivity"
+            android:label="Cadastro"
             android:screenOrientation="portrait" />
         <activity
             android:name=".com.quizit.activities.HomeActivity"
+            android:label="Home"
             android:screenOrientation="portrait" />
         <activity
             android:name=".com.quizit.activities.ForgotPassActivity"
+            android:label="Esqueci minha senha"
             android:screenOrientation="portrait" />
         <activity
             android:name=".com.quizit.activities.JogarRandomActivity"
+            android:label="Balloon"
             android:screenOrientation="portrait" />
         <activity
             android:name=".com.quizit.activities.PerguntaActivity"
+            android:label="Questão"
             android:screenOrientation="portrait" />
-        <activity android:name=".com.quizit.activities.JogarRunActivity" />
-        <activity android:name=".com.quizit.activities.RunFeedbackActivity" />
-        <activity android:name=".com.quizit.activities.EditarPerfilActivity" />
-        <activity android:name=".com.quizit.activities.AlteraAvatarActivity"></activity>
+        <activity
+            android:name=".com.quizit.activities.JogarRunActivity"
+            android:label="Run"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".com.quizit.activities.RunFeedbackActivity"
+            android:label="Run"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".com.quizit.activities.EditarPerfilActivity"
+            android:label="Editar Perfil"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".com.quizit.activities.AlteraAvatarActivity"
+            android:label="Alterar Avatar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".com.quizit.activities.RankingActivity"
+            android:label="Ranking"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".com.quizit.activities.DesempenhoActivity"
+            android:label="Desempenho"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
