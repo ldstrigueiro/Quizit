@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_quizit"
     tools:context=".com.quizit.activities.EditarPerfilActivity">
 
 
@@ -87,12 +88,12 @@
         android:id="@+id/btnConfirmarEditarPerfil"
         android:layout_width="113dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="40dp"
         android:text="@string/btnEscolherPerg"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -106,4 +107,19 @@
         app:layout_constraintEnd_toEndOf="@+id/edtNomeEditarPerfil"
         app:layout_constraintStart_toStartOf="@+id/edtNomeEditarPerfil"
         app:layout_constraintTop_toBottomOf="@+id/edtNomeEditarPerfil" />
+
+    <Button
+        android:id="@+id/btnSairEditarPerfil"
+        android:layout_width="112dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/btn_Sair"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintStart_toEndOf="@+id/btnConfirmarEditarPerfil" />
 </android.support.constraint.ConstraintLayout>

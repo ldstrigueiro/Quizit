@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_quizit"
+    tools:context=".com.quizit.activities.SuporteActivity">
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="366dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Digite abaixo sua mensagem/feedback para nossa equipe:"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtMsgSuporte"
+        android:layout_width="match_parent"
+        android:layout_height="212dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="84dp"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="Seu texto aqui..."
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnEnviarSuporte"
+        android:layout_width="113dp"
+        android:layout_height="73dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="110dp"
+        android:text="@string/btn_EnviarForgot"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"/>
+
+    <Button
+        android:id="@+id/btnSairSuporte"
+        android:layout_width="89dp"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:text="@string/btn_Sair"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"/>
+</RelativeLayout>

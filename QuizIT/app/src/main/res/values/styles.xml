@@ -5,4 +5,8 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="QuizIT_Theme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:windowBackground">@drawable/background_quizit</item>
+    </style>
+
 </resources>

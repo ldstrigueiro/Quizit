@@ -34,6 +34,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     private ImageButton imgBtnFactory;
     private ImageButton imgBtnRanking;
     private ImageButton imgBtnDesempenho;
+
     private Button btnJogarRandom;
     private Button btnModoRun;
 
@@ -66,6 +67,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         imgBtnRanking = findViewById(R.id.btnRankingHome);
         imgBtnDesempenho = findViewById(R.id.btnDesempenhoHome);
 
+
+
         btnJogarRandom = (Button) findViewById(R.id.btnJogarRandomHome);
         btnModoRun = findViewById(R.id.btnJogarRunHome);
 
@@ -95,6 +98,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
             imgBtnRanking.setOnClickListener(this);
 
             imgBtnDesempenho.setOnClickListener(this);
+
+
 
         }
 
@@ -131,6 +136,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                 goToDesempenhoActivity();
 
                 break;
+
         }
     }
 
@@ -165,7 +171,13 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
     private void goToRankingActivity(){
         intent = new Intent(this, RankingActivity.class);
-        intent.putExtra("ObjAluno", aluno);
+        intent.putExtra("Semestre", aluno.getSemestre());
+        startActivity(intent);
+    }
+
+    private void goToSuporteActivity(){
+        intent = new Intent(this, SuporteActivity.class);
+        intent.putExtra("idAluno", aluno.getIdAluno());
         startActivity(intent);
     }
 
@@ -197,7 +209,8 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                         finish();
                         break;
                     case 1:
-                        //Feedback activity
+                        goToSuporteActivity();
+                        
                         break;
                     case 2:
                         //Informações Activity (?) Ou outra mensagem dialog msm? (mata esse dialog e mostra um novo dialog
@@ -217,7 +230,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
     }
 
     private void doSair(){
-        ;
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("ÉOQ?");

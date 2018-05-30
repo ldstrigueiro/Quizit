@@ -4,7 +4,7 @@
     <!-- Home Activity / Array Configurações -->
     <string-array name="listaItensConfig">
         <item>Editar Perfil</item>
-        <item>Feedback</item>
+        <item>Suporte</item>
         <item>Informações</item>
         <item>Sair</item>
     </string-array>

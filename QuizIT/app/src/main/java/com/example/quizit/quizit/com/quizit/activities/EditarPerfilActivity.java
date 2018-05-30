@@ -24,7 +24,7 @@ public class EditarPerfilActivity extends Activity implements View.OnClickListen
     private EditText edtConfirmarSenha;
     private EditText edtSenhaAtual;
     private Button btnConfirmar;
-
+    private Button btnSair;
     private Aluno aluno;
 
     private JSONObject jsonObject;
@@ -45,10 +45,16 @@ public class EditarPerfilActivity extends Activity implements View.OnClickListen
         edtConfirmarSenha = findViewById(R.id.edtConfimarSenhaEdtPerfil);
         edtSenhaAtual = findViewById(R.id.edtSenhaAtualEditarPerfil);
         btnConfirmar = findViewById(R.id.btnConfirmarEditarPerfil);
+        btnSair = findViewById(R.id.btnSairEditarPerfil);
 
         aluno = getIntent().getParcelableExtra("ObjAluno");
 
         btnConfirmar.setOnClickListener(this);
+        btnSair.setOnClickListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 
@@ -79,6 +85,12 @@ public class EditarPerfilActivity extends Activity implements View.OnClickListen
                       }
                   }else
                       Toast.makeText(this, "ERRO AO OBTER RESPOSTA DO SERVIDOR. TENTE MAIS TARDE", Toast.LENGTH_SHORT).show();
+                  break;
+              case R.id.btnSairEditarPerfil:
+                  intent = new Intent(EditarPerfilActivity.this, HomeActivity.class);
+                  intent.putExtra("ObjAluno", aluno);
+                  startActivity(intent);
+                  finish();
                   break;
           }
 

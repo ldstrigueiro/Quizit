@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_quizit"
     tools:context=".com.quizit.activities.RunFeedbackActivity">
 
     <TextView
@@ -13,7 +14,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/txtQuestionLeftRunFB"
@@ -22,7 +24,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="77dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/txtVidasRunFB"
@@ -31,7 +34,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="134dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnProximaRunFB"
@@ -40,7 +44,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="132dp"
-        android:text="@string/btn_Proximo" />
+        android:text="@string/btn_Proximo"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"/>
 
     <Button
         android:id="@+id/btnSairRunFB"
@@ -49,5 +55,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="54dp"
-        android:text="@string/btn_Sair" />
+        android:text="@string/btn_Sair"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>

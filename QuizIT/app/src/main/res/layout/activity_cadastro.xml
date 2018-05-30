@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_quizit"
     tools:context="com.example.quizit.quizit.com.quizit.activities.CadastroActivity">
 
     <EditText
@@ -89,6 +90,8 @@
         android:layout_marginStart="124dp"
         android:layout_marginTop="8dp"
         android:text="@string/btn_Cadastrar"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_Semestre" />

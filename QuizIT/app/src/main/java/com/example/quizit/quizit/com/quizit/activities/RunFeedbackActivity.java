@@ -57,10 +57,18 @@ public class RunFeedbackActivity extends Activity implements View.OnClickListene
         idArea = getIntent().getIntExtra("IdArea", -1);
 
         txtResultado.setText(resultado);
-        txtQuestionsLeft.setText("Faltam "+String.valueOf(left)+ " perguntas");
+
+        if(left != 0){
+
+            txtQuestionsLeft.setText("Faltam "+String.valueOf(left)+ " perguntas");
+            txtVidas.setText("Ainda tem "+String.valueOf(vidas) + " tentativas");
+        }else{
+            txtQuestionsLeft.setText("Você concluiu todas as perguntas!");
+            txtVidas.setText("Ainda possuia "+String.valueOf(vidas)+" vidas.");
+        }
 
 
-        txtVidas.setText("Ainda tem "+String.valueOf(vidas) + " tentativas");
+
 
 
         if(txtResultado.getText().toString().equals("GAME OVER")){

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_quizit"
     tools:context=".com.quizit.activities.JogarRandomActivity">
 
     <Button
@@ -12,6 +13,8 @@
         android:layout_height="76dp"
         android:layout_centerInParent="true"
         android:text="@string/btnPlayRand"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,10 +22,12 @@
 
     <Button
         android:id="@+id/btnSairRandom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="81dp"
+        android:layout_height="58dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="33dp"
-        android:text="@string/btn_Sair" />
+        android:background="@drawable/flat_selector"
+        android:text="@string/btn_Sair"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

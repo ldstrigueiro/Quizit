@@ -56,7 +56,7 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         ArrayList<String> arrayList = new ArrayList<String>();
 
 
-        txtArea = (TextView) findViewById(R.id.txtAreaPerg);
+
         enunciado = (TextView) findViewById(R.id.txtEnunciadoPerg);
         rgOpcoes = (RadioGroup) findViewById(R.id.rgOpcoesPerg);
         rbOpcao1 = (RadioButton) findViewById(R.id.rbOpcao1Perg);
@@ -87,7 +87,7 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
 
         Collections.shuffle(arrayList);
 
-        txtArea.setText(pergunta.getArea());
+
         enunciado.setText(pergunta.getEnunciado());
 
         rbOpcao1.setText(arrayList.get(0));
@@ -96,6 +96,7 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         rbOpcao4.setText(arrayList.get(3));
         //Dar shuffle num ArrayList com as perguntas.
 
+        setTitle(pergunta.getArea());
     }
 
     @Override
@@ -157,15 +158,15 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            String[] txtResultado = {"Acertou!!", "Errou!!", "GAME OVER"};
+            String[] txtResultado = {"Acertou!!", "Errou!!", "GAME OVER", "PARABÉNS!!!"};
             int resultado;
 
             boolean isCorreto = Boolean.parseBoolean(s);
-            if(isCorreto){
+            /*if(isCorreto){
                 Toast.makeText(PerguntaActivity.this, "Acertou", Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(PerguntaActivity.this, "Errou", Toast.LENGTH_SHORT).show();
-            }
+            }*/
 
             //-2 situação de erro
             if (vidas == -1 && vidas != -2){
@@ -189,7 +190,7 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
                     resultado = 0;//Acertou, desconta questionsLeft;
                     left -= 1;
                     if(left == 0)
-                        resultado = 2;
+                        resultado = 3; //PARABENS
                 }
 
                 intent.putExtra("TxtResultado", txtResultado[resultado]);

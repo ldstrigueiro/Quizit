@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_quizit"
     tools:context=".com.quizit.activities.AlteraAvatarActivity">
 
     <TextView
@@ -48,6 +49,8 @@
         android:id="@+id/btnEscolherAvatar"
         android:layout_width="128dp"
         android:layout_height="76dp"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="117dp"

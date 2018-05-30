@@ -66,6 +66,14 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
         jsonTaskGet.execute(url);
     }
 
+    @Override
+    public void onBackPressed() {
+        intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("ObjAluno", aluno);
+        startActivity(intent);
+        finish();
+    }
+
     private ArrayList<Area> getAreaJSON(String json){
         try {
             JSONArray jsonArray = new JSONArray(json);
@@ -92,7 +100,7 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
             case R.id.btnSelecionaAreaRun:
                 jsonTaskGet = new JSONTaskGet();
                 area = (Area)spinner.getSelectedItem();
-                Toast.makeText(this, ""+area.getNome(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, ""+area.getNome(), Toast.LENGTH_SHORT).show();
                 String url = urlPergunta+aluno.getSemestre()+"/"+area.getId();
                 jsonTaskGet.execute(url);
                 break;
@@ -119,9 +127,9 @@ public class JogarRunActivity extends Activity implements View.OnClickListener {
                 if(s != null){
                     jaPassou = true;
                     ArrayList<Area> listArea = getAreaJSON(s);
-                    ArrayAdapter areaAdapter = new ArrayAdapter<Area>(JogarRunActivity.this, android.R.layout.simple_list_item_1, listArea);
+                    ArrayAdapter areaAdapter = new ArrayAdapter<>(JogarRunActivity.this, android.R.layout.simple_list_item_1, listArea);
                     spinner.setAdapter(areaAdapter);
-                    btnSelecionar = (Button) findViewById(R.id.btnSelecionaAreaRun);
+                    btnSelecionar = findViewById(R.id.btnSelecionaAreaRun);
                     btnSelecionar.setOnClickListener(JogarRunActivity.this);
 
                 }else{

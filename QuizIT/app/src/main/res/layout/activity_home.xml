@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_quizit"
     tools:context="com.example.quizit.quizit.com.quizit.activities.HomeActivity">
+
 
     <TextView
         android:id="@+id/txtNomeHome"
@@ -31,6 +33,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Semestre"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/imgPerfilHome"
         app:layout_constraintStart_toStartOf="@+id/imgPerfilHome"
         app:layout_constraintTop_toBottomOf="@+id/imgPerfilHome" />
@@ -43,6 +46,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
         android:text="@string/btnJogar"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnJogarRandomHome"
         app:layout_constraintStart_toStartOf="@+id/btnJogarRandomHome"
@@ -62,16 +67,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="209dp"
-        android:layout_height="210dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgPerfilHome"
-        app:layout_constraintEnd_toEndOf="@+id/imgPerfilHome"
-        app:layout_constraintStart_toStartOf="@+id/imgPerfilHome"
-        app:layout_constraintTop_toTopOf="@+id/imgPerfilHome" />
-
     <Button
         android:id="@+id/btnJogarRandomHome"
         android:layout_width="143dp"
@@ -79,6 +74,8 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="40dp"
         android:text="@string/btnJogarSolo"
+        android:background="@drawable/flat_selector"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btnJogarRunHome"
         app:layout_constraintEnd_toEndOf="@+id/txtNomeHome"
         app:layout_constraintHorizontal_bias="0.493"
@@ -91,7 +88,9 @@
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src="@android:drawable/ic_menu_preferences"
+        android:background="@drawable/flat_selector"
+        android:src="@drawable/gear"
+        android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,7 +101,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="120dp"
-        android:src="@android:drawable/ic_input_add"
+        android:background="@drawable/flat_selector"
+        android:src="@drawable/plus"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toStartOf="@+id/imgPerfilHome"
         app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +115,9 @@
         android:layout_height="45dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:src="@android:drawable/btn_star_big_on"
+        android:background="@drawable/flat_selector"
+        android:src="@drawable/trophy"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -125,7 +128,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="120dp"
-        android:src="@android:drawable/ic_menu_gallery"
+        android:background="@drawable/flat_selector"
+        android:src="@drawable/graph"
+        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.866"
         app:layout_constraintStart_toEndOf="@+id/imgPerfilHome"

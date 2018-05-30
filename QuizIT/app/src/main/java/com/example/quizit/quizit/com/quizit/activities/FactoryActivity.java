@@ -2,21 +2,26 @@ package com.example.quizit.quizit.com.quizit.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.quizit.quizit.R;
 import com.example.quizit.quizit.com.quizit.objetos.Aluno;
+import com.example.quizit.quizit.com.quizit.objetos.Area;
 import com.example.quizit.quizit.com.quizit.util.Network;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class FactoryActivity extends Activity implements View.OnClickListener {
 
@@ -25,13 +30,15 @@ public class FactoryActivity extends Activity implements View.OnClickListener {
     private EditText edtOpcao2;
     private EditText edtOpcao3;
     private EditText resposta;
-    private EditText disc;
+    private Spinner spinnerDisc;
     private Aluno aluno;
     private Button btnConcluir;
 
     private JSONTaskPost jsonTaskPost = new JSONTaskPost();
+    private JSONTaskGet jsonTaskGet = new JSONTaskGet();
 
-    private String url = "http://apitccapp.azurewebsites.net/api/Pergunta_Avaliacao";
+    private String urlPost = "http://apitccapp.azurewebsites.net/api/Pergunta_Avaliacao";
+    private String urlGet = "http://apitccapp.azurewebsites.net/api/Area";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +49,15 @@ public class FactoryActivity extends Activity implements View.OnClickListener {
         edtOpcao2 = (EditText) findViewById(R.id.edtOpcao2Factory);
         edtOpcao3 = (EditText) findViewById(R.id.edtOpcao3Factory);
         resposta = (EditText) findViewById(R.id.edtRespostaFactory);
-        disc = (EditText) findViewById(R.id.edtSugestaoDiscFactory);
+        spinnerDisc = (Spinner) findViewById(R.id.spinner_area_factory);
         btnConcluir = (Button) findViewById(R.id.btnConcluirFactory);
 
         aluno = getIntent().getParcelableExtra("ObjAluno");
 
-        btnConcluir.setOnClickListener(this);
+
+        jsonTaskGet.execute(urlGet);
+
+
 
     }
 
@@ -70,12 +80,49 @@ public class FactoryActivity extends Activity implements View.OnClickListener {
                 }else if(edtOpcao3.getText().toString().isEmpty()) {
                     Toast.makeText(this, "O campo ALTERNATIVA 3 está vazio.", Toast.LENGTH_SHORT).show();
                     edtOpcao3.requestFocus();
-                }else if(disc.getText().toString().isEmpty()) {
-                    Toast.makeText(this, "O campo DISCIPLINA está vazio.", Toast.LENGTH_SHORT).show();
-                    disc.requestFocus();
                 }else
-                    jsonTaskPost.execute(url);
+                    jsonTaskPost.execute(urlPost);
                 break;
+        }
+    }
+
+    private ArrayList<Area> getAreaJSON(String json){
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            ArrayList<Area> listArea = new ArrayList<>();
+            JSONObject jsonObject;
+            for(int i = 0; i < jsonArray.length(); i++){
+                Area area = new Area();
+                jsonObject = jsonArray.getJSONObject(i);
+                area.setId(jsonObject.getInt("idArea"));
+                area.setNome(jsonObject.getString("nomeArea"));
+                listArea.add(area);
+            }
+            return listArea;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    private class JSONTaskGet extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return Network.httpGet(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            if(s != null){
+                ArrayList<Area> listArea = getAreaJSON(s);
+                ArrayAdapter areaAdapter = new ArrayAdapter<>(FactoryActivity.this, android.R.layout.simple_list_item_1, listArea);
+                spinnerDisc.setAdapter(areaAdapter);
+                btnConcluir.setOnClickListener(FactoryActivity.this);
+            }
         }
     }
 
@@ -91,6 +138,8 @@ public class FactoryActivity extends Activity implements View.OnClickListener {
         protected String doInBackground(String... strings) {
             try {
                 //Popula o JSON com os dados dos campos ta tela de cadastro
+                Area area = (Area) spinnerDisc.getSelectedItem();
+
                 JSONObject jsonObject = new JSONObject();
 
                 jsonObject.put("pergunta", edtEnunciado.getText().toString());
@@ -98,13 +147,13 @@ public class FactoryActivity extends Activity implements View.OnClickListener {
                 jsonObject.put("opcao1", edtOpcao1.getText().toString());
                 jsonObject.put("opcao2", edtOpcao2.getText().toString());
                 jsonObject.put("opcao3", edtOpcao3.getText().toString());
-                jsonObject.put("observacaoDisciplina", disc.getText().toString());
+                jsonObject.put("observacaoDisciplina", area.getNome());
                 jsonObject.put("idAluno", aluno.getIdAluno());
 
                 Log.e("params", jsonObject.toString());
 
                 //Obtem a conexao, transforma o JSON em URL e envia pro AZURE para popular o banco.
-                return Network.httpPost(jsonObject, url);
+                return Network.httpPost(jsonObject, urlPost);
 
 
             } catch (JSONException e) {
