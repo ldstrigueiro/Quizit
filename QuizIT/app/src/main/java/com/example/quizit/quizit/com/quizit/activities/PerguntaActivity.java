@@ -143,6 +143,15 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    private void apresentaFeedBack (boolean isCorreto){
+        if(isCorreto){
+            Toast.makeText(PerguntaActivity.this, "Acertou", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(PerguntaActivity.this, "Errou", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
     private class JSONTaskGet extends AsyncTask<String, String, String>{
 
         @Override
@@ -162,14 +171,10 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
             int resultado;
 
             boolean isCorreto = Boolean.parseBoolean(s);
-            /*if(isCorreto){
-                Toast.makeText(PerguntaActivity.this, "Acertou", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(PerguntaActivity.this, "Errou", Toast.LENGTH_SHORT).show();
-            }*/
 
             //-2 situação de erro
             if (vidas == -1 && vidas != -2){
+                apresentaFeedBack(isCorreto);
                 intent = new Intent(PerguntaActivity.this, JogarRandomActivity.class);
                 intent.putExtra("ObjAluno", aluno);
                 intent.putExtra("Modo", left);

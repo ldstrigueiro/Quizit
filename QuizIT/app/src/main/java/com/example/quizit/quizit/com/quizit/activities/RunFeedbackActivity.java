@@ -64,12 +64,11 @@ public class RunFeedbackActivity extends Activity implements View.OnClickListene
             txtVidas.setText("Ainda tem "+String.valueOf(vidas) + " tentativas");
         }else{
             txtQuestionsLeft.setText("Você concluiu todas as perguntas!");
-            txtVidas.setText("Ainda possuia "+String.valueOf(vidas)+" vidas.");
+            txtVidas.setText(" ");
+            btnProxima.setText("Sair");
+            btnSair.setEnabled(false);
+            btnSair.setVisibility(View.INVISIBLE);
         }
-
-
-
-
 
         if(txtResultado.getText().toString().equals("GAME OVER")){
             txtQuestionsLeft.setText("Você respondeu todas as perguntas!! Até a próxima.");

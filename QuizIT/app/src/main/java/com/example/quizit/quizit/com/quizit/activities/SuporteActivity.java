@@ -1,6 +1,7 @@
 package com.example.quizit.quizit.com.quizit.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.quizit.quizit.R;
+import com.example.quizit.quizit.com.quizit.objetos.Aluno;
 import com.example.quizit.quizit.com.quizit.objetos.SuportePojo;
 import com.example.quizit.quizit.com.quizit.util.Network;
 import com.example.quizit.quizit.com.quizit.util.Validator;
@@ -23,7 +25,7 @@ public class SuporteActivity extends Activity implements View.OnClickListener {
     private Button btnEnviar;
     private Button btnSair;
 
-    private int idAluno;
+    private Aluno aluno;
     private String url = "http://apitccapp.azurewebsites.net/api/Suporte";
     private JSONTaskPost jsonTaskPost;
     private SuportePojo suporte;
@@ -37,7 +39,7 @@ public class SuporteActivity extends Activity implements View.OnClickListener {
         btnEnviar = findViewById(R.id.btnEnviarSuporte);
         btnSair = findViewById(R.id.btnSairSuporte);
 
-        idAluno = getIntent().getIntExtra("idAluno", -1);
+        aluno = getIntent().getParcelableExtra("ObjAluno");
 
         btnEnviar.setOnClickListener(this);
         btnSair.setOnClickListener(this);
@@ -67,6 +69,9 @@ public class SuporteActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.btnSairSuporte:
+                Intent intent = new Intent(SuporteActivity.this, HomeActivity.class);
+                intent.putExtra("ObjAluno", aluno);
+                startActivity(intent);
                 finish();
                 break;
         }
@@ -76,7 +81,7 @@ public class SuporteActivity extends Activity implements View.OnClickListener {
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put("idAluno", idAluno);
+            jsonObject.put("idAluno", aluno.getIdAluno());
             jsonObject.put("mensagem", edtMensagem.getText().toString());
 
             Log.e("params", jsonObject.toString());
@@ -107,6 +112,9 @@ public class SuporteActivity extends Activity implements View.OnClickListener {
             if(s != null){
                 if(Boolean.valueOf(s)){
                     Toast.makeText(SuporteActivity.this, "Tudo certo!! Obrigado por entrar em contato. :)", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SuporteActivity.this, HomeActivity.class);
+                    intent.putExtra("ObjAluno", aluno);
+                    startActivity(intent);
                     finish();
 
                 }else{

@@ -99,10 +99,14 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
             imgBtnDesempenho.setOnClickListener(this);
 
-
-
         }
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //alertDialog.dismiss();
     }
 
     @Override
@@ -177,8 +181,10 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
     private void goToSuporteActivity(){
         intent = new Intent(this, SuporteActivity.class);
-        intent.putExtra("idAluno", aluno.getIdAluno());
+        intent.putExtra("ObjAluno", aluno);
         startActivity(intent);
+        finish();
+
     }
 
     //============= METODOS ==============
@@ -191,7 +197,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         adapter = new ArrayAdapter<>(this, R.layout.config_home, listaOpcoesPersonalizada);
 
         //Cria o Dialog Builder
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         //Configura o builder
         builder.setTitle(getResources().getString(R.string.titleConfig));
@@ -210,7 +216,6 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                         break;
                     case 1:
                         goToSuporteActivity();
-                        
                         break;
                     case 2:
                         //Informações Activity (?) Ou outra mensagem dialog msm? (mata esse dialog e mostra um novo dialog
