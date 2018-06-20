@@ -71,7 +71,8 @@
             android:label="Desempenho"
             android:screenOrientation="portrait" />
         <activity android:name=".com.quizit.activities.SuporteActivity"
-                android:label="Alterar Avatar"></activity>
+                android:label="Suporte"
+                android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -78,7 +78,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
         if(aluno != null) {
             txtNome.setText(aluno.getNome());
-            txtSemestre.setText(String.valueOf(aluno.getSemestre()));
+            txtSemestre.setText(String.valueOf(aluno.getSemestre())+"°SM");
 
             imgPerfil.setOnClickListener(this);
             imgPerfil.setImageResource(ImagemPojo.idImagem[aluno.getAvatar()]);
