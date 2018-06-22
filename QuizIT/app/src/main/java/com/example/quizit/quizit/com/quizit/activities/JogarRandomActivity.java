@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quizit.quizit.R;
@@ -24,6 +25,7 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
 
     private Aluno aluno;
     private int modo;
+    private String feedback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +34,16 @@ public class JogarRandomActivity extends Activity implements View.OnClickListene
 
         btnPlay = (Button) findViewById(R.id.btnPlayRand);
         btnSair = findViewById(R.id.btnSairRandom);
+        TextView txtFeedBack = findViewById(R.id.txtFeedbackRandom);
 
         btnPlay.setOnClickListener(this);
         btnSair.setOnClickListener(this);
 
+        feedback = getIntent().getStringExtra("Feedback");
         aluno = getIntent().getParcelableExtra("ObjAluno");
         modo = getIntent().getIntExtra("Modo", -1);
 
+        txtFeedBack.setText(feedback);
 
     }
 

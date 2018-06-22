@@ -63,7 +63,7 @@ public class RunFeedbackActivity extends Activity implements View.OnClickListene
             txtQuestionsLeft.setText("Faltam "+String.valueOf(left)+ " perguntas");
             txtVidas.setText("Ainda tem "+String.valueOf(vidas) + " tentativas");
         }else{
-            txtQuestionsLeft.setText("Você concluiu todas as perguntas!");
+            txtQuestionsLeft.setText("Você acertou!!"); //Caso de feedback errado, voltar para = Você concluiu todas as perguntas!
             txtVidas.setText(" ");
             btnProxima.setText("Sair");
             btnSair.setEnabled(false);

@@ -63,7 +63,6 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
         rbOpcao2 = (RadioButton) findViewById(R.id.rbOpcao2Perg);
         rbOpcao3 = (RadioButton) findViewById(R.id.rbOpcao3Perg);
         rbOpcao4 = (RadioButton) findViewById(R.id.rbOpcao4Perg);
-        constraintLayout = (ConstraintLayout) findViewById(R.id.ConstLayoutPerg);
         btnEscolherPerg = (Button) findViewById(R.id.btnEscolherPerg);
 
         btnEscolherPerg.setOnClickListener(this);
@@ -174,10 +173,14 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
 
             //-2 situação de erro
             if (vidas == -1 && vidas != -2){
-                apresentaFeedBack(isCorreto);
+                //apresentaFeedBack(isCorreto);
                 intent = new Intent(PerguntaActivity.this, JogarRandomActivity.class);
                 intent.putExtra("ObjAluno", aluno);
                 intent.putExtra("Modo", left);
+                if(isCorreto)
+                    intent.putExtra("Feedback", "Acertou!!\n\n  :)");
+                else
+                    intent.putExtra("Feedback", "Errou!!\n\n  :(");
                 startActivity(intent);
                 finish();
 

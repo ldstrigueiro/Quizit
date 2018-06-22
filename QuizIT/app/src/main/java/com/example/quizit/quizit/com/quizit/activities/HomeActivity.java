@@ -78,7 +78,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
         if(aluno != null) {
             txtNome.setText(aluno.getNome());
-            txtSemestre.setText(String.valueOf(aluno.getSemestre())+"°SM");
+            txtSemestre.setText(String.valueOf(aluno.getSemestre())+"°Semestre");
 
             imgPerfil.setOnClickListener(this);
             imgPerfil.setImageResource(ImagemPojo.idImagem[aluno.getAvatar()]);
@@ -169,6 +169,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
         intent = new Intent(this, JogarRandomActivity.class);
         intent.putExtra("Modo", 0);
         intent.putExtra("ObjAluno", aluno);
+        intent.putExtra("Feedback", "Boa Sorte!!");
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

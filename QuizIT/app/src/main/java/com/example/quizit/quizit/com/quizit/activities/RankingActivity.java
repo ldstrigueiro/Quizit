@@ -58,6 +58,15 @@ public class RankingActivity extends Activity {
                 rankingObject.setNome(jsonObject.getString("nome"));
                 rankingObject.setPontos(jsonObject.getString("pontos"));
                 rankingObject.setRanking(jsonObject.getString("rank"));
+
+                //Trunca a string caso seja maior que 15 caracteres
+
+                if(rankingObject.getNome().length() > 15){
+                    String s = rankingObject.getNome().substring(0, 15);
+                    rankingObject.setNome(s+"...");
+                }
+
+
                 listArea.add(rankingObject);
             }
             return listArea;

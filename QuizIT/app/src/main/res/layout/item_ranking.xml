@@ -22,6 +22,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="128dp"
         android:layout_marginTop="11dp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="Nome"
         android:textSize="18sp" />
 
