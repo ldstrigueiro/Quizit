@@ -178,9 +178,9 @@ public class PerguntaActivity extends Activity implements View.OnClickListener {
                 intent.putExtra("ObjAluno", aluno);
                 intent.putExtra("Modo", left);
                 if(isCorreto)
-                    intent.putExtra("Feedback", "Acertou!!\n\n  :)");
+                    intent.putExtra("Feedback", "Acertou!!\n\n      :)");
                 else
-                    intent.putExtra("Feedback", "Errou!!\n\n  :(");
+                    intent.putExtra("Feedback", "Errou!!\n\n   :(");
                 startActivity(intent);
                 finish();
 
