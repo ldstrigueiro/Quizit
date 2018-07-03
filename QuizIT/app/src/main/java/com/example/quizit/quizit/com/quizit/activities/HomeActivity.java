@@ -188,6 +188,13 @@ public class HomeActivity extends Activity implements View.OnClickListener {
 
     }
 
+    private void goToInfoActivity(){
+        intent = new Intent(this, InfoActivity.class);
+        intent.putExtra("ObjAluno", aluno);
+        startActivity(intent);
+        finish();
+    }
+
     //============= METODOS ==============
 
     private void mostraMenuConfig(){
@@ -219,8 +226,7 @@ public class HomeActivity extends Activity implements View.OnClickListener {
                         goToSuporteActivity();
                         break;
                     case 2:
-                        //Informações Activity (?) Ou outra mensagem dialog msm? (mata esse dialog e mostra um novo dialog
-                        //com as formulas
+                        goToInfoActivity();
                         break;
                     case 3:
                         doSair();
