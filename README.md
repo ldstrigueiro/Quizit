@@ -1,3 +1,3 @@
 # Quizit
 
-Primeiro contato com Android. CÛdico n„o possui arquitetura adequada e n„o est· com os melhores frameworks. Seria ideal, caso o projeto seja retomado, refatorar para MVC ou MVVM, utilizando um Retrofit para o consumo de web services e a aplicaÁ„o do Material Design.
+Primeiro contato com Android. C√≥digo n√£o possui arquitetura adequada e n√£o est√° com os melhores frameworks. Seria ideal, caso o projeto seja retomado, refatorar para MVC ou MVVM, utilizando um Retrofit para o consumo de web services e a aplica√ß√£o do Material Design.
